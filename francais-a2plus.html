@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Français — A2+ | Claire's Classroom</title>
+<style>
+:root{
+  --sage:#A9B8A5;
+  --sage-dark:#6F806C;
+  --pink:#E8C9CC;
+  --pink-dark:#B77F87;
+  --terracotta:#D9A38F;
+  --terracotta-soft:#F3DDD5;
+  --cream:#FBF7F2;
+  --paper:#FFFDFC;
+  --ink:#454844;
+  --muted:#777B76;
+  --line:#E8E0D9;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  color:var(--ink);
+  font-family:"Avenir Next",Avenir,"Trebuchet MS",sans-serif;
+  background:
+    radial-gradient(circle at 5% 5%,rgba(232,201,204,.42),transparent 25%),
+    radial-gradient(circle at 95% 8%,rgba(169,184,165,.35),transparent 25%),
+    var(--cream);
+}
+a{text-decoration:none;color:inherit}
+.wrap{width:min(1080px,92%);margin:auto}
+
+header{padding:25px 0 0}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:13px}
+.mark{
+  width:50px;height:50px;border-radius:17px 17px 17px 6px;
+  background:var(--sage);display:grid;place-items:center;
+  color:white;font-size:23px;
+}
+.brand h1{font-size:25px;margin:0;letter-spacing:-.5px}
+.brand p{margin:3px 0 0;color:var(--muted);font-size:13px}
+.back{
+  padding:10px 16px;border-radius:22px;background:#fff;
+  border:1px solid var(--line);color:var(--muted);font-size:13px;
+}
+.back:hover{background:var(--pink-soft)}
+
+.hero{text-align:center;padding:65px 20px 45px}
+.flag{font-size:42px;margin-bottom:12px}
+.eyebrow{
+  display:inline-block;background:var(--terracotta-soft);color:#9B6957;
+  padding:7px 14px;border-radius:999px;font-size:12px;
+  letter-spacing:.7px;margin-bottom:16px;
+}
+.hero h2{
+  font:500 clamp(42px,7vw,66px) Georgia,serif;
+  margin:0 0 12px;color:#454844;
+}
+.hero h2 span{color:#B87561}
+.hero p{margin:auto;max-width:600px;color:var(--muted);line-height:1.65;font-size:16px}
+
+.section-title{text-align:center;margin:0 0 25px}
+.section-title h3{font:500 30px Georgia,serif;margin:0 0 7px}
+.section-title p{margin:0;color:var(--muted);font-size:14px}
+
+.level-switch{
+  display:flex;justify-content:center;gap:12px;margin:0 auto 48px;
+}
+.level-switch a{
+  padding:11px 24px;border-radius:25px;background:white;
+  border:1px solid var(--line);font-weight:700;font-size:14px;
+}
+.level-switch a.active{background:var(--pink);border-color:var(--pink);color:#6e4d52}
+
+.grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:18px;
+  margin-bottom:55px;
+}
+.card{
+  min-height:155px;padding:25px 22px;border-radius:23px;
+  border:1px solid var(--line);background:rgba(255,253,252,.9);
+  box-shadow:0 9px 28px rgba(65,55,48,.055);
+  transition:.18s ease;
+}
+.card:hover{transform:translateY(-4px);box-shadow:0 16px 35px rgba(65,55,48,.1)}
+.card:nth-child(1),.card:nth-child(4){background:#F5E5E1}
+.card:nth-child(2),.card:nth-child(5){background:#F8ECEC}
+.card:nth-child(3),.card:nth-child(6){background:#EAF0EA}
+.icon{font-size:28px;margin-bottom:12px}
+.card h4{font:500 22px Georgia,serif;margin:0 0 7px}
+.card p{font-size:13px;color:var(--muted);line-height:1.45;margin:0}
+
+.quiz{
+  margin-bottom:70px;
+  padding:31px;border-radius:27px;
+  background:linear-gradient(135deg,#E8EFE8,#F4E5E4);
+  border:1px solid var(--line);
+}
+.quiz-inner{display:flex;align-items:center;justify-content:space-between;gap:25px}
+.quiz h3{font:500 27px Georgia,serif;margin:0 0 7px}
+.quiz p{margin:0;color:var(--muted);font-size:14px}
+.quiz-button{
+  white-space:nowrap;background:white;border-radius:24px;
+  padding:12px 20px;font-weight:700;font-size:13px;
+  border:1px solid rgba(80,80,70,.12);
+}
+.quiz-button:hover{background:var(--sage);color:white}
+
+footer{
+  border-top:1px solid var(--line);padding:28px 0 35px;
+  text-align:center;color:#888C87;font-size:13px;
+}
+@media(max-width:750px){
+  .topbar{align-items:flex-start}.grid{grid-template-columns:1fr 1fr}
+  .quiz-inner{flex-direction:column;align-items:flex-start}
+}
+@media(max-width:480px){
+  .grid{grid-template-columns:1fr}.back{display:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap topbar">
+    <a class="brand" href="index.html">
+      <div class="mark">✦</div>
+      <div>
+        <h1>Claire's Classroom</h1>
+        <p>English & French learning resources</p>
+      </div>
+    </a>
+    <a class="back" href="index.html">← Accueil</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <div class="flag">🇫🇷</div>
+    <div class="eyebrow">FRANÇAIS</div>
+    <h2>Niveau <span>A2+</span></h2>
+    <p>Explore les ressources disponibles pour consolider et développer ton français.</p>
+  </section>
+
+  <section>
+    <div class="section-title">
+      <h3>Choisis une catégorie</h3>
+      <p>Les ressources seront ajoutées progressivement.</p>
+    </div>
+
+    <div class="grid">
+      <a class="card" href="#">
+        <div class="icon">📖</div>
+        <h4>Compréhension écrite</h4>
+        <p>Lire, comprendre et exploiter différents textes.</p>
+      </a>
+
+      <a class="card" href="#">
+        <div class="icon">🎧</div>
+        <h4>Compréhension orale</h4>
+        <p>Écouter et comprendre des documents audio et vidéo.</p>
+      </a>
+
+      <a class="card" href="#">
+        <div class="icon">🔤</div>
+        <h4>Grammaire</h4>
+        <p>Réviser et pratiquer les points de langue.</p>
+      </a>
+
+      <a class="card" href="#">
+        <div class="icon">🧠</div>
+        <h4>Vocabulaire</h4>
+        <p>Enrichir et réutiliser son vocabulaire.</p>
+      </a>
+
+      <a class="card" href="#">
+        <div class="icon">✍️</div>
+        <h4>Production écrite</h4>
+        <p>Développer ses compétences à l'écrit.</p>
+      </a>
+
+      <a class="card" href="#">
+        <div class="icon">🗣️</div>
+        <h4>Expression orale</h4>
+        <p>Pratiquer et développer son expression orale.</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="quiz">
+    <div class="quiz-inner">
+      <div>
+        <h3>🎮 Quiz interactifs</h3>
+        <p>Des activités autocorrectives pour t'entraîner en autonomie.</p>
+      </div>
+      <a class="quiz-button" href="quiz_subjonctif_dress_code_A2_B1.html">Voir les quiz →</a>
+    </div>
+  </section>
+</main>
+
+<footer>© 2026 Claire's Classroom · Français A2+</footer>
+
+</body>
+</html>

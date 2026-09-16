@@ -1,0 +1,77 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quiz – Subjonctif et monde professionnel</title>
+<style>
+body{font-family:Arial,sans-serif;max-width:850px;margin:auto;padding:24px;background:#f5f1e8;color:#222}
+section{background:#fff;padding:22px;margin:20px 0;border-radius:14px}
+.q{padding:14px;margin:14px 0;border:1px solid #ddd;border-radius:10px}
+button{display:block;width:100%;margin:7px 0;padding:10px;border:0;border-radius:8px;text-align:left;cursor:pointer}
+.correct{background:#d9efd9}.wrong{background:#f3d4d4}
+.feedback{font-weight:bold;margin-top:8px}.score{position:sticky;top:0;background:#eee;padding:12px;border-radius:10px;font-weight:bold}
+</style></head><body>
+<h1>🧰 Le subjonctif – Dress code & monde professionnel</h1>
+<p>Choisis la bonne réponse. La correction apparaît immédiatement.</p>
+<div class="score" id="score">Score : 0 / 32</div>
+<div id="quiz"></div>
+<script>
+const data=[
+["Exercice 1 – Choisis la bonne forme",[
+["Il faut que vous ___ une tenue professionnelle.",["portez","portiez","porterez"],1],
+["Il faut que les employés ___ le règlement.",["respectent","respectentent","respecteront"],0],
+["Il est important que tu ___ ponctuel.",["es","sois","seras"],1],
+["Il faut que chaque employé ___ une apparence soignée.",["a","ait","aura"],1],
+["Il ne faut pas que vous ___ des vêtements trop voyants.",["mettez","mettiez","mettrez"],1],
+["Je recommande que vous ___ attention à votre tenue.",["faites","fassiez","ferez"],1],
+["Il est important que la tenue ___ adaptée au poste.",["est","soit","sera"],1],
+["Il faut que les candidats ___ correctement.",["sont présentés","soient présentés","seront présentés"],1]]],
+["Exercice 2 – Transforme avec « il faut que » / « il ne faut pas que »",[
+["Vous devez porter une tenue correcte.",["Il faut que vous portez une tenue correcte.","Il faut que vous portiez une tenue correcte.","Il faut que vous porter une tenue correcte."],1],
+["Vous devez respecter les règles.",["Il faut que vous respectez les règles.","Il faut que vous respectiez les règles.","Il faut que vous respecter les règles."],1],
+["Vous ne devez pas porter de vêtements trop décontractés.",["Il ne faut pas que vous portez de vêtements trop décontractés.","Il ne faut pas que vous portiez de vêtements trop décontractés.","Il ne faut pas que vous porter de vêtements trop décontractés."],1],
+["Vous devez être bien présenté(e).",["Il faut que vous êtes bien présenté(e).","Il faut que vous soyez bien présenté(e).","Il faut que vous serez bien présenté(e)."],1],
+["Vous devez avoir une apparence soignée.",["Il faut que vous avez une apparence soignée.","Il faut que vous ayez une apparence soignée.","Il faut que vous aurez une apparence soignée."],1],
+["Vous ne devez pas mettre trop d’accessoires.",["Il ne faut pas que vous mettez trop d’accessoires.","Il ne faut pas que vous mettiez trop d’accessoires.","Il ne faut pas que vous mettrez trop d’accessoires."],1],
+["Vous devez faire attention à votre tenue.",["Il faut que vous faites attention à votre tenue.","Il faut que vous fassiez attention à votre tenue.","Il faut que vous ferez attention à votre tenue."],1],
+["Vous devez respecter l’image de l’entreprise.",["Il faut que vous respectez l’image de l’entreprise.","Il faut que vous respectiez l’image de l’entreprise.","Il faut que vous respecter l’image de l’entreprise."],1]]],
+["Exercice 3 – Quelle phrase convient ?",[
+["Un nouvel employé arrive demain. Quel conseil donnez-vous ?",["Il est important qu’il est bien préparé.","Il est important qu’il soit bien préparé.","Il est important qu’il sera bien préparé."],1],
+["Votre collègue porte une tenue trop décontractée.",["Il faut qu’il porte une tenue plus professionnelle.","Il faut qu’il porte une tenue plus professionnelle.","Il faut qu’il portera une tenue plus professionnelle."],0],
+["Vous écrivez une règle pour les employés.",["Il ne faut pas qu’ils portent de vêtements trop voyants.","Il ne faut pas qu’ils portentent de vêtements trop voyants.","Il ne faut pas qu’ils porteront de vêtements trop voyants."],0],
+["Vous conseillez une collègue.",["Je recommande qu’elle fait attention à ses accessoires.","Je recommande qu’elle fasse attention à ses accessoires.","Je recommande qu’elle fera attention à ses accessoires."],1],
+["Vous voulez insister sur la ponctualité.",["Il faut que les employés sont ponctuels.","Il faut que les employés soient ponctuels.","Il faut que les employés seront ponctuels."],1],
+["Vous conseillez un collègue sur sa tenue.",["Il est important qu’il a une tenue adaptée.","Il est important qu’il ait une tenue adaptée.","Il est important qu’il aura une tenue adaptée."],1],
+["Vous donnez une règle sur les accessoires.",["Il ne faut pas que les employés mettent trop d’accessoires.","Il ne faut pas que les employés mettentent trop d’accessoires.","Il ne faut pas que les employés mettront trop d’accessoires."],0],
+["Vous donnez une recommandation générale.",["Je recommande que chacun fait attention à son apparence.","Je recommande que chacun fasse attention à son apparence.","Je recommande que chacun fera attention à son apparence."],1]]],
+["Exercice 4 – Complète le code vestimentaire",[
+["Pour donner une bonne image, il faut que les employés ___ une tenue adaptée.",["portent","portentent","porteront"],0],
+["Il est important que chacun ___ les règles de l’entreprise.",["respecte","respecterait","respectera"],0],
+["Il ne faut pas que les vêtements ___ trop décontractés.",["sont","soient","seront"],1],
+["Il faut que vous ___ votre tenue avant votre premier jour.",["préparez","prépariez","préparerez"],1],
+["Je recommande que vous ___ des couleurs sobres.",["choisissez","choisissiez","choisirez"],1],
+["Il ne faut pas que vous ___ trop de bijoux.",["portez","portiez","porterez"],1],
+["Il faut que les chaussures ___ propres.",["sont","soient","seront"],1],
+["Il est important que vous ___ une apparence professionnelle.",["avez","ayez","aurez"],1]]]
+];
+let score=0, total=0;
+const root=document.getElementById("quiz");
+data.forEach((ex)=>{
+ let s=document.createElement("section"); s.innerHTML="<h2>"+ex[0]+"</h2>";
+ ex[1].forEach((q)=>{
+  total++;
+  let d=document.createElement("div");d.className="q";
+  d.innerHTML="<strong>"+total+". "+q[0]+"</strong>";
+  q[1].forEach((a,i)=>{
+   let b=document.createElement("button");b.textContent=a;
+   b.onclick=()=>{
+    if(d.dataset.done)return; d.dataset.done=1;
+    if(i===q[2]){score++;b.classList.add("correct");f.textContent="✓ Correct !";}
+    else{b.classList.add("wrong");f.textContent="✗ La bonne réponse est : "+q[1][q[2]];}
+    document.getElementById("score").textContent="Score : "+score+" / 32";
+    f.className="feedback";
+   }; d.appendChild(b);
+  });
+  let f=document.createElement("div");d.appendChild(f);s.appendChild(d);
+ });
+ root.appendChild(s);
+});
+</script></body></html>

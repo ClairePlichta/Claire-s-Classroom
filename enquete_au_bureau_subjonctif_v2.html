@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enquête au bureau — Le subjonctif</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4efe8;
+    color: #333;
+  }
+  .container { max-width: 900px; margin: 0 auto; padding: 35px 20px 50px; }
+  .header {
+    background: #1f1f1f; color: white; border-radius: 18px;
+    padding: 30px; margin-bottom: 24px;
+  }
+  .tag {
+    display: inline-block; background: #c7a76c; color: #1f1f1f;
+    padding: 7px 12px; border-radius: 20px; font-weight: bold;
+    font-size: 13px; margin-bottom: 12px;
+  }
+  h1 { margin: 0 0 10px; font-size: 32px; }
+  .subtitle { color: #eadfca; line-height: 1.5; margin: 0; }
+  .progress-wrap { margin-top: 20px; background: #444; height: 9px; border-radius: 10px; overflow: hidden; }
+  .progress { height: 100%; width: 0%; background: #c7a76c; transition: width .3s; }
+  .card {
+    background: white; border-radius: 18px; padding: 28px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.06);
+  }
+  .case { color: #9b6d55; font-weight: bold; letter-spacing: .5px; margin-bottom: 8px; }
+  h2 { margin-top: 0; color: #333; }
+  .message {
+    background: #f7f3ed; border-left: 5px solid #c7a76c;
+    padding: 18px; border-radius: 8px; line-height: 1.6; margin: 20px 0;
+  }
+  .question { font-weight: bold; margin-bottom: 14px; line-height: 1.5; }
+  .options { display: grid; gap: 10px; }
+  button.option {
+    border: 1px solid #ddd; background: #fff; padding: 14px 16px;
+    border-radius: 10px; text-align: left; font-size: 16px;
+    cursor: pointer; transition: .2s;
+  }
+  button.option:hover { background: #f8f4ee; }
+  button.option.correct { background: #e4f0e6; border-color: #7da387; }
+  button.option.wrong { background: #f7e3e1; border-color: #c9857d; }
+  button.option:disabled { cursor: default; }
+  .feedback {
+    display: none; margin-top: 18px; padding: 15px;
+    border-radius: 10px; line-height: 1.5;
+  }
+  .feedback.show { display: block; }
+  .feedback.good { background: #e4f0e6; }
+  .feedback.bad { background: #f7e3e1; }
+  .next {
+    margin-top: 20px; padding: 13px 22px; border: none; border-radius: 10px;
+    background: #1f1f1f; color: white; cursor: pointer;
+    font-weight: bold; display: none;
+  }
+  .next.show { display: inline-block; }
+  .result { display: none; text-align: center; padding: 35px 20px; }
+  .result.show { display: block; }
+  .score { font-size: 48px; font-weight: bold; color: #9b6d55; margin: 15px 0; }
+  .small { color: #777; font-size: 14px; line-height: 1.5; }
+  .restart {
+    margin-top: 20px; padding: 13px 22px; border: none; border-radius: 10px;
+    background: #c7a76c; color: #1f1f1f; cursor: pointer; font-weight: bold;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <span class="tag">⭐ DÉFI AVANCÉ · A2+ / B1</span>
+    <h1>🕵️ Enquête au bureau</h1>
+    <p class="subtitle">
+      Une situation professionnelle. Un message. Une décision à prendre.
+      À toi de comprendre l'intention avant de choisir la bonne formulation.
+    </p>
+    <div class="progress-wrap"><div class="progress" id="progress"></div></div>
+  </div>
+
+  <div class="card" id="gameCard">
+    <div class="case" id="caseNumber"></div>
+    <h2 id="title"></h2>
+    <div class="message" id="message"></div>
+    <div class="question" id="question"></div>
+    <div class="options" id="options"></div>
+    <div class="feedback" id="feedback"></div>
+    <button class="next" id="nextBtn" onclick="nextQuestion()">Continuer →</button>
+  </div>
+
+  <div class="card result" id="result">
+    <h2>Enquête terminée 🔎</h2>
+    <div class="score" id="score"></div>
+    <p id="resultText"></p>
+    <p class="small">
+      Ici, il fallait comprendre l'intention avant de choisir la construction.
+      Le but n'était pas seulement de reconnaître une terminaison.
+    </p>
+    <button class="restart" onclick="restart()">Recommencer</button>
+  </div>
+</div>
+
+<script>
+const questions = [
+  {
+    title: "Le nouveau règlement",
+    message: "Message de la direction : « À partir de lundi, le badge sera obligatoire à l'entrée. »",
+    question: "Quelle formulation correspond le mieux à cette décision ?",
+    options: [
+      "Je doute que tous les employés portent leur badge.",
+      "La direction regrette que tous les employés portent leur badge.",
+      "Il faut que tous les employés portent leur badge.",
+      "La direction souhaite que tous les employés portent leur badge."
+    ],
+    answer: 2,
+    explanation: "On exprime ici une nécessité / une obligation : « Il faut que + subjonctif »."
+  },
+  {
+    title: "Le rendez-vous client",
+    message: "Léa écrit à son collègue : « Le client arrive à 14 h. J'aimerais vraiment que tu sois là. »",
+    question: "Quelle intention exprime Léa ?",
+    options: [
+      "Elle souhaite sa présence.",
+      "Elle regrette sa présence.",
+      "Elle craint sa présence.",
+      "Elle doute de sa présence."
+    ],
+    answer: 0,
+    explanation: "« J'aimerais que… » exprime un souhait. Le verbe qui suit est au subjonctif : « que tu sois »."
+  },
+  {
+    title: "Une information incertaine",
+    message: "Un collègue affirme : « Marc va sûrement accepter le poste. » Sarah n'en est pas convaincue.",
+    question: "Quelle réponse traduit correctement son doute ?",
+    options: [
+      "Je doute que Marc acceptera le poste.",
+      "Je doute que Marc accepte le poste.",
+      "Je doute Marc d'accepter le poste.",
+      "Je doute que Marc acceptait le poste."
+    ],
+    answer: 1,
+    explanation: "« Douter que » introduit une proposition au subjonctif : « que Marc accepte »."
+  },
+  {
+    title: "Une erreur regrettable",
+    message: "Le rapport a été envoyé au mauvais client. La responsable est très déçue.",
+    question: "Quelle phrase exprime correctement son regret ?",
+    options: [
+      "Elle regrette que le rapport est envoyé au mauvais client.",
+      "Elle regrette le rapport soit envoyé au mauvais client.",
+      "Elle regrette que le rapport sera envoyé au mauvais client.",
+      "Elle regrette que le rapport soit envoyé au mauvais client."
+    ],
+    answer: 3,
+    explanation: "« Regretter que » demande le subjonctif : « que le rapport soit envoyé »."
+  },
+  {
+    title: "Un risque pour la présentation",
+    message: "La responsable pense que Noah n'est pas assez préparé pour présenter le projet demain. Elle est inquiète.",
+    question: "Quelle phrase exprime correctement sa crainte ?",
+    options: [
+      "Elle a peur que Noah oublie ses arguments.",
+      "Elle a peur que Noah oubliera ses arguments.",
+      "Elle a peur que Noah oublie ses arguments, mais elle est certaine que cela arrivera.",
+      "Elle a peur Noah oublie ses arguments."
+    ],
+    answer: 0,
+    explanation: "Le sujet change : « elle » craint que « Noah » fasse quelque chose. « Avoir peur que » est suivi du subjonctif : « qu'il oublie »."
+  },
+  {
+    title: "Une proposition",
+    message: "L'équipe cherche une solution pour réduire les réunions inutiles.",
+    question: "Quelle proposition est grammaticalement correcte ?",
+    options: [
+      "Je propose que nous réduirons les réunions du lundi.",
+      "Je propose que nous réduisions les réunions du lundi.",
+      "Je propose nous réduisions les réunions du lundi.",
+      "Je propose que nous réduisons les réunions du lundi."
+    ],
+    answer: 1,
+    explanation: "« Proposer que » introduit ici une proposition au subjonctif : « que nous réduisions »."
+  },
+  {
+    title: "Le choix du verbe",
+    message: "La responsable dit : « Je veux que vous terminiez ce dossier avant vendredi. »",
+    question: "Quel verbe peut remplacer « je veux » sans changer l'idée principale ?",
+    options: [
+      "Je crains que vous terminiez ce dossier avant vendredi.",
+      "Je regrette que vous terminiez ce dossier avant vendredi.",
+      "Je souhaite que vous terminiez ce dossier avant vendredi.",
+      "Je doute que vous terminiez ce dossier avant vendredi."
+    ],
+    answer: 2,
+    explanation: "« Vouloir » et « souhaiter » expriment ici la volonté / le souhait et sont suivis du subjonctif."
+  },
+  {
+    title: "Un collègue absent",
+    message: "L'équipe aurait aimé que Paul participe à la réunion, mais il était malade.",
+    question: "Quelle phrase est correcte ?",
+    options: [
+      "L'équipe regrette Paul ne puisse pas participer.",
+      "L'équipe regrette que Paul pourra participer.",
+      "L'équipe regrette que Paul ne peut pas participer.",
+      "L'équipe regrette que Paul ne puisse pas participer."
+    ],
+    answer: 3,
+    explanation: "Après « regretter que », on utilise le subjonctif : « qu'il ne puisse pas »."
+  },
+  {
+    title: "Le message diplomatique",
+    message: "Tu veux demander à un collègue de modifier légèrement son document sans être trop direct.",
+    question: "Quelle formulation est la plus adaptée ?",
+    options: [
+      "Il faudrait que tu modifieras légèrement la dernière partie.",
+      "Il faudrait que tu modifies légèrement la dernière partie.",
+      "Il faudrait tu modifies légèrement la dernière partie.",
+      "Il faudrait que tu modifies légèrement la dernière partie ?"
+    ],
+    answer: 1,
+    explanation: "« Il faudrait que… » permet de formuler une demande ou une suggestion de manière plus diplomatique. « Que tu modifies » est au subjonctif."
+  },
+  {
+    title: "Le piège final",
+    message: "Une collègue disait d'abord : « Je pense que ce nouveau système fonctionne bien. » Maintenant, elle n'en est plus sûre.",
+    question: "Quelle transformation exprime correctement son doute ?",
+    options: [
+      "Je doute ce nouveau système fonctionne bien.",
+      "Je doute que ce nouveau système fonctionnera bien.",
+      "Je doute que ce nouveau système fonctionne bien.",
+      "Je doute que ce nouveau système fonctionnait bien."
+    ],
+    answer: 2,
+    explanation: "Avec « douter que », on utilise le subjonctif : « que ce système fonctionne ». Ici, la forme « fonctionne » est identique à celle de l'indicatif ; c'est l'expression du doute qui fait choisir le subjonctif."
+  }
+];
+
+let current = 0;
+let score = 0;
+
+function loadQuestion() {
+  const q = questions[current];
+  document.getElementById("caseNumber").textContent =
+    "DOSSIER " + String(current + 1).padStart(2,"0") + " / " + questions.length;
+  document.getElementById("title").textContent = q.title;
+  document.getElementById("message").textContent = q.message;
+  document.getElementById("question").textContent = q.question;
+
+  const options = document.getElementById("options");
+  options.innerHTML = "";
+
+  q.options.forEach((option, i) => {
+    const btn = document.createElement("button");
+    btn.className = "option";
+    btn.textContent = option;
+    btn.onclick = () => answer(i, btn);
+    options.appendChild(btn);
+  });
+
+  const feedback = document.getElementById("feedback");
+  feedback.className = "feedback";
+  feedback.innerHTML = "";
+
+  const next = document.getElementById("nextBtn");
+  next.className = "next";
+  next.textContent = current === questions.length - 1 ? "Voir mon résultat →" : "Continuer →";
+
+  document.getElementById("progress").style.width =
+    ((current) / questions.length * 100) + "%";
+}
+
+function answer(index, clicked) {
+  const q = questions[current];
+  const buttons = document.querySelectorAll(".option");
+  buttons.forEach(b => b.disabled = true);
+
+  if (index === q.answer) {
+    clicked.classList.add("correct");
+    score++;
+    showFeedback(true, "✓ Bien vu ! " + q.explanation);
+  } else {
+    clicked.classList.add("wrong");
+    buttons[q.answer].classList.add("correct");
+    showFeedback(false, "✗ Pas tout à fait. " + q.explanation);
+  }
+
+  document.getElementById("progress").style.width =
+    (((current + 1) / questions.length) * 100) + "%";
+  document.getElementById("nextBtn").classList.add("show");
+}
+
+function showFeedback(good, text) {
+  const feedback = document.getElementById("feedback");
+  feedback.className = "feedback show " + (good ? "good" : "bad");
+  feedback.textContent = text;
+}
+
+function nextQuestion() {
+  current++;
+  if (current < questions.length) {
+    loadQuestion();
+  } else {
+    document.getElementById("gameCard").style.display = "none";
+    document.getElementById("result").classList.add("show");
+    document.getElementById("score").textContent = score + " / " + questions.length;
+
+    const pct = score / questions.length;
+    let text = "";
+    if (pct === 1) {
+      text = "Excellent : tu maîtrises très bien le lien entre l'intention et le subjonctif. 🔎";
+    } else if (pct >= .8) {
+      text = "Très bon travail. Tu comprends bien les principaux déclencheurs du subjonctif.";
+    } else if (pct >= .6) {
+      text = "Pas mal ! Quelques déclencheurs sont encore à revoir.";
+    } else {
+      text = "Le défi était volontairement plus difficile. Reprends la fiche de grammaire puis retente l'enquête.";
+    }
+    document.getElementById("resultText").textContent = text;
+  }
+}
+
+function restart() {
+  current = 0;
+  score = 0;
+  document.getElementById("result").classList.remove("show");
+  document.getElementById("gameCard").style.display = "block";
+  loadQuestion();
+}
+
+loadQuestion();
+</script>
+</body>
+</html>

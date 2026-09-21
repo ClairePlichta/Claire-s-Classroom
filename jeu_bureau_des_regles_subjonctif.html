@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le bureau des règles | Claire's Classroom</title>
+<style>
+:root{--cream:#fbf7f2;--sage:#a9b8a5;--sage-dark:#71816d;--pink:#e8c9cc;--terra:#9b6957;--ink:#464945;--muted:#777b76;--line:#e8e0d9;--white:#fff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:"Avenir Next",Avenir,sans-serif}
+.wrap{width:min(900px,92%);margin:auto}
+header{padding:24px 0}.back{color:var(--sage-dark);text-decoration:none;font-size:14px}
+.hero{text-align:center;padding:35px 15px 25px}.label{display:inline-block;background:#f1e3dc;color:var(--terra);padding:7px 14px;border-radius:20px;font-size:12px;font-weight:700}
+h1{font-family:Georgia,serif;font-weight:400;font-size:clamp(38px,6vw,56px);margin:18px 0 8px}.hero p{color:var(--muted);line-height:1.5}
+.game{background:var(--white);border:1px solid var(--line);border-radius:28px;padding:30px;box-shadow:0 10px 30px rgba(65,55,48,.06);margin-bottom:60px}
+.top{display:flex;justify-content:space-between;color:var(--muted);font-size:14px;margin-bottom:12px}.progress{height:8px;background:#eee8e2;border-radius:10px;overflow:hidden;margin-bottom:28px}.progress span{display:block;height:100%;width:0;background:var(--sage-dark);transition:.3s}
+.case{background:linear-gradient(135deg,#eef3ed,#f8e9e8);border-radius:20px;padding:22px;margin-bottom:22px}.case .tag{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--terra);font-weight:700}.case h2{font-family:Georgia,serif;font-weight:400;font-size:25px;margin:9px 0}.case p{line-height:1.6;margin:0}
+.instruction{font-weight:700;margin:22px 0 12px}
+.options{display:grid;gap:12px}.option{border:1px solid var(--line);background:#fff;border-radius:15px;padding:15px 16px;text-align:left;font:inherit;color:var(--ink);cursor:pointer;line-height:1.45}.option:hover{border-color:var(--sage-dark);background:#fafcf9}.option.correct{background:#eef3ed;border-color:var(--sage-dark)}.option.wrong{background:#f8e9e8;border-color:#b9877d}.option:disabled{cursor:default}
+.feedback{display:none;margin-top:18px;padding:16px;border-radius:15px;background:#f7f3ee;line-height:1.55}.feedback strong{font-family:Georgia,serif;font-weight:400}
+.next{display:none;margin-top:18px;border:0;border-radius:22px;padding:12px 20px;background:var(--sage-dark);color:#fff;font-weight:700;cursor:pointer}
+.result{display:none;text-align:center;padding:15px}.result h2{font-family:Georgia,serif;font-size:34px;font-weight:400}.restart{border:0;border-radius:22px;padding:12px 22px;background:var(--sage-dark);color:white;font-weight:700;cursor:pointer}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a class="back" href="subjonctif-code-vestimentaire.html">← Code vestimentaire & monde professionnel</a></div></header>
+
+<main class="wrap">
+<section class="hero">
+<div class="label">JEU INTERACTIF · A2+</div>
+<h1>👔 Le bureau des règles</h1>
+<p>Le directeur te confie les règles de la banque. À toi de choisir la formulation qui exprime exactement son intention.</p>
+</section>
+
+<section class="game">
+<div class="top"><span id="count"></span><span id="score">Score : 0</span></div>
+<div class="progress"><span id="bar"></span></div>
+<div id="area"></div>
+<div class="result" id="result">
+<h2>Le règlement est prêt !</h2>
+<p id="resultText"></p>
+<button class="restart" id="restart" type="button">Rejouer</button>
+</div>
+</section>
+</main>
+
+<script>
+const data=[
+{
+tag:"ORDRE / OBLIGATION",
+situation:"Le directeur impose une règle : les employés doivent porter une tenue professionnelle lors des rendez-vous avec les clients.",
+q:"Quelle formulation respecte à la fois l'intention du directeur et la construction avec le subjonctif ?",
+opts:[
+"Il exige que les employés portent une tenue professionnelle.",
+"Il souhaite que les employés portent une tenue professionnelle.",
+"Il recommande que les employés portent une tenue professionnelle.",
+"Il doute que les employés portent une tenue professionnelle."
+],
+ok:0,
+fb:"L'intention est une exigence. « Exiger que » introduit le subjonctif : que les employés portent."
+},
+{
+tag:"SUGGESTION",
+situation:"La responsable ne veut pas imposer une règle. Elle donne simplement un conseil aux employés avant une rencontre importante.",
+q:"Quelle formulation correspond le mieux à cette intention ?",
+opts:[
+"Elle recommande que les employés portent une tenue sobre.",
+"Elle exige que les employés portent une tenue sobre.",
+"Elle doute que les employés portent une tenue sobre.",
+"Elle regrette que les employés portent une tenue sobre."
+],
+ok:0,
+fb:"Il s'agit d'un conseil, pas d'une obligation. « Recommander que » convient et est suivi du subjonctif : portent."
+},
+{
+tag:"SOUHAIT",
+situation:"La directrice aimerait que son équipe donne une image sérieuse de la banque.",
+q:"Quelle phrase traduit ce souhait ?",
+opts:[
+"Elle souhaite que son équipe donne une image sérieuse de la banque.",
+"Elle exige que son équipe donne une image sérieuse de la banque.",
+"Elle doute que son équipe donne une image sérieuse de la banque.",
+"Elle interdit que son équipe donne une image sérieuse de la banque."
+],
+ok:0,
+fb:"« Souhaiter que » exprime ce que la directrice aimerait voir se réaliser. Le verbe qui suit est au subjonctif : donne."
+},
+{
+tag:"NÉCESSITÉ",
+situation:"Pour que les clients aient une bonne impression, la direction considère la présentation des employés comme indispensable.",
+q:"Quelle formulation correspond à cette idée de nécessité ?",
+opts:[
+"Il est nécessaire que les employés soignent leur présentation.",
+"Il est possible que les employés soignent leur présentation.",
+"Il est regrettable que les employés soignent leur présentation.",
+"Il est certain que les employés soignent leur présentation."
+],
+ok:0,
+fb:"La présentation est présentée comme indispensable : « il est nécessaire que » appelle le subjonctif."
+},
+{
+tag:"DOUTE",
+situation:"Le responsable n'est pas certain que cette nouvelle règle soit vraiment utile.",
+q:"Quelle phrase exprime cette incertitude ?",
+opts:[
+"Il doute que cette nouvelle règle soit vraiment utile.",
+"Il affirme que cette nouvelle règle soit vraiment utile.",
+"Il exige que cette nouvelle règle soit vraiment utile.",
+"Il souhaite que cette nouvelle règle soit vraiment utile."
+],
+ok:0,
+fb:"« Douter que » exprime l'incertitude. Le verbe qui suit est au subjonctif : soit."
+},
+{
+tag:"REGRET",
+situation:"Une employée trouve dommage qu'un collègue ne puisse pas participer à la réunion.",
+q:"Quelle phrase correspond à ce sentiment ?",
+opts:[
+"Elle regrette que son collègue ne puisse pas participer à la réunion.",
+"Elle ordonne que son collègue ne puisse pas participer à la réunion.",
+"Elle souhaite que son collègue ne puisse pas participer à la réunion.",
+"Elle affirme que son collègue ne puisse pas participer à la réunion."
+],
+ok:0,
+fb:"Il s'agit d'un regret. « Regretter que » introduit ici le subjonctif : ne puisse pas."
+},
+{
+tag:"CRAINTE",
+situation:"La responsable a peur que le nouveau code vestimentaire soit mal compris par les employés.",
+q:"Quelle phrase exprime cette crainte ?",
+opts:[
+"Elle craint que le nouveau code vestimentaire soit mal compris.",
+"Elle exige que le nouveau code vestimentaire soit mal compris.",
+"Elle recommande que le nouveau code vestimentaire soit mal compris.",
+"Elle sait que le nouveau code vestimentaire soit mal compris."
+],
+ok:0,
+fb:"« Craindre que » exprime une peur ou une inquiétude et appelle le subjonctif : soit."
+},
+{
+tag:"CHOIX DU DÉCLENCHEUR",
+situation:"Le directeur veut seulement proposer une règle : les employés devraient éviter les couleurs trop voyantes.",
+q:"Quelle formulation est la plus cohérente avec cette intention de suggestion ?",
+opts:[
+"Il recommande que les employés évitent les couleurs trop voyantes.",
+"Il exige que les employés évitent les couleurs trop voyantes.",
+"Il doute que les employés évitent les couleurs trop voyantes.",
+"Il regrette que les employés évitent les couleurs trop voyantes."
+],
+ok:0,
+fb:"L'idée est une recommandation, pas une obligation ni un doute : « recommander que » + subjonctif, donc évitent."
+},
+{
+tag:"FORME DU SUBJONCTIF",
+situation:"Le règlement exprime une obligation : les employés doivent faire attention à leur présentation.",
+q:"Complète correctement : « Il faut que les employés ______ attention à leur présentation. »",
+opts:[
+"fassent",
+"font",
+"feront",
+"faire"
+],
+ok:0,
+fb:"Après « il faut que », on utilise le subjonctif. Le subjonctif de « faire » à la 3e personne du pluriel est « fassent »."
+},
+{
+tag:"FORME DU SUBJONCTIF",
+situation:"La directrice souhaite que chaque employé ait une apparence soignée.",
+q:"Complète correctement : « Elle souhaite que chaque employé ______ une apparence soignée. »",
+opts:[
+"ait",
+"a",
+"aura",
+"avoir"
+],
+ok:0,
+fb:"Après « souhaiter que », on utilise le subjonctif. Le subjonctif de « avoir » avec « chaque employé » est « ait »."
+}
+];
+
+let i=0,score=0,locked=false;
+const area=document.getElementById("area"), count=document.getElementById("count"), scoreEl=document.getElementById("score"), bar=document.getElementById("bar");
+
+function render(){
+ locked=false;
+ const x=data[i];
+ count.textContent=`Situation ${i+1} / ${data.length}`;
+ scoreEl.textContent=`Score : ${score}`;
+ bar.style.width=`${(i/data.length)*100}%`;
+ area.innerHTML=`
+ <div class="case"><div class="tag">${x.tag}</div><h2>${x.situation}</h2><p>${x.q}</p></div>
+ <div class="options"></div>
+ <div class="feedback" id="feedback"></div>
+ <button class="next" id="next" type="button">${i===data.length-1?"Voir mon résultat →":"Situation suivante →"}</button>`;
+ const box=area.querySelector(".options");
+ x.opts.forEach((txt,n)=>{
+   const b=document.createElement("button");
+   b.type="button"; b.className="option"; b.textContent=txt;
+   b.addEventListener("click",()=>answer(n));
+   box.appendChild(b);
+ });
+}
+function answer(n){
+ if(locked)return; locked=true;
+ const x=data[i], buttons=[...area.querySelectorAll(".option")];
+ buttons.forEach(b=>b.disabled=true);
+ buttons[x.ok].classList.add("correct");
+ if(n===x.ok)score++; else buttons[n].classList.add("wrong");
+ scoreEl.textContent=`Score : ${score}`;
+ const f=document.getElementById("feedback");
+ f.innerHTML=`<strong>Pourquoi ?</strong><br>${x.fb}`;
+ f.style.display="block";
+ document.getElementById("next").style.display="inline-block";
+}
+area.addEventListener("click",e=>{
+ if(e.target.id==="next"){
+   if(i<data.length-1){i++;render();}
+   else{
+     area.style.display="none";
+     document.getElementById("result").style.display="block";
+     bar.style.width="100%";
+     document.getElementById("resultText").textContent=`Tu as obtenu ${score} / ${data.length}. Ici, l'objectif n'est pas seulement de reconnaître une forme : il faut identifier l'intention et choisir le bon déclencheur du subjonctif.`;
+   }
+ }
+});
+document.getElementById("restart").addEventListener("click",()=>{
+ i=0;score=0;area.style.display="block";document.getElementById("result").style.display="none";render();
+});
+render();
+</script>
+</body>
+</html>

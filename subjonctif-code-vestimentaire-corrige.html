@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Code vestimentaire & monde professionnel | Claire's Classroom</title>
+
+<style>
+:root{
+  --cream:#fbf7f2;
+  --sage:#a9b8a5;
+  --sage-dark:#71816d;
+  --pink:#e8c9cc;
+  --terracotta:#9b6957;
+  --ink:#464945;
+  --muted:#777b76;
+  --line:#e8e0d9;
+  --white:#ffffff;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:"Avenir Next",Avenir,"Trebuchet MS",sans-serif;
+  color:var(--ink);
+  background:var(--cream);
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+.wrap{
+  width:min(1050px,92%);
+  margin:auto;
+}
+
+header{
+  padding:25px 0;
+}
+
+.back{
+  color:var(--sage-dark);
+  font-size:14px;
+  font-weight:600;
+}
+
+.hero{
+  text-align:center;
+  padding:48px 20px 38px;
+}
+
+.label{
+  display:inline-block;
+  background:#f1e3dc;
+  color:var(--terracotta);
+  padding:7px 15px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.05em;
+}
+
+h1{
+  font-family:Georgia,serif;
+  font-size:clamp(38px,6vw,56px);
+  font-weight:400;
+  margin:18px 0 12px;
+}
+
+.hero p{
+  color:var(--muted);
+  line-height:1.65;
+  max-width:700px;
+  margin:auto;
+}
+
+.intro{
+  background:linear-gradient(135deg,#eef3ed,#f8e9e8);
+  border-radius:28px;
+  padding:28px 30px;
+  margin:0 auto 38px;
+}
+
+.intro h2{
+  margin:0 0 10px;
+  font-family:Georgia,serif;
+  font-size:28px;
+  font-weight:400;
+}
+
+.intro p{
+  margin:0;
+  color:#60645f;
+  line-height:1.7;
+}
+
+.section-title{
+  text-align:center;
+  margin:0 0 22px;
+}
+
+.section-title h2{
+  font-family:Georgia,serif;
+  font-size:32px;
+  font-weight:400;
+  margin:0 0 8px;
+}
+
+.section-title p{
+  margin:0;
+  color:var(--muted);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:20px;
+  margin-bottom:65px;
+}
+
+.card{
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:25px;
+  padding:28px;
+  box-shadow:0 10px 25px rgba(65,55,48,.06);
+  display:flex;
+  flex-direction:column;
+  min-height:245px;
+}
+
+.icon{
+  font-size:34px;
+  margin-bottom:15px;
+}
+
+.card h3{
+  font-family:Georgia,serif;
+  font-size:25px;
+  font-weight:400;
+  margin:0 0 10px;
+}
+
+.card p{
+  color:var(--muted);
+  line-height:1.6;
+  font-size:15px;
+  margin:0 0 18px;
+}
+
+.card .button{
+  display:inline-block;
+  align-self:flex-start;
+  margin-top:auto;
+  background:var(--sage-dark);
+  color:white;
+  padding:10px 17px;
+  border-radius:20px;
+  font-size:13px;
+  font-weight:700;
+}
+
+.card.challenge{
+  background:linear-gradient(135deg,#fffaf5,#f6eee8);
+  border-color:#dfc8ba;
+}
+
+.card.challenge .button{
+  background:var(--terracotta);
+}
+
+footer{
+  text-align:center;
+  border-top:1px solid var(--line);
+  padding:28px;
+  color:#888c87;
+  font-size:13px;
+}
+
+@media(max-width:650px){
+  .grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="back" href="subjonctif.html">← Le subjonctif</a>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <div class="label">FRANÇAIS · A2+ · GRAMMAIRE</div>
+    <h1>👔 Code vestimentaire & monde professionnel</h1>
+    <p>
+      Travaille le subjonctif à partir de situations liées au monde professionnel :
+      règles, recommandations, souhaits, doutes et consignes.
+    </p>
+  </section>
+
+  <section class="intro">
+    <h2>📌 Ton parcours</h2>
+    <p>
+      Commence par revoir ou vérifier tes connaissances, puis entraîne-toi à
+      comprendre l'intention derrière chaque formulation. Un défi avancé est
+      proposé à celles et ceux qui veulent aller plus loin.
+    </p>
+  </section>
+
+  <section>
+    <div class="section-title">
+      <h2>🎮 Je pratique</h2>
+      <p>Choisis une activité et avance à ton rythme.</p>
+    </div>
+
+    <div class="grid">
+
+      <article class="card">
+        <div class="icon">📄</div>
+        <h3>Le document</h3>
+        <p>
+          Retrouve le document de départ sur le code vestimentaire et le monde
+          professionnel.
+        </p>
+        <a class="button" href="subjonctif.html">Ouvrir →</a>
+      </article>
+
+      <article class="card">
+        <div class="icon">🔤</div>
+        <h3>Le subjonctif</h3>
+        <p>
+          Revois les principales utilisations du subjonctif :
+          souhait, doute, nécessité, ordre, suggestion, crainte…
+        </p>
+        <a class="button" href="subjonctif.html#document">Voir la fiche →</a>
+      </article>
+
+      <article class="card">
+        <div class="icon">🎯</div>
+        <h3>Quiz : le subjonctif</h3>
+        <p>
+          Un quiz autocorrectif pour vérifier les formes et les constructions
+          du subjonctif dans un contexte professionnel.
+        </p>
+        <a class="button" href="quiz_subjonctif_dress_code_A2_B1.html">Commencer →</a>
+      </article>
+
+      <article class="card">
+        <div class="icon">🎮</div>
+        <h3>Le bureau des règles</h3>
+        <p>
+          Identifie l'intention : obligation, conseil, souhait, doute, regret,
+          crainte ou suggestion, puis choisis la formulation adaptée.
+        </p>
+        <a class="button" href="jeu_bureau_des_regles_subjonctif.html">Jouer →</a>
+      </article>
+
+      <article class="card challenge">
+        <div class="icon">🕵️</div>
+        <h3>Enquête au bureau</h3>
+        <p>
+          ⭐ Défi avancé A2+ / B1 : comprends la situation, interprète
+          l'intention et choisis la formulation la plus adaptée.
+        </p>
+        <a class="button" href="enquete_au_bureau_subjonctif_v2.html">J'enquête →</a>
+      </article>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  © 2026 Claire's Classroom · Français A2+
+</footer>
+
+</body>
+</html>

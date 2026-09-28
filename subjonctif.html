@@ -3,185 +3,178 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Le subjonctif | Claire's Classroom</title>
-
+<title>Le subjonctif — Claire's Classroom</title>
 <style>
-body {
-  margin: 0;
-  font-family: "Avenir Next", Avenir, sans-serif;
-  color: #464945;
-  background: #fbf7f2;
+:root{
+  --cream:#FBF7F2;
+  --sage:#AFC4B2;
+  --sage-dark:#6F8B78;
+  --pink:#E8C5C8;
+  --pink-dark:#A97980;
+  --terra:#D9A18F;
+  --terra-dark:#A96855;
+  --beige:#EDE1D2;
+  --ink:#3F403D;
+  --white:#FFFDF9;
+  --shadow:0 10px 30px rgba(76,67,58,.08);
 }
-
-.container {
-  width: 90%;
-  max-width: 950px;
-  margin: auto;
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:"Trebuchet MS","Segoe UI",sans-serif;
+  color:var(--ink);
+  background:var(--cream);
+  line-height:1.6;
 }
-
-header {
-  padding: 25px 0;
+a{text-decoration:none;color:inherit}
+.topbar{
+  max-width:1120px;
+  margin:0 auto;
+  padding:22px 28px 0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
-
-.back {
-  color: #71816d;
-  text-decoration: none;
-  font-size: 14px;
+.back{color:var(--sage-dark);font-weight:700;font-size:.95rem}
+.brand{font-size:.9rem;color:#8B837A}
+header{
+  max-width:1120px;
+  margin:0 auto;
+  padding:55px 28px 45px;
+  text-align:center;
 }
-
-.hero {
-  text-align: center;
-  padding: 55px 20px 35px;
+.eyebrow{
+  display:inline-block;
+  background:var(--beige);
+  color:var(--terra-dark);
+  padding:7px 17px;
+  border-radius:999px;
+  font-size:.82rem;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
 }
-
-.label {
-  display: inline-block;
-  background: #f1e3dc;
-  color: #9b6957;
-  padding: 7px 15px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: bold;
+h1{
+  margin:18px 0 8px;
+  font-family:Georgia,serif;
+  font-size:clamp(2.7rem,6vw,4.8rem);
+  font-weight:500;
+  color:#4B504B;
 }
-
-h1 {
-  font-family: Georgia, serif;
-  font-size: 58px;
-  font-weight: normal;
-  margin: 20px 0 10px;
+.intro{max-width:700px;margin:0 auto;color:#77736D;font-size:1.08rem}
+.content{max-width:1120px;margin:0 auto;padding:0 28px 70px}
+.section-title{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin:35px 0 22px;
 }
-
-.hero p {
-  color: #777b76;
-  line-height: 1.6;
+.section-title .line{flex:1;height:1px;background:#DCCFC2}
+.section-title h2{margin:0;font-family:Georgia,serif;font-weight:500;font-size:1.75rem}
+.card-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
 }
-
-.section-title {
-  font-family: Georgia, serif;
-  font-size: 30px;
-  font-weight: normal;
-  margin: 35px 0 18px;
+.card{
+  background:var(--white);
+  border-radius:24px;
+  padding:30px;
+  box-shadow:var(--shadow);
+  border:1px solid #EFE5DA;
+  transition:.2s ease;
 }
-
-.card {
-  display: block;
-  background: white;
-  border: 1px solid #e8e0d9;
-  border-radius: 25px;
-  padding: 28px;
-  margin-bottom: 18px;
-  text-decoration: none;
-  color: inherit;
-  transition: 0.2s;
+.card:hover{transform:translateY(-3px);box-shadow:0 14px 35px rgba(76,67,58,.12)}
+.icon{
+  width:48px;
+  height:48px;
+  display:grid;
+  place-items:center;
+  border-radius:15px;
+  margin-bottom:15px;
+  font-size:1.35rem;
 }
-
-.card:hover {
-  transform: translateY(-3px);
+.sage{background:#E1ECE3}
+.pink{background:#F4E1E3}
+.card h3{margin:0 0 8px;font-family:Georgia,serif;font-size:1.45rem;font-weight:600}
+.card p{margin:0 0 18px;color:#77736D;font-size:.98rem}
+.btn{
+  display:inline-block;
+  padding:10px 16px;
+  border-radius:999px;
+  font-size:.87rem;
+  font-weight:700;
+  background:var(--sage-dark);
+  color:white;
 }
-
-.card.featured {
-  background: linear-gradient(135deg, #eef3ed, #f8e9e8);
-}
-
-.icon {
-  font-size: 32px;
-  margin-bottom: 12px;
-}
-
-h2 {
-  font-family: Georgia, serif;
-  font-size: 27px;
-  font-weight: normal;
-  margin: 0 0 8px;
-}
-
-.card p {
-  color: #777b76;
-  line-height: 1.6;
-  margin-bottom: 18px;
-}
-
-.button {
-  display: inline-block;
-  background: #71816d;
-  color: white;
-  padding: 10px 18px;
-  border-radius: 20px;
-  font-size: 13px;
-  font-weight: bold;
-}
-
-footer {
-  text-align: center;
-  border-top: 1px solid #e8e0d9;
-  padding: 30px;
-  margin-top: 60px;
-  color: #888c87;
-  font-size: 13px;
+.btn.pink-btn{background:var(--pink-dark)}
+footer{text-align:center;padding:30px;color:#928B82;font-size:.85rem}
+@media(max-width:760px){
+  .topbar{padding-left:18px;padding-right:18px}
+  header{padding-top:35px}
+  .content{padding-left:18px;padding-right:18px}
+  .card-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
-
 <body>
 
+<div class="topbar">
+  <a class="back" href="francais-a2plus.html">← Français A2+</a>
+  <div class="brand">Claire's Classroom · Grammaire</div>
+</div>
+
 <header>
-  <div class="container">
-    <a class="back" href="francais-a2plus-grammaire.html">
-      ← Grammaire A2+
-    </a>
-  </div>
+  <div class="eyebrow">Grammaire · A2+</div>
+  <h1>Le subjonctif</h1>
+  <p class="intro">
+    Découvrir le subjonctif, comprendre ses principaux emplois et s'entraîner
+    dans des situations du quotidien et du monde professionnel.
+  </p>
 </header>
 
-<main class="container">
+<main class="content">
 
-  <section class="hero">
-    <div class="label">FRANÇAIS · A2+ · GRAMMAIRE</div>
+  <div class="section-title">
+    <div class="line"></div>
+    <h2>🌿 Je découvre</h2>
+    <div class="line"></div>
+  </div>
 
-    <h1>🌸 Le subjonctif</h1>
+  <div class="card-grid">
+    <article class="card">
+      <div class="icon sage">📖</div>
+      <h3>Fiche de grammaire – Le subjonctif</h3>
+      <p>
+        Retrouve les formes du subjonctif présent et ses principaux emplois :
+        souhait, doute, regret, nécessité, ordre, suggestion et crainte.
+      </p>
+      <a class="btn" href="fiche-subjonctif.pdf">Voir la fiche →</a>
+    </article>
+  </div>
 
-    <p>
-      Découvre, comprends et pratique le subjonctif.
-    </p>
-  </section>
+  <div class="section-title">
+    <div class="line"></div>
+    <h2>✏️ Je pratique</h2>
+    <div class="line"></div>
+  </div>
 
-
-  <h2 class="section-title">📖 Je découvre</h2>
-
-  <a class="card featured" href="fiche-subjonctif.pdf">
-    <div class="icon">📚</div>
-
-    <h2>Le subjonctif : fiche de grammaire</h2>
-
-    <p>
-      Les formes du subjonctif et ses principaux emplois :
-      souhait, doute, regret, nécessité, ordre, suggestion et crainte.
-    </p>
-
-    <span class="button">Ouvrir la fiche →</span>
-  </a>
-
-
-  <h2 class="section-title">✏️ Je pratique</h2>
-
-  <a class="card" href="subjonctif-code-vestimentaire.html">
-
-    <div class="icon">👔</div>
-
-    <h2>Code vestimentaire & monde professionnel</h2>
-
-    <p>
-      Une activité autour du code vestimentaire en entreprise,
-      pour utiliser le subjonctif dans un contexte professionnel.
-    </p>
-
-    <span class="button">Explorer →</span>
-
-  </a>
+  <div class="card-grid">
+    <article class="card">
+      <div class="icon pink">👔</div>
+      <h3>Code vestimentaire & monde professionnel</h3>
+      <p>
+        Trois activités interactives pour pratiquer le subjonctif dans des
+        situations liées au monde professionnel.
+      </p>
+      <a class="btn pink-btn" href="subjonctif-code-vestimentaire.html">Voir les activités →</a>
+    </article>
+  </div>
 
 </main>
 
 <footer>
-  © 2026 Claire's Classroom · Français A2+
+  Claire's Classroom · Français A2+
 </footer>
 
 </body>

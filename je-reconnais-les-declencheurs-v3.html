@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Je reconnais les déclencheurs | Claire's Classroom</title>
+<style>
+:root{
+  --cream:#fbf7f2;
+  --sage:#a9b8a5;
+  --sage-dark:#71816d;
+  --pink:#e8c9cc;
+  --pink-dark:#a97980;
+  --terra:#9b6957;
+  --ink:#464945;
+  --muted:#777b76;
+  --line:#e8e0d9;
+  --white:#ffffff;
+  --correct:#e3eee5;
+  --correct-text:#4f7057;
+  --wrong:#f5e1e2;
+  --wrong-text:#8b5b62;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:"Avenir Next",Avenir,"Trebuchet MS",sans-serif;
+  color:var(--ink);
+  background:var(--cream);
+}
+a{text-decoration:none;color:inherit}
+.wrap{width:min(960px,92%);margin:auto}
+header{padding:24px 0}
+.back{color:var(--sage-dark);font-size:14px;font-weight:700}
+.hero{text-align:center;padding:34px 20px 28px}
+.label{
+  display:inline-block;
+  background:#f1e3dc;
+  color:var(--terra);
+  padding:7px 15px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.05em;
+}
+h1{
+  font-family:Georgia,serif;
+  font-size:clamp(38px,6vw,56px);
+  font-weight:400;
+  margin:18px 0 10px;
+}
+.hero p{
+  color:var(--muted);
+  max-width:720px;
+  margin:auto;
+  line-height:1.65;
+}
+.tip{
+  background:linear-gradient(135deg,#eef3ed,#f8e9e8);
+  border-radius:22px;
+  padding:20px 22px;
+  margin:0 auto 28px;
+  color:#60645f;
+  line-height:1.6;
+}
+.tip strong{color:var(--sage-dark)}
+.progress-wrap{margin:16px auto 30px;max-width:760px}
+.progress-info{
+  display:flex;
+  justify-content:space-between;
+  color:var(--muted);
+  font-size:13px;
+  margin-bottom:7px;
+}
+.progress{
+  height:9px;
+  background:#ece5dd;
+  border-radius:999px;
+  overflow:hidden;
+}
+.progress-bar{
+  height:100%;
+  width:0%;
+  background:var(--sage-dark);
+  transition:.25s ease;
+}
+.card{
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:28px;
+  padding:32px;
+  box-shadow:0 12px 28px rgba(65,55,48,.06);
+  margin-bottom:26px;
+}
+.section-tag{
+  color:var(--terra);
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin-bottom:10px;
+}
+.question{
+  font-family:Georgia,serif;
+  font-size:28px;
+  line-height:1.4;
+  margin:0 0 25px;
+}
+.context{
+  background:#f8f3ed;
+  border-radius:18px;
+  padding:17px 18px;
+  margin-bottom:20px;
+  line-height:1.6;
+}
+.choice-grid{display:grid;gap:12px}
+.choice{
+  width:100%;
+  text-align:left;
+  border:1px solid var(--line);
+  background:#fffdfa;
+  border-radius:17px;
+  padding:15px 17px;
+  font-size:16px;
+  color:var(--ink);
+  cursor:pointer;
+  transition:.18s ease;
+}
+.choice:hover:not(:disabled){
+  transform:translateY(-1px);
+  border-color:#cdbfb0;
+}
+.choice:disabled{cursor:default}
+.choice.correct{
+  background:var(--correct);
+  border-color:#bfd2c2;
+  color:var(--correct-text);
+  font-weight:700;
+}
+.choice.wrong{
+  background:var(--wrong);
+  border-color:#e2c0c4;
+  color:var(--wrong-text);
+}
+.feedback{
+  margin-top:18px;
+  padding:15px 17px;
+  border-radius:16px;
+  display:none;
+  line-height:1.55;
+  font-size:15px;
+}
+.feedback.show{display:block}
+.feedback.good{background:var(--correct);color:var(--correct-text)}
+.feedback.bad{background:var(--wrong);color:var(--wrong-text)}
+.btn{
+  border:0;
+  background:var(--sage-dark);
+  color:#fff;
+  padding:12px 18px;
+  border-radius:999px;
+  font-size:14px;
+  font-weight:800;
+  cursor:pointer;
+}
+.btn.secondary{background:var(--pink-dark)}
+.hidden{display:none!important}
+.result{
+  display:none;
+  text-align:center;
+  padding:36px 28px;
+  margin-bottom:50px;
+}
+.result.show{display:block}
+.result-score{
+  font-family:Georgia,serif;
+  font-size:50px;
+  color:var(--sage-dark);
+  margin:8px 0;
+}
+.result h2{
+  font-family:Georgia,serif;
+  font-weight:400;
+  font-size:32px;
+  margin:0 0 10px;
+}
+.result p{
+  color:var(--muted);
+  line-height:1.65;
+  max-width:650px;
+  margin:0 auto 22px
+}
+.small-note{margin-top:12px;color:var(--muted);font-size:13px}
+footer{
+  text-align:center;
+  border-top:1px solid var(--line);
+  padding:28px;
+  color:#888c87;
+  font-size:13px;
+}
+@media(max-width:650px){
+  .card{padding:23px}
+  .question{font-size:24px}
+  .btn{width:100%;margin-top:6px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="back" href="subjonctif.html">← Le subjonctif</a>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section class="hero">
+  <div class="label">FRANÇAIS · A2+</div>
+  <h1>💡 Je reconnais les déclencheurs</h1>
+  <p>
+    Comprends l'idée exprimée, choisis le bon déclencheur
+    et construis la phrase au subjonctif.
+  </p>
+</section>
+
+<div class="tip">
+  <strong>À retenir :</strong> le subjonctif peut exprimer notamment
+  un souhait, un doute, un regret, une nécessité, un ordre,
+  une suggestion ou une crainte.
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-info">
+    <span id="sectionLabel">Étape 1 · Je comprends l'idée</span>
+    <span id="counter">1 / 15</span>
+  </div>
+  <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+</div>
+
+<div id="quiz"></div>
+
+<section class="card result" id="result">
+  <div class="section-tag">Résultat</div>
+  <h2>Bravo, tu as terminé !</h2>
+  <div class="result-score" id="finalScore">0 / 15</div>
+  <p id="resultMessage"></p>
+  <button class="btn" onclick="restartQuiz()">🔄 Recommencer</button>
+  <button class="btn secondary" onclick="reviewMistakes()">🔎 Revoir mes erreurs</button>
+  <div class="small-note" id="mistakeNote"></div>
+</section>
+
+</main>
+
+<footer>© 2026 Claire's Classroom · Français A2+</footer>
+
+<script>
+const originalQuestions = [
+
+  // Étape 1 — comprendre l'idée
+  {
+    section:"Étape 1 · Je comprends l'idée",
+    q:"Quelle idée exprime la phrase ?",
+    context:"Il faut que tu finisses avant 18 h.",
+    options:["Un souhait","Une nécessité","Un doute"],
+    answer:1,
+    explain:"« Il faut que » exprime une nécessité."
+  },
+  {
+    section:"Étape 1 · Je comprends l'idée",
+    q:"Quelle idée exprime la phrase ?",
+    context:"Je doute qu'il soit disponible demain.",
+    options:["Un ordre","Un doute","Un souhait"],
+    answer:1,
+    explain:"« Je doute que » exprime le doute."
+  },
+  {
+    section:"Étape 1 · Je comprends l'idée",
+    q:"Quelle idée exprime la phrase ?",
+    context:"Elle a envie que tu viennes avec nous.",
+    options:["Un souhait","Une crainte","Un regret"],
+    answer:0,
+    explain:"« Avoir envie que » exprime un souhait."
+  },
+  {
+    section:"Étape 1 · Je comprends l'idée",
+    q:"Quelle idée exprime la phrase ?",
+    context:"Quel dommage que tu ne puisses pas venir !",
+    options:["Une nécessité","Une suggestion","Un regret"],
+    answer:2,
+    explain:"« Quel dommage que » exprime un regret."
+  },
+  {
+    section:"Étape 1 · Je comprends l'idée",
+    q:"Quelle idée exprime la phrase ?",
+    context:"Je souhaite que vous soyez à l'heure.",
+    options:["Une crainte","Un souhait","Un doute"],
+    answer:1,
+    explain:"« Souhaiter que » exprime un souhait."
+  },
+
+  // Étape 2 — choisir le bon déclencheur selon la situation
+  {
+    section:"Étape 2 · Je choisis le déclencheur",
+    q:"Tu veux dire qu'une personne doit absolument venir demain. Quelle expression convient ?",
+    options:["Je doute que…","Il faut que…","Quel dommage que…"],
+    answer:1,
+    explain:"Pour exprimer une nécessité, on peut utiliser « il faut que »."
+  },
+  {
+    section:"Étape 2 · Je choisis le déclencheur",
+    q:"Tu n'es pas sûr qu'il ait compris. Quelle expression convient ?",
+    options:["Je doute qu'…","Je souhaite qu'…","Il faut qu'…"],
+    answer:0,
+    explain:"Pour exprimer un doute, on utilise « je doute que »."
+  },
+  {
+    section:"Étape 2 · Je choisis le déclencheur",
+    q:"Tu aimerais que ton ami vienne avec toi. Quelle expression convient ?",
+    options:["Quel dommage que…","Je souhaite que…","Je crains que…"],
+    answer:1,
+    explain:"Pour exprimer un souhait, on peut utiliser « je souhaite que »."
+  },
+  {
+    section:"Étape 2 · Je choisis le déclencheur",
+    q:"Tu es triste parce qu'une personne ne peut pas venir. Quelle expression convient ?",
+    options:["Il faut que…","Je doute que…","Quel dommage que…"],
+    answer:2,
+    explain:"« Quel dommage que » permet d'exprimer un regret."
+  },
+  {
+    section:"Étape 2 · Je choisis le déclencheur",
+    q:"Tu as peur qu'il soit en retard. Quelle expression convient ?",
+    options:["Je crains qu'…","Je souhaite qu'…","Il est important qu'…"],
+    answer:0,
+    explain:"« Craindre que » permet d'exprimer une crainte."
+  },
+
+  // Étape 3 — déclencheur + forme
+  {
+    section:"Étape 3 · Je construis",
+    q:"Choisis la phrase correcte.",
+    context:"Tu exprimes une nécessité : ___ tu fasses attention.",
+    options:["Je doute que","Il faut que","Quel dommage que"],
+    answer:1,
+    explain:"« Il faut que tu fasses attention » exprime une nécessité."
+  },
+  {
+    section:"Étape 3 · Je construis",
+    q:"Choisis la phrase correcte.",
+    context:"Tu exprimes un doute : ___ elle soit là demain.",
+    options:["Je souhaite que","Il faut que","Je doute qu'"],
+    answer:2,
+    explain:"« Je doute qu'elle soit là demain » exprime un doute."
+  },
+  {
+    section:"Étape 3 · Je construis",
+    q:"Choisis la phrase correcte.",
+    context:"Tu exprimes un souhait : ___ vous veniez avec nous.",
+    options:["Je souhaite que","Je crains que","Quel dommage que"],
+    answer:0,
+    explain:"« Je souhaite que vous veniez avec nous » exprime un souhait."
+  },
+  {
+    section:"Étape 3 · Je construis",
+    q:"Choisis la phrase correcte.",
+    context:"Tu exprimes une crainte : ___ tu aies un problème.",
+    options:["Il faut que","Je crains que","Je souhaite que"],
+    answer:1,
+    explain:"« Je crains que tu aies un problème » exprime une crainte."
+  },
+  {
+    section:"Étape 3 · Je construis",
+    q:"Choisis la phrase correcte.",
+    context:"Tu exprimes un regret : ___ tu ne puisses pas venir.",
+    options:["Quel dommage que","Je doute que","Il faut que"],
+    answer:0,
+    explain:"« Quel dommage que tu ne puisses pas venir » exprime un regret."
+  }
+];
+
+let questions = [...originalQuestions];
+let current = 0;
+let score = 0;
+let mistakes = [];
+
+function updateProgress(){
+  const total = questions.length;
+  const pct = (current / total) * 100;
+  document.getElementById("progressBar").style.width = pct + "%";
+  document.getElementById("counter").textContent = Math.min(current + 1,total) + " / " + total;
+  document.getElementById("sectionLabel").textContent = questions[current]?.section || "Terminé !";
+}
+
+function renderQuestion(){
+  if(current >= questions.length){
+    showResult();
+    return;
+  }
+
+  updateProgress();
+
+  const item = questions[current];
+  const quiz = document.getElementById("quiz");
+
+  let html = `
+  <section class="card">
+    <div class="section-tag">${item.section}</div>
+    <h2 class="question">${item.q}</h2>
+  `;
+
+  if(item.context){
+    html += `<div class="context">${item.context}</div>`;
+  }
+
+  html += `<div class="choice-grid">`;
+
+  item.options.forEach((opt,i)=>{
+    html += `<button class="choice" onclick="answerMC(${i})">${opt}</button>`;
+  });
+
+  html += `
+    </div>
+    <div class="feedback" id="feedback"></div>
+    <div style="margin-top:18px">
+      <button class="btn secondary hidden" id="nextBtn" onclick="nextQuestion()">Continuer →</button>
+    </div>
+  </section>`;
+
+  quiz.innerHTML = html;
+}
+
+function answerMC(index){
+  const item = questions[current];
+  const buttons = document.querySelectorAll(".choice");
+  buttons.forEach(b=>b.disabled=true);
+
+  buttons[item.answer].classList.add("correct");
+
+  const feedback = document.getElementById("feedback");
+
+  if(index === item.answer){
+    score++;
+    feedback.className = "feedback show good";
+    feedback.textContent = "✓ Bonne réponse ! " + item.explain;
+  }else{
+    buttons[index].classList.add("wrong");
+    mistakes.push(current);
+    feedback.className = "feedback show bad";
+    feedback.textContent = "✗ Pas tout à fait. " + item.explain;
+  }
+
+  document.getElementById("nextBtn").classList.remove("hidden");
+}
+
+function nextQuestion(){
+  current++;
+  renderQuestion();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function showResult(){
+  document.getElementById("quiz").innerHTML = "";
+  document.getElementById("progressBar").style.width = "100%";
+  document.getElementById("counter").textContent = questions.length + " / " + questions.length;
+  document.getElementById("sectionLabel").textContent = "Terminé !";
+
+  const result = document.getElementById("result");
+  result.classList.add("show");
+
+  document.getElementById("finalScore").textContent = `${score} / ${questions.length}`;
+
+  let msg;
+
+  if(score >= 14){
+    msg = "🌳 Très bien ! Tu reconnais bien les principaux déclencheurs du subjonctif.";
+  }else if(score >= 11){
+    msg = "🌿 Bien ! Tu as de bonnes bases. Reprends les questions que tu as ratées.";
+  }else if(score >= 8){
+    msg = "🌱 Continue à t'entraîner. Revois surtout l'idée exprimée avant de choisir le déclencheur.";
+  }else{
+    msg = "🌱 Reprends les expressions principales et recommence tranquillement.";
+  }
+
+  document.getElementById("resultMessage").textContent = msg;
+  document.getElementById("mistakeNote").textContent =
+    mistakes.length ? `${mistakes.length} question(s) à revoir.` : "Aucune erreur : bravo !";
+}
+
+function restartQuiz(){
+  questions = [...originalQuestions];
+  current = 0;
+  score = 0;
+  mistakes = [];
+  document.getElementById("result").classList.remove("show");
+  renderQuestion();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function reviewMistakes(){
+  if(!mistakes.length) return;
+
+  questions = mistakes.map(i => questions[i]);
+  current = 0;
+  score = 0;
+  mistakes = [];
+
+  document.getElementById("result").classList.remove("show");
+  renderQuestion();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+renderQuestion();
+</script>
+</body>
+</html>

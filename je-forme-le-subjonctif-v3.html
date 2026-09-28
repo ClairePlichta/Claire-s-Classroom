@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Je forme le subjonctif | Claire's Classroom</title>
+<style>
+:root{
+  --cream:#fbf7f2;
+  --sage:#a9b8a5;
+  --sage-dark:#71816d;
+  --pink:#e8c9cc;
+  --pink-dark:#a97980;
+  --terra:#9b6957;
+  --terra-soft:#f3dfd7;
+  --ink:#464945;
+  --muted:#777b76;
+  --line:#e8e0d9;
+  --white:#ffffff;
+  --correct:#e3eee5;
+  --correct-text:#4f7057;
+  --wrong:#f5e1e2;
+  --wrong-text:#8b5b62;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:"Avenir Next",Avenir,"Trebuchet MS",sans-serif;
+  color:var(--ink);
+  background:var(--cream);
+}
+a{text-decoration:none;color:inherit}
+.wrap{width:min(960px,92%);margin:auto}
+header{padding:24px 0}
+.back{color:var(--sage-dark);font-size:14px;font-weight:700}
+.hero{text-align:center;padding:34px 20px 28px}
+.label{
+  display:inline-block;
+  background:#f1e3dc;
+  color:var(--terra);
+  padding:7px 15px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.05em;
+}
+h1{
+  font-family:Georgia,serif;
+  font-size:clamp(38px,6vw,56px);
+  font-weight:400;
+  margin:18px 0 10px;
+}
+.hero p{
+  color:var(--muted);
+  max-width:690px;
+  margin:auto;
+  line-height:1.65;
+}
+.progress-wrap{margin:16px auto 30px;max-width:760px}
+.progress-info{
+  display:flex;
+  justify-content:space-between;
+  color:var(--muted);
+  font-size:13px;
+  margin-bottom:7px;
+}
+.progress{
+  height:9px;
+  background:#ece5dd;
+  border-radius:999px;
+  overflow:hidden;
+}
+.progress-bar{
+  height:100%;
+  width:0%;
+  background:var(--sage-dark);
+  transition:.25s ease;
+}
+.card{
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:28px;
+  padding:32px;
+  box-shadow:0 12px 28px rgba(65,55,48,.06);
+  margin-bottom:26px;
+}
+.section-tag{
+  color:var(--terra);
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin-bottom:10px;
+}
+.question{
+  font-family:Georgia,serif;
+  font-size:28px;
+  line-height:1.35;
+  margin:0 0 25px;
+}
+.choice-grid{display:grid;gap:12px}
+.choice{
+  width:100%;
+  text-align:left;
+  border:1px solid var(--line);
+  background:#fffdfa;
+  border-radius:17px;
+  padding:15px 17px;
+  font-size:16px;
+  color:var(--ink);
+  cursor:pointer;
+  transition:.18s ease;
+}
+.choice:hover:not(:disabled){
+  transform:translateY(-1px);
+  border-color:#cdbfb0;
+}
+.choice:disabled{cursor:default}
+.choice.correct{
+  background:var(--correct);
+  border-color:#bfd2c2;
+  color:var(--correct-text);
+  font-weight:700;
+}
+.choice.wrong{
+  background:var(--wrong);
+  border-color:#e2c0c4;
+  color:var(--wrong-text);
+}
+.feedback{
+  margin-top:18px;
+  padding:15px 17px;
+  border-radius:16px;
+  display:none;
+  line-height:1.55;
+  font-size:15px;
+}
+.feedback.show{display:block}
+.feedback.good{background:var(--correct);color:var(--correct-text)}
+.feedback.bad{background:var(--wrong);color:var(--wrong-text)}
+.input-wrap{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.answer-input{
+  flex:1 1 280px;
+  min-width:0;
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:14px 16px;
+  font-size:17px;
+  background:#fffdfa;
+  outline:none;
+}
+.answer-input:focus{border-color:var(--sage-dark)}
+.btn{
+  border:0;
+  background:var(--sage-dark);
+  color:#fff;
+  padding:12px 18px;
+  border-radius:999px;
+  font-size:14px;
+  font-weight:800;
+  cursor:pointer;
+}
+.btn.secondary{background:var(--pink-dark)}
+.btn.terra{background:var(--terra)}
+.btn:disabled{opacity:.55;cursor:default}
+.result{
+  display:none;
+  text-align:center;
+  padding:36px 28px;
+  margin-bottom:50px;
+}
+.result.show{display:block}
+.result-score{
+  font-family:Georgia,serif;
+  font-size:50px;
+  color:var(--sage-dark);
+  margin:8px 0;
+}
+.result h2{
+  font-family:Georgia,serif;
+  font-weight:400;
+  font-size:32px;
+  margin:0 0 10px;
+}
+.result p{color:var(--muted);line-height:1.65;max-width:620px;margin:0 auto 22px}
+.hidden{display:none!important}
+.small-note{
+  margin-top:12px;
+  color:var(--muted);
+  font-size:13px;
+}
+footer{
+  text-align:center;
+  border-top:1px solid var(--line);
+  padding:28px;
+  color:#888c87;
+  font-size:13px;
+}
+@media(max-width:650px){
+  .card{padding:23px}
+  .question{font-size:24px}
+  .input-wrap{align-items:stretch}
+  .btn{width:100%}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="back" href="subjonctif.html">← Le subjonctif</a>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section class="hero">
+  <div class="label">FRANÇAIS · A2+</div>
+  <h1>🔤 Je forme le subjonctif</h1>
+  <p>
+    Entraîne-toi à former le subjonctif présent avec les verbes réguliers
+    et les verbes fréquents.
+  </p>
+</section>
+
+<div class="progress-wrap">
+  <div class="progress-info">
+    <span id="sectionLabel">Manche 1 · Je choisis</span>
+    <span id="counter">1 / 20</span>
+  </div>
+  <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+</div>
+
+<div id="quiz"></div>
+
+<section class="card result" id="result">
+  <div class="section-tag">Résultat</div>
+  <h2>Ton entraînement est terminé !</h2>
+  <div class="result-score" id="finalScore">0 / 20</div>
+  <p id="resultMessage"></p>
+  <button class="btn" onclick="restartQuiz()">🔄 Recommencer</button>
+  <button class="btn secondary" onclick="reviewMistakes()">🔎 Refaire mes erreurs</button>
+  <div class="small-note" id="mistakeNote"></div>
+</section>
+
+</main>
+
+<footer>© 2026 Claire's Classroom · Français A2+</footer>
+
+<script>
+const questions = [
+  // Manche 1 — choix multiples
+  {type:"mc", section:"Manche 1 · Je choisis", q:"Il faut que tu ___ tes devoirs avant ce soir.", options:["fasses","faire","fais"], answer:0, explain:"Après « il faut que », on utilise le subjonctif : « que tu fasses »."},
+  {type:"mc", section:"Manche 1 · Je choisis", q:"Je veux que nous ___ à l'heure.", options:["arriver","arrivons","arrivions"], answer:2, explain:"« Nous arrivions » est la forme du subjonctif présent de « arriver »."},
+  {type:"mc", section:"Manche 1 · Je choisis", q:"Il est important que vous ___ attention.", options:["faire","faites","faisiez"], answer:1, explain:"« Faire » au subjonctif : que vous fassiez."},
+  {type:"mc", section:"Manche 1 · Je choisis", q:"Je doute qu'il ___ disponible demain.", options:["être","est","soit"], answer:2, explain:"Le verbe « être » au subjonctif donne « qu'il soit »."},
+  {type:"mc", section:"Manche 1 · Je choisis", q:"Il faut que nous ___ avant 18 h.", options:["finissions","finir","finissons"], answer:0, explain:"« Finir » : que nous finissions."},
+  {type:"mc", section:"Manche 1 · Je choisis", q:"Je veux que tu ___ plus tôt.", options:["viens","viennes","venir"], answer:1, explain:"« Venir » : que tu viennes."},
+  {type:"mc", section:"Manche 1 · Je choisis", q:"Il est possible qu'elle ___ demain.", options:["vient","venir","vienne"], answer:2, explain:"« Venir » au subjonctif : qu'elle vienne."},
+  {type:"mc", section:"Manche 1 · Je choisis", q:"Je souhaite que vous ___ la vérité.", options:["disiez","dites","dire"], answer:0, explain:"« Dire » : que vous disiez."},
+
+  // Manche 2 — réponses à écrire
+  {type:"input", section:"Manche 2 · Je conjugue", q:"Il faut que nous ___ avant 18 h. (finir)", answer:["finissions"], explain:"Le subjonctif présent de « finir » avec « nous » est « finissions »."},
+  {type:"input", section:"Manche 2 · Je conjugue", q:"Je veux que tu ___ la porte. (ouvrir)", answer:["ouvres"], explain:"« Ouvrir » suit le modèle des verbes en -ir : « que tu ouvres »."},
+  {type:"input", section:"Manche 2 · Je conjugue", q:"Il faut que vous ___ ce document. (lire)", answer:["lisiez"], explain:"« Lire » : que vous lisiez."},
+  {type:"input", section:"Manche 2 · Je conjugue", q:"Je souhaite qu'elle ___ la réponse. (trouver)", answer:["trouve"], explain:"« Trouver » : qu'elle trouve."},
+  {type:"input", section:"Manche 2 · Je conjugue", q:"Il est important que nous ___ le problème. (voir)", answer:["voyions"], explain:"« Voir » : que nous voyions."},
+  {type:"input", section:"Manche 2 · Je conjugue", q:"Je veux que vous ___ plus attentifs. (être)", answer:["soyez"], explain:"« Être » est irrégulier : que vous soyez."},
+
+  // Manche 3 — irréguliers
+  {type:"input", section:"Manche 3 · Les verbes irréguliers", q:"Il faut que j'___ plus de temps. (avoir)", answer:["aie"], explain:"« Avoir » : que j'aie."},
+  {type:"input", section:"Manche 3 · Les verbes irréguliers", q:"Je veux que tu ___ avec nous. (aller)", answer:["ailles"], explain:"« Aller » : que tu ailles."},
+  {type:"input", section:"Manche 3 · Les verbes irréguliers", q:"Il faut que nous ___ finir aujourd'hui. (pouvoir)", answer:["puissions"], explain:"« Pouvoir » : que nous puissions."},
+  {type:"input", section:"Manche 3 · Les verbes irréguliers", q:"Je doute qu'il ___ la réponse. (savoir)", answer:["sache"], explain:"« Savoir » : qu'il sache."},
+  {type:"input", section:"Manche 3 · Les verbes irréguliers", q:"Je souhaite que vous ___ davantage. (souhaiter)", answer:["souhaitiez"], explain:"« Vouloir » : que vous vouliez."},
+  {type:"input", section:"Manche 3 · Les verbes irréguliers", q:"Il faut qu'elle ___ ses devoirs. (faire)", answer:["fasse"], explain:"« Faire » : qu'elle fasse."}
+];
+
+let current = 0;
+let score = 0;
+let mistakes = [];
+
+function normalize(str){
+  return str.trim().toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .replace(/[’']/g,"'")
+    .replace(/\s+/g," ");
+}
+
+function updateProgress(){
+  const pct = ((current) / questions.length) * 100;
+  document.getElementById("progressBar").style.width = pct + "%";
+  document.getElementById("counter").textContent = Math.min(current+1, questions.length) + " / " + questions.length;
+  document.getElementById("sectionLabel").textContent = questions[current]?.section || "Résultat";
+}
+
+function renderQuestion(){
+  if(current >= questions.length){
+    showResult();
+    return;
+  }
+  updateProgress();
+  const item = questions[current];
+  const quiz = document.getElementById("quiz");
+
+  let html = `<section class="card" id="currentCard">
+    <div class="section-tag">${item.section}</div>
+    <h2 class="question">${item.q}</h2>`;
+
+  if(item.type === "mc"){
+    html += `<div class="choice-grid">`;
+    item.options.forEach((opt,i)=>{
+      html += `<button class="choice" onclick="answerMC(${i})">${opt}</button>`;
+    });
+    html += `</div>`;
+  } else {
+    html += `<div class="input-wrap">
+      <input class="answer-input" id="answerInput" autocomplete="off" spellcheck="false" placeholder="Écris ta réponse…">
+      <button class="btn" onclick="answerInput()">Vérifier</button>
+    </div>`;
+  }
+
+  html += `<div class="feedback" id="feedback"></div>
+    <div style="margin-top:18px">
+      <button class="btn secondary hidden" id="nextBtn" onclick="nextQuestion()">Continuer →</button>
+    </div>
+    </section>`;
+
+  quiz.innerHTML = html;
+
+  if(item.type === "input"){
+    const input = document.getElementById("answerInput");
+    input.addEventListener("keydown", e=>{
+      if(e.key === "Enter") answerInput();
+    });
+  }
+}
+
+function answerMC(index){
+  const item = questions[current];
+  const buttons = document.querySelectorAll(".choice");
+  buttons.forEach(b=>b.disabled=true);
+
+  buttons[item.answer].classList.add("correct");
+  const feedback = document.getElementById("feedback");
+
+  if(index === item.answer){
+    score++;
+    feedback.className = "feedback show good";
+    feedback.textContent = "✓ Bonne réponse ! " + item.explain;
+  } else {
+    buttons[index].classList.add("wrong");
+    mistakes.push(current);
+    feedback.className = "feedback show bad";
+    feedback.textContent = "✗ Pas tout à fait. " + item.explain;
+  }
+  document.getElementById("nextBtn").classList.remove("hidden");
+}
+
+function answerInput(){
+  const item = questions[current];
+  const input = document.getElementById("answerInput");
+  if(!input.value.trim()) return;
+
+  input.disabled = true;
+  document.querySelector(".btn").disabled = true;
+
+  const correct = item.answer.some(ans => normalize(ans) === normalize(input.value));
+  const feedback = document.getElementById("feedback");
+
+  if(correct){
+    score++;
+    feedback.className = "feedback show good";
+    feedback.textContent = "✓ Bonne réponse ! " + item.explain;
+  } else {
+    mistakes.push(current);
+    feedback.className = "feedback show bad";
+    feedback.innerHTML = `✗ Pas tout à fait. La bonne réponse est <strong>${item.answer[0]}</strong>. ${item.explain}`;
+  }
+  document.getElementById("nextBtn").classList.remove("hidden");
+}
+
+function nextQuestion(){
+  current++;
+  renderQuestion();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function showResult(){
+  document.getElementById("quiz").innerHTML = "";
+  document.getElementById("progressBar").style.width = "100%";
+  document.getElementById("counter").textContent = "20 / 20";
+  document.getElementById("sectionLabel").textContent = "Terminé !";
+
+  const result = document.getElementById("result");
+  result.classList.add("show");
+  document.getElementById("finalScore").textContent = `${score} / ${questions.length}`;
+
+  let msg;
+  if(score >= 18){
+    msg = "🌳 Très bien ! La formation du subjonctif est bien maîtrisée.";
+  } else if(score >= 14){
+    msg = "🌿 Bien ! Tu as de bonnes bases. Reprends les questions que tu as ratées.";
+  } else if(score >= 10){
+    msg = "🌱 Continue à t'entraîner. Revois surtout les formes qui te posent problème.";
+  } else {
+    msg = "🌱 Reprends les formes du subjonctif et recommence tranquillement.";
+  }
+  document.getElementById("resultMessage").textContent = msg;
+  document.getElementById("mistakeNote").textContent =
+    mistakes.length ? `${mistakes.length} question(s) à revoir.` : "Aucune erreur : bravo !";
+}
+
+function restartQuiz(){
+  current=0;
+  score=0;
+  mistakes=[];
+  document.getElementById("result").classList.remove("show");
+  renderQuestion();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function reviewMistakes(){
+  if(!mistakes.length) return;
+  const selected = mistakes.map(i=>questions[i]);
+  questions.splice(0, questions.length, ...selected);
+  current=0;
+  score=0;
+  mistakes=[];
+  document.getElementById("result").classList.remove("show");
+  renderQuestion();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+renderQuestion();
+</script>
+</body>
+</html>

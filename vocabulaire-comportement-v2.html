@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🤝 Je décris un comportement | Claire's Classroom</title>
+<style>
+:root{
+  --cream:#fbf7f2; --sage:#a9b8a5; --sage-dark:#71816d;
+  --pink:#e8c9cc; --pink-dark:#a97980; --terra:#9b6957;
+  --ink:#464945; --muted:#777b76; --line:#e8e0d9; --white:#fff;
+  --correct:#e3eee5; --correct-text:#4f7057; --wrong:#f5e1e2; --wrong-text:#8b5b62;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:"Avenir Next",Avenir,"Trebuchet MS",sans-serif;line-height:1.6}
+a{text-decoration:none;color:inherit}
+.wrap{width:min(960px,92%);margin:auto}
+header{padding:24px 0}
+.back{color:var(--sage-dark);font-weight:700;font-size:14px}
+.hero{text-align:center;padding:34px 20px 28px}
+.label{display:inline-block;background:#f1e3dc;color:var(--terra);padding:7px 15px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.06em}
+h1{font-family:Georgia,serif;font-size:clamp(38px,6vw,56px);font-weight:400;margin:18px 0 10px}
+.hero p{color:var(--muted);max-width:720px;margin:auto}
+.progress-wrap{margin:16px auto 30px;max-width:760px}
+.progress-info{display:flex;justify-content:space-between;color:var(--muted);font-size:13px;margin-bottom:7px}
+.progress{height:9px;background:#ece5dd;border-radius:999px;overflow:hidden}
+.progress-bar{height:100%;width:0;background:var(--sage-dark);transition:.25s}
+.card{background:var(--white);border:1px solid var(--line);border-radius:28px;padding:32px;box-shadow:0 12px 28px rgba(65,55,48,.06);margin-bottom:26px}
+.section-tag{color:var(--terra);font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+.question{font-family:Georgia,serif;font-size:28px;line-height:1.4;margin:0 0 22px}
+.context{background:#f8f3ed;border-radius:18px;padding:16px 18px;margin-bottom:18px}
+.choice-grid{display:grid;gap:12px}
+.choice{width:100%;text-align:left;border:1px solid var(--line);background:#fffdfa;border-radius:17px;padding:15px 17px;font-size:16px;color:var(--ink);cursor:pointer}
+.choice:hover:not(:disabled){transform:translateY(-1px);border-color:#cdbfb0}
+.choice:disabled{cursor:default}
+.choice.correct{background:var(--correct);border-color:#bfd2c2;color:var(--correct-text);font-weight:700}
+.choice.wrong{background:var(--wrong);border-color:#e2c0c4;color:var(--wrong-text)}
+.feedback{margin-top:18px;padding:15px 17px;border-radius:16px;display:none;line-height:1.55;font-size:15px}
+.feedback.show{display:block}.feedback.good{background:var(--correct);color:var(--correct-text)}.feedback.bad{background:var(--wrong);color:var(--wrong-text)}
+.btn{border:0;background:var(--sage-dark);color:#fff;padding:12px 18px;border-radius:999px;font-size:14px;font-weight:800;cursor:pointer}
+.btn.secondary{background:var(--pink-dark)}
+.hidden{display:none!important}
+.result{display:none;text-align:center;padding:36px 28px;margin-bottom:50px}
+.result.show{display:block}
+.result-score{font-family:Georgia,serif;font-size:50px;color:var(--sage-dark);margin:8px 0}
+.result h2{font-family:Georgia,serif;font-weight:400;font-size:32px;margin:0 0 10px}
+.result p{color:var(--muted);line-height:1.65;max-width:650px;margin:0 auto 22px}
+.small-note{margin-top:12px;color:var(--muted);font-size:13px}
+footer{text-align:center;border-top:1px solid var(--line);padding:28px;color:#888c87;font-size:13px}
+
+.vocab-sheet{
+  display:none;
+  margin-top:22px;
+  text-align:left;
+  background:#fffdfa;
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:24px;
+}
+.vocab-sheet.show{display:block}
+.vocab-sheet h3{
+  margin:0 0 8px;
+  font-family:Georgia,serif;
+  font-size:25px;
+  font-weight:400;
+}
+.vocab-sheet .vocab-intro{color:var(--muted);margin:0 0 18px}
+.vocab-section{margin-top:20px}
+.vocab-section h4{
+  margin:0 0 10px;
+  color:var(--sage-dark);
+  font-size:15px;
+  letter-spacing:.03em;
+}
+.vocab-list{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:9px 18px;
+}
+.vocab-item{
+  padding:9px 0;
+  border-bottom:1px solid #eee7df;
+}
+.vocab-word{font-weight:800}
+.vocab-def{color:var(--muted);font-size:14px}
+
+@media(max-width:650px){.card{padding:23px}.question{font-size:24px}.btn{width:100%;margin-top:6px}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a class="back" href="subjonctif.html">← Le subjonctif</a></div></header>
+<main class="wrap">
+<section class="hero">
+  <div class="label">FRANÇAIS · A2+</div>
+  <h1>🤝 Je décris un comportement</h1>
+  <p>Les mots et expressions pour observer et décrire le comportement d'une personne.</p>
+</section>
+<div class="progress-wrap">
+  <div class="progress-info"><span id="sectionLabel">Vocabulaire</span><span id="counter">1 / 12</span></div>
+  <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+</div>
+<div id="quiz"></div>
+<section class="card result" id="result">
+  <div class="section-tag">Résultat</div>
+  <h2>Quiz terminé !</h2>
+  <div class="result-score" id="finalScore">0 / 12</div>
+  <p id="resultMessage"></p>
+  <button class="btn" onclick="restartQuiz()">🔄 Recommencer</button>
+  <button class="btn secondary" id="reviewBtn" onclick="reviewMistakes()">🔎 Revoir mes erreurs</button>
+  <div class="small-note" id="mistakeNote"></div>
+
+  <div class="vocab-sheet" id="vocabSheet">
+    <h3>📚 Ma fiche vocabulaire</h3>
+    <p class="vocab-intro">Les mots rencontrés dans le quiz, avec une définition simple pour les réutiliser dans tes descriptions.</p>
+
+    <div class="vocab-section">
+      <h4>👂 Communication et écoute</h4>
+      <div class="vocab-list">
+        <div class="vocab-item"><div class="vocab-word">être à l'écoute</div><div class="vocab-def">écouter attentivement une personne</div></div>
+        <div class="vocab-item"><div class="vocab-word">poser des questions</div><div class="vocab-def">demander des informations pour mieux comprendre</div></div>
+        <div class="vocab-item"><div class="vocab-word">interrompre</div><div class="vocab-def">parler avant que l'autre ait fini</div></div>
+        <div class="vocab-item"><div class="vocab-word">laisser quelqu'un s'exprimer</div><div class="vocab-def">donner à l'autre la possibilité de parler</div></div>
+      </div>
+    </div>
+
+    <div class="vocab-section">
+      <h4>🤝 Comportements positifs</h4>
+      <div class="vocab-list">
+        <div class="vocab-item"><div class="vocab-word">être ponctuel(le)</div><div class="vocab-def">arriver à l'heure</div></div>
+        <div class="vocab-item"><div class="vocab-word">être serviable</div><div class="vocab-def">aimer aider les autres</div></div>
+        <div class="vocab-item"><div class="vocab-word">être poli(e)</div><div class="vocab-def">avoir un comportement respectueux</div></div>
+        <div class="vocab-item"><div class="vocab-word">se présenter</div><div class="vocab-def">dire qui on est lors d'une première rencontre</div></div>
+        <div class="vocab-item"><div class="vocab-word">sourire</div><div class="vocab-def">montrer une attitude chaleureuse ou positive</div></div>
+        <div class="vocab-item"><div class="vocab-word">être organisé(e)</div><div class="vocab-def">préparer et classer son travail efficacement</div></div>
+        <div class="vocab-item"><div class="vocab-word">être respectueux / respectueuse</div><div class="vocab-def">respecter les autres et leurs idées</div></div>
+      </div>
+    </div>
+
+    <div class="vocab-section">
+      <h4>⚠️ Comportements qui peuvent donner une mauvaise impression</h4>
+      <div class="vocab-list">
+        <div class="vocab-item"><div class="vocab-word">parler trop fort</div><div class="vocab-def">utiliser une voix très forte</div></div>
+        <div class="vocab-item"><div class="vocab-word">être bavard(e)</div><div class="vocab-def">parler beaucoup</div></div>
+        <div class="vocab-item"><div class="vocab-word">être nerveux / nerveuse</div><div class="vocab-def">avoir du mal à rester calme dans une situation</div></div>
+        <div class="vocab-item"><div class="vocab-word">être fermé(e)</div><div class="vocab-def">être peu ouvert(e) aux idées des autres</div></div>
+        <div class="vocab-item"><div class="vocab-word">refuser d'aider</div><div class="vocab-def">ne pas vouloir aider une autre personne</div></div>
+        <div class="vocab-item"><div class="vocab-word">ne penser qu'à soi</div><div class="vocab-def">penser surtout à ses propres intérêts</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<footer>© 2026 Claire's Classroom · Français A2+</footer>
+<script>
+const originalQuestions = [{"q": "Quel comportement montre qu'une personne est à l'écoute ?", "context": "", "options": ["Elle regarde son téléphone pendant qu'on parle.", "Elle écoute attentivement et pose des questions.", "Elle coupe la parole."], "answer": 1, "explain": "Être à l'écoute, c'est écouter attentivement et s'intéresser à ce que l'autre dit."}, {"q": "Quel comportement peut donner une impression de manque de respect ?", "context": "", "options": ["Saluer les collègues.", "Interrompre quelqu'un.", "Dire merci."], "answer": 1, "explain": "Interrompre quelqu'un pendant qu'il parle peut donner une impression de manque de respect."}, {"q": "Une personne arrive toujours à l'heure. Elle est…", "context": "", "options": ["ponctuelle", "distraite", "nerveuse"], "answer": 0, "explain": "Une personne ponctuelle respecte l'heure prévue."}, {"q": "Une personne aide volontiers ses collègues. Elle est…", "context": "", "options": ["égoïste", "serviable", "réservée"], "answer": 1, "explain": "Une personne serviable aime aider les autres."}, {"q": "Quel comportement montre qu'une personne est polie ?", "context": "", "options": ["Elle dit bonjour et merci.", "Elle parle très fort.", "Elle critique tout le monde."], "answer": 0, "explain": "Dire bonjour et merci sont des comportements polis."}, {"q": "Un collègue parle beaucoup et laisse peu de place aux autres. Il est…", "context": "", "options": ["bavard", "patient", "discret"], "answer": 0, "explain": "Une personne bavarde parle beaucoup."}, {"q": "Quel comportement peut montrer qu'une personne est nerveuse ?", "context": "", "options": ["Elle parle très vite et change souvent de position.", "Elle sourit calmement.", "Elle écoute attentivement."], "answer": 0, "explain": "Parler très vite ou bouger beaucoup peut être un signe de nervosité dans une situation donnée."}, {"q": "Un collègue critique souvent les idées des autres sans écouter. Il paraît…", "context": "", "options": ["ouvert", "respectueux", "fermé"], "answer": 2, "explain": "Une personne « fermée » est peu ouverte aux idées ou aux opinions des autres."}, {"q": "Quel comportement montre qu'une personne est organisée ?", "context": "", "options": ["Elle oublie souvent ses rendez-vous.", "Elle prépare son travail à l'avance.", "Elle arrive sans ses documents."], "answer": 1, "explain": "Préparer son travail à l'avance est un signe d'organisation."}, {"q": "Une personne parle doucement et laisse les autres s'exprimer. Elle semble…", "context": "", "options": ["respectueuse", "agressive", "impatiente"], "answer": 0, "explain": "Laisser les autres parler et écouter sont des comportements respectueux."}, {"q": "Quel comportement peut donner une bonne première impression ?", "context": "", "options": ["Ne pas regarder la personne.", "Se présenter et sourire.", "Arriver très en retard."], "answer": 1, "explain": "Se présenter et sourire sont des comportements qui peuvent donner une impression positive."}, {"q": "Un collègue refuse toujours d'aider les autres et ne pense qu'à son travail. Il peut paraître…", "context": "", "options": ["généreux", "égoïste", "attentionné"], "answer": 1, "explain": "Ce comportement peut donner une impression égoïste."}];
+let questions=[...originalQuestions], current=0, score=0, mistakes=[];
+function render(){
+  if(current>=questions.length){showResult();return;}
+  const item=questions[current];
+  document.getElementById("progressBar").style.width=((current/questions.length)*100)+"%";
+  document.getElementById("counter").textContent=(current+1)+" / "+questions.length;
+  document.getElementById("sectionLabel").textContent="Vocabulaire";
+  let html='<section class="card"><div class="section-tag">A2+ · Vocabulaire</div>';
+  if(item.context) html+='<div class="context">'+item.context+'</div>';
+  html+='<h2 class="question">'+item.q+'</h2><div class="choice-grid">';
+  item.options.forEach((opt,i)=>{html+='<button class="choice" onclick="answer('+i+')">'+opt+'</button>';});
+  html+='</div><div class="feedback" id="feedback"></div><div style="margin-top:18px"><button class="btn secondary hidden" id="nextBtn" onclick="nextQuestion()">Continuer →</button></div></section>';
+  document.getElementById("quiz").innerHTML=html;
+}
+function answer(i){
+  const item=questions[current], btns=document.querySelectorAll(".choice");
+  btns.forEach(b=>b.disabled=true);
+  btns[item.answer].classList.add("correct");
+  const fb=document.getElementById("feedback");
+  if(i===item.answer){score++;fb.className="feedback show good";fb.textContent="✓ Bonne réponse ! "+item.explain;}
+  else{btns[i].classList.add("wrong");mistakes.push(current);fb.className="feedback show bad";fb.textContent="✗ Pas tout à fait. "+item.explain;}
+  document.getElementById("nextBtn").classList.remove("hidden");
+}
+function nextQuestion(){current++;render();window.scrollTo({top:0,behavior:"smooth"});}
+function showResult(){
+  document.getElementById("quiz").innerHTML="";
+  document.getElementById("progressBar").style.width="100%";
+  document.getElementById("counter").textContent=questions.length+" / "+questions.length;
+  document.getElementById("result").classList.add("show");
+  document.getElementById("finalScore").textContent=score+" / "+questions.length;
+  let msg=score>=Math.ceil(questions.length*0.8)?"🌿 Très bien !":"🌱 Continue à t'entraîner et revois les mots qui te posent problème.";
+  document.getElementById("resultMessage").textContent=msg;
+  document.getElementById("mistakeNote").textContent=mistakes.length?mistakes.length+" question(s) à revoir.":"Aucune erreur : bravo !";
+  document.getElementById("reviewBtn").style.display=mistakes.length?"inline-block":"none";
+  document.getElementById("vocabSheet").classList.add("show");
+}
+function restartQuiz(){questions=[...originalQuestions];current=0;score=0;mistakes=[];document.getElementById("result").classList.remove("show");document.getElementById("vocabSheet").classList.remove("show");render();window.scrollTo({top:0,behavior:"smooth"});}
+function reviewMistakes(){if(!mistakes.length)return;questions=mistakes.map(i=>questions[i]);current=0;score=0;mistakes=[];document.getElementById("result").classList.remove("show");document.getElementById("vocabSheet").classList.remove("show");render();window.scrollTo({top:0,behavior:"smooth"});}
+render();
+</script>
+</body>
+</html>

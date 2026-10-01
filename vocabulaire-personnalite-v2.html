@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>👤 Je décris une personnalité | Claire's Classroom</title>
+<style>
+:root{
+  --cream:#fbf7f2; --sage:#a9b8a5; --sage-dark:#71816d;
+  --pink:#e8c9cc; --pink-dark:#a97980; --terra:#9b6957;
+  --ink:#464945; --muted:#777b76; --line:#e8e0d9; --white:#fff;
+  --correct:#e3eee5; --correct-text:#4f7057; --wrong:#f5e1e2; --wrong-text:#8b5b62;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:"Avenir Next",Avenir,"Trebuchet MS",sans-serif;line-height:1.6}
+a{text-decoration:none;color:inherit}
+.wrap{width:min(960px,92%);margin:auto}
+header{padding:24px 0}
+.back{color:var(--sage-dark);font-weight:700;font-size:14px}
+.hero{text-align:center;padding:34px 20px 28px}
+.label{display:inline-block;background:#f1e3dc;color:var(--terra);padding:7px 15px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.06em}
+h1{font-family:Georgia,serif;font-size:clamp(38px,6vw,56px);font-weight:400;margin:18px 0 10px}
+.hero p{color:var(--muted);max-width:720px;margin:auto}
+.progress-wrap{margin:16px auto 30px;max-width:760px}
+.progress-info{display:flex;justify-content:space-between;color:var(--muted);font-size:13px;margin-bottom:7px}
+.progress{height:9px;background:#ece5dd;border-radius:999px;overflow:hidden}
+.progress-bar{height:100%;width:0;background:var(--sage-dark);transition:.25s}
+.card{background:var(--white);border:1px solid var(--line);border-radius:28px;padding:32px;box-shadow:0 12px 28px rgba(65,55,48,.06);margin-bottom:26px}
+.section-tag{color:var(--terra);font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+.question{font-family:Georgia,serif;font-size:28px;line-height:1.4;margin:0 0 22px}
+.context{background:#f8f3ed;border-radius:18px;padding:16px 18px;margin-bottom:18px}
+.choice-grid{display:grid;gap:12px}
+.choice{width:100%;text-align:left;border:1px solid var(--line);background:#fffdfa;border-radius:17px;padding:15px 17px;font-size:16px;color:var(--ink);cursor:pointer}
+.choice:hover:not(:disabled){transform:translateY(-1px);border-color:#cdbfb0}
+.choice:disabled{cursor:default}
+.choice.correct{background:var(--correct);border-color:#bfd2c2;color:var(--correct-text);font-weight:700}
+.choice.wrong{background:var(--wrong);border-color:#e2c0c4;color:var(--wrong-text)}
+.feedback{margin-top:18px;padding:15px 17px;border-radius:16px;display:none;line-height:1.55;font-size:15px}
+.feedback.show{display:block}.feedback.good{background:var(--correct);color:var(--correct-text)}.feedback.bad{background:var(--wrong);color:var(--wrong-text)}
+.btn{border:0;background:var(--sage-dark);color:#fff;padding:12px 18px;border-radius:999px;font-size:14px;font-weight:800;cursor:pointer}
+.btn.secondary{background:var(--pink-dark)}
+.hidden{display:none!important}
+.result{display:none;text-align:center;padding:36px 28px;margin-bottom:50px}
+.result.show{display:block}
+.result-score{font-family:Georgia,serif;font-size:50px;color:var(--sage-dark);margin:8px 0}
+.result h2{font-family:Georgia,serif;font-weight:400;font-size:32px;margin:0 0 10px}
+.result p{color:var(--muted);line-height:1.65;max-width:650px;margin:0 auto 22px}
+.small-note{margin-top:12px;color:var(--muted);font-size:13px}
+footer{text-align:center;border-top:1px solid var(--line);padding:28px;color:#888c87;font-size:13px}
+
+.vocab-sheet{
+  display:none;
+  margin-top:22px;
+  text-align:left;
+  background:#fffdfa;
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:24px;
+}
+.vocab-sheet.show{display:block}
+.vocab-sheet h3{
+  margin:0 0 8px;
+  font-family:Georgia,serif;
+  font-size:25px;
+  font-weight:400;
+}
+.vocab-sheet .vocab-intro{color:var(--muted);margin:0 0 18px}
+.vocab-section{
+  margin-top:20px;
+}
+.vocab-section h4{
+  margin:0 0 10px;
+  color:var(--sage-dark);
+  font-size:15px;
+  letter-spacing:.03em;
+}
+.vocab-list{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:9px 18px;
+}
+.vocab-item{
+  padding:9px 0;
+  border-bottom:1px solid #eee7df;
+}
+.vocab-word{font-weight:800}
+.vocab-def{color:var(--muted);font-size:14px}
+
+@media(max-width:650px){.card{padding:23px}.question{font-size:24px}.btn{width:100%;margin-top:6px}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a class="back" href="subjonctif.html">← Le subjonctif</a></div></header>
+<main class="wrap">
+<section class="hero">
+  <div class="label">FRANÇAIS · A2+</div>
+  <h1>👤 Je décris une personnalité</h1>
+  <p>Les mots pour parler du caractère et de la personnalité.</p>
+</section>
+<div class="progress-wrap">
+  <div class="progress-info"><span id="sectionLabel">Vocabulaire</span><span id="counter">1 / 12</span></div>
+  <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+</div>
+<div id="quiz"></div>
+<section class="card result" id="result">
+  <div class="section-tag">Résultat</div>
+  <h2>Quiz terminé !</h2>
+  <div class="result-score" id="finalScore">0 / 12</div>
+  <p id="resultMessage"></p>
+  <button class="btn" onclick="restartQuiz()">🔄 Recommencer</button>
+  <button class="btn secondary" id="reviewBtn" onclick="reviewMistakes()">🔎 Revoir mes erreurs</button>
+  <div class="small-note" id="mistakeNote"></div>
+
+  <div class="vocab-sheet" id="vocabSheet">
+    <h3>📚 Ma fiche vocabulaire</h3>
+    <p class="vocab-intro">Les mots rencontrés dans le quiz, avec une définition simple pour les réutiliser dans tes descriptions.</p>
+
+    <div class="vocab-section">
+      <h4>✨ Qualités et traits positifs</h4>
+      <div class="vocab-list">
+        <div class="vocab-item"><div class="vocab-word">sociable</div><div class="vocab-def">aime parler et être avec les autres</div></div>
+        <div class="vocab-item"><div class="vocab-word">généreux / généreuse</div><div class="vocab-def">aime donner et aider</div></div>
+        <div class="vocab-item"><div class="vocab-word">ambitieux / ambitieuse</div><div class="vocab-def">veut réussir et atteindre ses objectifs</div></div>
+        <div class="vocab-item"><div class="vocab-word">calme</div><div class="vocab-def">reste tranquille et ne s'énerve pas facilement</div></div>
+        <div class="vocab-item"><div class="vocab-word">drôle</div><div class="vocab-def">fait rire ou est amusant(e)</div></div>
+        <div class="vocab-item"><div class="vocab-word">sympathique</div><div class="vocab-def">agréable et facile à apprécier</div></div>
+        <div class="vocab-item"><div class="vocab-word">attentionné / attentionnée</div><div class="vocab-def">pense aux besoins des autres</div></div>
+        <div class="vocab-item"><div class="vocab-word">patient / patiente</div><div class="vocab-def">sait attendre sans s'énerver</div></div>
+        <div class="vocab-item"><div class="vocab-word">agréable</div><div class="vocab-def">plaisant(e), facile à vivre</div></div>
+      </div>
+    </div>
+
+    <div class="vocab-section">
+      <h4>🌿 Autres traits de personnalité</h4>
+      <div class="vocab-list">
+        <div class="vocab-item"><div class="vocab-word">réservé / réservée</div><div class="vocab-def">parle peu et reste discret / discrète</div></div>
+        <div class="vocab-item"><div class="vocab-word">timide</div><div class="vocab-def">n'est pas toujours à l'aise avec les autres</div></div>
+        <div class="vocab-item"><div class="vocab-word">maniaque</div><div class="vocab-def">très attaché(e) à l'ordre ou aux détails</div></div>
+        <div class="vocab-item"><div class="vocab-word">sévère</div><div class="vocab-def">exige beaucoup et pardonne difficilement</div></div>
+        <div class="vocab-item"><div class="vocab-word">paresseux / paresseuse</div><div class="vocab-def">n'aime pas beaucoup faire des efforts</div></div>
+      </div>
+    </div>
+
+    <div class="vocab-section">
+      <h4>⚠️ Traits négatifs</h4>
+      <div class="vocab-list">
+        <div class="vocab-item"><div class="vocab-word">égoïste</div><div class="vocab-def">pense surtout à soi-même</div></div>
+        <div class="vocab-item"><div class="vocab-word">prétentieux / prétentieuse</div><div class="vocab-def">se donne beaucoup d'importance</div></div>
+        <div class="vocab-item"><div class="vocab-word">arrogant / arrogante</div><div class="vocab-def">se croit supérieur(e) aux autres</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<footer>© 2026 Claire's Classroom · Français A2+</footer>
+<script>
+const originalQuestions = [{"q": "Quel mot décrit une personne qui aime parler avec les autres ?", "context": "", "options": ["sociable", "timide", "réservée"], "answer": 0, "explain": "Une personne sociable aime être avec les autres et communiquer."}, {"q": "Quel mot décrit une personne qui parle peu et reste souvent seule ?", "context": "", "options": ["bavarde", "réservée", "généreuse"], "answer": 1, "explain": "Une personne réservée parle peu et ne cherche pas toujours le contact avec les autres."}, {"q": "Une personne qui pense beaucoup à elle-même peut être…", "context": "", "options": ["égoïste", "patiente", "drôle"], "answer": 0, "explain": "Égoïste signifie qu'une personne pense surtout à elle-même."}, {"q": "Quel mot est plutôt positif ?", "context": "", "options": ["prétentieux", "généreux", "égoïste"], "answer": 1, "explain": "Une personne généreuse aime donner et aider les autres."}, {"q": "Un collègue travaille beaucoup et veut réussir. Il est…", "context": "", "options": ["ambitieux", "paresseux", "timide"], "answer": 0, "explain": "Une personne ambitieuse veut réussir et atteindre ses objectifs."}, {"q": "Quel mot décrit une personne qui pense être supérieure aux autres ?", "context": "", "options": ["modeste", "prétentieuse", "calme"], "answer": 1, "explain": "Prétentieux / prétentieuse décrit une personne qui se donne beaucoup d'importance."}, {"q": "Même quand il y a un problème, Hugo ne s'énerve pas et continue à travailler tranquillement. Il est…", "context": "", "options": ["calme", "nerveux", "bavard"], "answer": 0, "explain": "Une personne calme reste tranquille, même dans une situation difficile."}, {"q": "Quel mot décrit une personne qui aime faire rire les autres ?", "context": "", "options": ["sévère", "drôle", "maniaque"], "answer": 1, "explain": "Une personne drôle fait rire ou trouve souvent des choses amusantes."}, {"q": "Une personne qui aime que tout soit parfaitement organisé peut être…", "context": "", "options": ["maniaque", "sociable", "timide"], "answer": 0, "explain": "« Maniaque » peut décrire une personne très attachée à l'ordre ou aux détails."}, {"q": "Une personne qui fait attention aux besoins des autres est…", "context": "", "options": ["attentionnée", "distraite", "arrogante"], "answer": 0, "explain": "Une personne attentionnée pense aux autres et fait attention à leurs besoins."}, {"q": "Quel mot est le plus proche de « sympathique » ?", "context": "", "options": ["agréable", "arrogant", "égoïste"], "answer": 0, "explain": "Une personne sympathique est agréable et facile à apprécier."}, {"q": "Quel mot est négatif ?", "context": "", "options": ["attentionné", "patient", "arrogant"], "answer": 2, "explain": "Arrogant décrit une personne qui se croit supérieure aux autres."}];
+let questions=[...originalQuestions], current=0, score=0, mistakes=[];
+function render(){
+  if(current>=questions.length){showResult();return;}
+  const item=questions[current];
+  document.getElementById("progressBar").style.width=((current/questions.length)*100)+"%";
+  document.getElementById("counter").textContent=(current+1)+" / "+questions.length;
+  document.getElementById("sectionLabel").textContent="Vocabulaire";
+  let html='<section class="card"><div class="section-tag">A2+ · Vocabulaire</div>';
+  if(item.context) html+='<div class="context">'+item.context+'</div>';
+  html+='<h2 class="question">'+item.q+'</h2><div class="choice-grid">';
+  item.options.forEach((opt,i)=>{html+='<button class="choice" onclick="answer('+i+')">'+opt+'</button>';});
+  html+='</div><div class="feedback" id="feedback"></div><div style="margin-top:18px"><button class="btn secondary hidden" id="nextBtn" onclick="nextQuestion()">Continuer →</button></div></section>';
+  document.getElementById("quiz").innerHTML=html;
+}
+function answer(i){
+  const item=questions[current], btns=document.querySelectorAll(".choice");
+  btns.forEach(b=>b.disabled=true);
+  btns[item.answer].classList.add("correct");
+  const fb=document.getElementById("feedback");
+  if(i===item.answer){score++;fb.className="feedback show good";fb.textContent="✓ Bonne réponse ! "+item.explain;}
+  else{btns[i].classList.add("wrong");mistakes.push(current);fb.className="feedback show bad";fb.textContent="✗ Pas tout à fait. "+item.explain;}
+  document.getElementById("nextBtn").classList.remove("hidden");
+}
+function nextQuestion(){current++;render();window.scrollTo({top:0,behavior:"smooth"});}
+function showResult(){
+  document.getElementById("quiz").innerHTML="";
+  document.getElementById("progressBar").style.width="100%";
+  document.getElementById("counter").textContent=questions.length+" / "+questions.length;
+  document.getElementById("result").classList.add("show");
+  document.getElementById("finalScore").textContent=score+" / "+questions.length;
+  let msg=score>=Math.ceil(questions.length*0.8)?"🌿 Très bien !":"🌱 Continue à t'entraîner et revois les mots qui te posent problème.";
+  document.getElementById("resultMessage").textContent=msg;
+  document.getElementById("mistakeNote").textContent=mistakes.length?mistakes.length+" question(s) à revoir.":"Aucune erreur : bravo !";
+  document.getElementById("reviewBtn").style.display=mistakes.length?"inline-block":"none";
+  document.getElementById("vocabSheet").classList.add("show");
+}
+function restartQuiz(){questions=[...originalQuestions];current=0;score=0;mistakes=[];document.getElementById("result").classList.remove("show");document.getElementById("vocabSheet").classList.remove("show");render();window.scrollTo({top:0,behavior:"smooth"});}
+function reviewMistakes(){if(!mistakes.length)return;questions=mistakes.map(i=>questions[i]);current=0;score=0;mistakes=[];document.getElementById("result").classList.remove("show");document.getElementById("vocabSheet").classList.remove("show");render();window.scrollTo({top:0,behavior:"smooth"});}
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🧩 Atelier des portraits | Claire's Classroom</title>
+<style>
+:root{
+  --cream:#fbf7f2; --sage:#aab9a5; --sage-dark:#6f806c;
+  --pink:#e7c7ca; --pink-dark:#a8757d; --terra:#9a6857;
+  --ink:#474a46; --muted:#777b76; --line:#e7dfd8; --white:#fff;
+  --good:#e4efe6; --good-text:#4d6f56; --bad:#f7e2e4; --bad-text:#8b5960;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:"Avenir Next",Avenir,"Trebuchet MS",sans-serif;line-height:1.55}
+.wrap{width:min(1050px,92%);margin:auto}
+header{padding:24px 0}
+.back{color:var(--sage-dark);font-weight:800;font-size:14px}
+.hero{text-align:center;padding:30px 10px 25px}
+.pill{display:inline-block;background:#f0e1da;color:var(--terra);padding:7px 14px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.08em}
+h1{font-family:Georgia,serif;font-size:clamp(38px,6vw,58px);font-weight:400;margin:16px 0 8px}
+.hero p{max-width:760px;margin:auto;color:var(--muted)}
+.card{background:var(--white);border:1px solid var(--line);border-radius:28px;padding:30px;box-shadow:0 12px 28px rgba(60,50,42,.06);margin:24px 0}
+.topline{display:flex;justify-content:space-between;gap:15px;align-items:center;margin-bottom:14px}
+.step{color:var(--terra);font-size:12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+.score{background:#f3eee8;border-radius:999px;padding:7px 12px;font-size:13px;font-weight:800}
+h2{font-family:Georgia,serif;font-size:30px;font-weight:400;margin:0 0 8px}
+.lead{color:var(--muted);margin:0 0 22px}
+.instructions{background:linear-gradient(135deg,#eef3ed,#f8e9e8);padding:16px 18px;border-radius:18px;margin-bottom:22px}
+.match-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:18px}
+.pool,.defs{display:grid;gap:12px;align-content:start}
+.pool-title,.defs-title{font-size:13px;font-weight:900;color:var(--muted);margin-bottom:2px}
+.word{
+  background:#fffaf5;border:1px solid var(--line);border-radius:16px;padding:13px 15px;
+  font-weight:800;cursor:grab;user-select:none;transition:.15s;box-shadow:0 3px 8px rgba(40,30,20,.03)
+}
+.word:hover{transform:translateY(-2px)}
+.word.dragging{opacity:.45}
+.word.selected{outline:3px solid #dcc2b7;background:#f9eee9}
+.word.matched{background:var(--good);border-color:#bdd2c2;color:var(--good-text);cursor:default}
+.definition{
+  min-height:70px;border:1.5px dashed #cfc4ba;border-radius:16px;padding:12px 14px;
+  display:flex;align-items:center;gap:10px;background:#fffdfb;transition:.15s
+}
+.definition.over{background:#f3f6f1;border-color:var(--sage-dark)}
+.definition.matched{border-style:solid;background:var(--good);border-color:#bdd2c2}
+.def-text{flex:1}
+.drop-label{font-size:11px;color:#a59c94;font-weight:800;text-transform:uppercase;letter-spacing:.05em}
+.mini-word{font-weight:900;margin-bottom:2px}
+.feedback{display:none;margin-top:18px;padding:14px 16px;border-radius:15px}
+.feedback.show{display:block}
+.good{background:var(--good);color:var(--good-text)}
+.bad{background:var(--bad);color:var(--bad-text)}
+.btn{
+  border:0;background:var(--sage-dark);color:#fff;padding:11px 18px;border-radius:999px;
+  font-weight:900;cursor:pointer
+}
+.btn.secondary{background:var(--pink-dark)}
+.btn.light{background:#efe8e1;color:var(--ink)}
+.action-row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:20px}
+.hidden{display:none!important}
+
+.sort-zone{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
+.bucket{background:#fbfaf7;border:1.5px dashed #cfc4ba;border-radius:20px;padding:16px;min-height:240px}
+.bucket h3{font-family:Georgia,serif;font-weight:400;margin:0 0 12px}
+.bucket small{color:var(--muted)}
+.bucket.over{background:#f3f6f1;border-color:var(--sage-dark)}
+.trait-pool{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.trait{background:#fffaf5;border:1px solid var(--line);border-radius:999px;padding:9px 13px;cursor:grab;font-weight:800}
+.trait.placed{opacity:.45}
+.result{text-align:center;display:none;padding:34px 24px}
+.result.show{display:block}
+.big{font-family:Georgia,serif;font-size:54px;color:var(--sage-dark)}
+footer{text-align:center;border-top:1px solid var(--line);padding:30px;color:#8b8d88;font-size:13px}
+@media(max-width:780px){
+  .match-grid,.sort-zone{grid-template-columns:1fr}
+  .card{padding:22px}
+}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a class="back" href="francais-a2plus.html">← Français A2+</a></div></header>
+
+<main class="wrap">
+<section class="hero">
+  <div class="pill">FRANÇAIS · A2+</div>
+  <h1>🧩 Atelier des portraits</h1>
+  <p>Pas de QCM : glisse les mots, associe-les à leur définition, puis construis ton propre classement de vocabulaire.</p>
+</section>
+
+<div id="game">
+  <section class="card">
+    <div class="topline">
+      <div class="step">Atelier 1 · Associer</div>
+      <div class="score">Associations : <span id="matchScore">0 / 12</span></div>
+    </div>
+    <h2>🧠 Qui correspond à quoi ?</h2>
+    <p class="lead">Glisse chaque mot vers sa définition. Sur téléphone, tu peux aussi <strong>toucher un mot puis toucher une définition</strong>.</p>
+
+    <div class="instructions"><strong>Astuce :</strong> ne cherche pas seulement des traductions. Pense à une personne que tu pourrais rencontrer dans une classe ou dans une équipe de travail.</div>
+
+    <div class="match-grid">
+      <div>
+        <div class="pool-title">LES MOTS</div>
+        <div class="pool" id="wordPool"></div>
+      </div>
+      <div>
+        <div class="defs-title">LES DÉFINITIONS</div>
+        <div class="defs" id="definitions"></div>
+      </div>
+    </div>
+
+    <div id="matchFeedback" class="feedback"></div>
+
+    <div class="action-row">
+      <span style="color:var(--muted);font-size:13px">Chaque bonne association reste « collée » à sa définition.</span>
+      <button id="goSort" class="btn hidden" onclick="openSort()">Atelier suivant →</button>
+    </div>
+  </section>
+
+  <section class="card hidden" id="sort">
+    <div class="topline">
+      <div class="step">Atelier 2 · Classer</div>
+      <div class="score">Mode : glisser-déposer</div>
+    </div>
+    <h2>🎯 Où rangerais-tu ces traits ?</h2>
+    <p class="lead">Déplace les étiquettes dans la zone qui te paraît correspondre. Ici, <strong>réservé(e)</strong> est volontairement séparé : ce n’est pas forcément un défaut.</p>
+
+    <div class="trait-pool" id="traitPool"></div>
+
+    <div class="sort-zone">
+      <div class="bucket" data-type="positive">
+        <h3>🌿 Qualités</h3><small>Dépose les mots ici</small>
+      </div>
+      <div class="bucket" data-type="negative">
+        <h3>⚠️ Traits qui peuvent poser problème</h3><small>Dépose les mots ici</small>
+      </div>
+      <div class="bucket" data-type="reserved">
+        <h3>💭 Plus nuancé</h3><small>Dépose les mots ici</small>
+      </div>
+    </div>
+
+    <div id="sortFeedback" class="feedback"></div>
+    <div class="action-row"><button id="finish" class="btn hidden" onclick="finishGame()">✨ Terminer l’atelier</button></div>
+  </section>
+</div>
+
+<section class="card result" id="result">
+  <div class="step">Atelier terminé</div>
+  <div class="big" id="finalScore">0 points</div>
+  <h2>Tu as construit ton propre portrait lexical.</h2>
+  <p class="lead" id="finalText"></p>
+  <button class="btn" onclick="restart()">🔄 Refaire l’atelier</button>
+</section>
+</main>
+
+<footer>© 2026 Claire's Classroom · Français A2+</footer>
+
+<script>
+const pairs = [{"word": "sociable", "definition": "qui aime parler et échanger facilement avec les autres"}, {"word": "réservé(e)", "definition": "qui parle peu et garde facilement ses pensées pour soi"}, {"word": "attentionné(e)", "definition": "qui fait attention aux besoins et aux sentiments des autres"}, {"word": "égoïste", "definition": "qui pense surtout à ses propres besoins"}, {"word": "ponctuel(le)", "definition": "qui arrive à l'heure et respecte les horaires"}, {"word": "maniaque", "definition": "qui veut que tout soit très propre, très ordonné ou parfaitement fait"}, {"word": "serviable", "definition": "qui aide volontiers les autres"}, {"word": "arrogant(e)", "definition": "qui donne l'impression de se croire supérieur aux autres"}, {"word": "bavard(e)", "definition": "qui parle beaucoup, parfois plus que nécessaire"}, {"word": "calme", "definition": "qui garde son sang-froid même quand il y a un problème"}, {"word": "nerveux / nerveuse", "definition": "qui semble inquiet(ète), stressé(e) ou agité(e)"}, {"word": "timide", "definition": "qui manque parfois d'assurance dans les situations avec les autres"}];
+let score=0, matched=new Set(), dragData=null, selectedWord=null;
+
+function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+
+function initMatch(){
+  const pool=document.getElementById('wordPool'), defs=document.getElementById('definitions');
+  pool.innerHTML=''; defs.innerHTML='';
+  shuffle(pairs).forEach(p=>{
+    const el=document.createElement('div');
+    el.className='word'; el.draggable=true; el.dataset.word=p.word; el.textContent=p.word;
+    el.addEventListener('dragstart',()=>{dragData=p.word;el.classList.add('dragging')});
+    el.addEventListener('dragend',()=>{dragData=null;el.classList.remove('dragging')});
+    el.addEventListener('click',()=>selectWord(el));
+    pool.appendChild(el);
+  });
+  shuffle(pairs).forEach(p=>{
+    const d=document.createElement('div');
+    d.className='definition'; d.dataset.word=p.word;
+    d.innerHTML=`<span class="drop-label">Associer</span><span class="def-text">${p.definition}</span>`;
+    d.addEventListener('dragover',e=>{e.preventDefault();d.classList.add('over')});
+    d.addEventListener('dragleave',()=>d.classList.remove('over'));
+    d.addEventListener('drop',e=>{e.preventDefault();d.classList.remove('over');tryMatch(d,dragData)});
+    d.addEventListener('click',()=>{if(selectedWord)tryMatch(d,selectedWord)});
+    defs.appendChild(d);
+  });
+  updateMatch();
+}
+
+function selectWord(el){
+  if(el.classList.contains('matched')) return;
+  document.querySelectorAll('.word.selected').forEach(x=>x.classList.remove('selected'));
+  el.classList.add('selected'); selectedWord=el.dataset.word;
+}
+
+function tryMatch(defEl,word){
+  if(!word || matched.has(word) || defEl.classList.contains('matched')) return;
+  if(defEl.dataset.word===word){
+    matched.add(word); score++;
+    const wordEl=[...document.querySelectorAll('.word')].find(x=>x.dataset.word===word);
+    wordEl.classList.remove('selected'); wordEl.classList.add('matched');
+    defEl.classList.add('matched');
+    defEl.innerHTML=`<span class="drop-label">✓ Trouvé</span><span class="def-text">${defEl.querySelector('.def-text').textContent}</span><strong style="color:var(--good-text)">${word}</strong>`;
+    selectedWord=null; updateMatch();
+    document.getElementById('matchFeedback').className='feedback show good';
+    document.getElementById('matchFeedback').textContent='✓ Bonne association !';
+    if(matched.size===pairs.length){
+      document.getElementById('matchFeedback').textContent='🎉 Tout est associé ! Tu peux maintenant passer au classement.';
+      document.getElementById('goSort').classList.remove('hidden');
+    }
+  }else{
+    document.getElementById('matchFeedback').className='feedback show bad';
+    document.getElementById('matchFeedback').textContent='Pas encore… essaie une autre définition.';
+  }
+}
+
+function updateMatch(){document.getElementById('matchScore').textContent=`${matched.size} / ${pairs.length}`}
+
+function openSort(){
+  document.getElementById('sort').classList.remove('hidden');
+  buildSort();
+  document.getElementById('sort').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function buildSort(){
+  const traits=['sociable','réservé(e)','attentionné(e)','égoïste','serviable','arrogant(e)','bavard(e)','calme','nerveux / nerveuse'];
+  const pool=document.getElementById('traitPool'); pool.innerHTML='';
+  shuffle(traits).forEach(t=>{
+    const el=document.createElement('div'); el.className='trait'; el.draggable=true; el.dataset.trait=t; el.textContent=t;
+    el.addEventListener('dragstart',()=>{dragData=t;el.classList.add('dragging')});
+    el.addEventListener('dragend',()=>{dragData=null;el.classList.remove('dragging')});
+    pool.appendChild(el);
+  });
+  document.querySelectorAll('.bucket').forEach(b=>{
+    b.addEventListener('dragover',e=>{e.preventDefault();b.classList.add('over')});
+    b.addEventListener('dragleave',()=>b.classList.remove('over'));
+    b.addEventListener('drop',e=>{e.preventDefault();b.classList.remove('over');placeTrait(b,dragData)});
+  });
+}
+
+function placeTrait(bucket,trait){
+  if(!trait) return;
+  const correct =
+    (bucket.dataset.type==='positive' && ['sociable','attentionné(e)','serviable','calme'].includes(trait)) ||
+    (bucket.dataset.type==='negative' && ['égoïste','arrogant(e)','bavard(e)','nerveux / nerveuse'].includes(trait)) ||
+    (bucket.dataset.type==='reserved' && trait==='réservé(e)');
+  if(!correct){
+    document.getElementById('sortFeedback').className='feedback show bad';
+    document.getElementById('sortFeedback').textContent='💡 Pas tout à fait. Réfléchis au sens de ce trait et essaie une autre zone.';
+    return;
+  }
+  const el=[...document.querySelectorAll('.trait')].find(x=>x.dataset.trait===trait);
+  if(!el || el.classList.contains('placed')) return;
+  el.classList.add('placed'); score++;
+  const chip=document.createElement('span');
+  chip.textContent=trait;
+  chip.style.cssText='display:inline-block;background:#e4efe6;color:#4d6f56;padding:7px 10px;border-radius:999px;margin:5px;font-weight:800';
+  bucket.appendChild(chip);
+  const placed=document.querySelectorAll('.trait.placed').length;
+  document.getElementById('sortFeedback').className='feedback show good';
+  document.getElementById('sortFeedback').textContent='✓ Bien classé !';
+  if(placed===9){
+    document.getElementById('sortFeedback').textContent='🌿 Tout est classé. Et surtout : « réservé(e) » n’est pas automatiquement un défaut.';
+    document.getElementById('finish').classList.remove('hidden');
+  }
+}
+
+function finishGame(){
+  document.getElementById('game').classList.add('hidden');
+  document.getElementById('result').classList.add('show');
+  document.getElementById('finalScore').textContent=`${score} points`;
+  document.getElementById('finalText').textContent='Tu as travaillé le vocabulaire par association, manipulation et classement — sans série de QCM.';
+}
+
+function restart(){
+  score=0; matched=new Set(); dragData=null; selectedWord=null;
+  document.getElementById('result').classList.remove('show');
+  document.getElementById('game').classList.remove('hidden');
+  document.getElementById('goSort').classList.add('hidden');
+  document.getElementById('sort').classList.add('hidden');
+  document.getElementById('finish').classList.add('hidden');
+  document.getElementById('matchFeedback').className='feedback';
+  document.getElementById('sortFeedback').className='feedback';
+  initMatch();
+}
+initMatch();
+</script>
+</body>
+</html>

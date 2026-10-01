@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Description | Claire's Classroom</title>
+<style>
+:root{
+  --cream:#fbf7f2;
+  --sage:#aab9a5;
+  --sage-dark:#6f806c;
+  --pink:#e7c7ca;
+  --pink-dark:#a8757d;
+  --terra:#9a6857;
+  --ink:#474a46;
+  --muted:#777b76;
+  --line:#e7dfd8;
+  --white:#fff;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--cream);
+  color:var(--ink);
+  font-family:"Avenir Next",Avenir,"Trebuchet MS",sans-serif;
+  line-height:1.6;
+}
+.wrap{width:min(1060px,92%);margin:auto}
+header{padding:24px 0}
+.back{
+  color:var(--sage-dark);
+  font-weight:800;
+  font-size:14px;
+  text-decoration:none;
+}
+.hero{
+  text-align:center;
+  padding:30px 10px 38px;
+}
+.pill{
+  display:inline-block;
+  background:#f0e1da;
+  color:var(--terra);
+  padding:7px 15px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.08em;
+}
+h1{
+  font-family:Georgia,serif;
+  font-size:clamp(42px,6vw,62px);
+  font-weight:400;
+  margin:16px 0 8px;
+}
+.subtitle{
+  max-width:720px;
+  margin:auto;
+  color:var(--muted);
+  font-size:17px;
+}
+.intro{
+  background:linear-gradient(135deg,#eef3ed,#f8e9e8);
+  border-radius:24px;
+  padding:22px 24px;
+  margin:0 auto 32px;
+  max-width:900px;
+}
+.intro strong{color:var(--sage-dark)}
+.cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+  margin-bottom:30px;
+}
+.card{
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:26px;
+  padding:25px;
+  box-shadow:0 12px 28px rgba(60,50,42,.06);
+  display:flex;
+  flex-direction:column;
+  min-height:360px;
+}
+.number{
+  color:var(--terra);
+  font-size:12px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  margin-bottom:10px;
+}
+.icon{font-size:34px;margin-bottom:10px}
+h2{
+  font-family:Georgia,serif;
+  font-size:27px;
+  font-weight:400;
+  margin:0 0 10px;
+}
+.card p{
+  color:var(--muted);
+  margin:0 0 18px;
+}
+.tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-bottom:20px;
+}
+.tag{
+  background:#f4eee8;
+  border-radius:999px;
+  padding:5px 9px;
+  font-size:12px;
+  font-weight:700;
+}
+.button{
+  margin-top:auto;
+  display:inline-block;
+  text-align:center;
+  background:var(--sage-dark);
+  color:#fff;
+  padding:11px 16px;
+  border-radius:999px;
+  font-weight:800;
+  text-decoration:none;
+}
+.card:nth-child(2) .button{background:var(--pink-dark)}
+.card:nth-child(3) .button{background:var(--terra)}
+.info{
+  background:#fffaf5;
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:24px;
+  margin-bottom:35px;
+}
+.info h3{
+  font-family:Georgia,serif;
+  font-size:24px;
+  font-weight:400;
+  margin:0 0 8px;
+}
+.info p{margin:0;color:var(--muted)}
+footer{
+  text-align:center;
+  border-top:1px solid var(--line);
+  padding:30px;
+  color:#8b8d88;
+  font-size:13px;
+}
+@media(max-width:850px){
+  .cards{grid-template-columns:1fr}
+  .card{min-height:auto}
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="wrap">
+    <a class="back" href="francais-a2plus.html">← Français A2+</a>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <div class="pill">FRANÇAIS · A2+ · VOCABULAIRE</div>
+    <h1>🪞 Description</h1>
+    <p class="subtitle">
+      Décrire une personne, parler de sa personnalité, observer son comportement
+      et apprendre à donner une première impression avec nuance.
+    </p>
+  </section>
+
+  <section class="intro">
+    <strong>Objectif :</strong>
+    enrichir ton vocabulaire pour parler des personnes et être capable de
+    décrire quelqu’un sans répéter toujours les mêmes mots.
+    <br><br>
+    Commence par le vocabulaire de la <strong>personnalité</strong>, continue avec
+    le <strong>comportement</strong>, puis termine par un atelier plus libre où tu
+    vas manipuler et classer les mots.
+  </section>
+
+  <section class="cards">
+
+    <article class="card">
+      <div class="number">Activité 1</div>
+      <div class="icon">🧠</div>
+      <h2>La personnalité</h2>
+      <p>
+        Découvre et révise les mots pour parler du caractère et des traits
+        de personnalité d'une personne.
+      </p>
+      <div class="tags">
+        <span class="tag">sociable</span>
+        <span class="tag">attentionné(e)</span>
+        <span class="tag">réservé(e)</span>
+        <span class="tag">égoïste</span>
+      </div>
+      <a class="button" href="vocabulaire-personnalite-v2.html">Commencer →</a>
+    </article>
+
+    <article class="card">
+      <div class="number">Activité 2</div>
+      <div class="icon">👀</div>
+      <h2>Le comportement</h2>
+      <p>
+        Apprends à décrire ce qu'une personne fait et la manière dont elle
+        se comporte avec les autres.
+      </p>
+      <div class="tags">
+        <span class="tag">être ponctuel(le)</span>
+        <span class="tag">être à l'écoute</span>
+        <span class="tag">interrompre</span>
+        <span class="tag">être serviable</span>
+      </div>
+      <a class="button" href="vocabulaire-comportement-v2.html">Explorer →</a>
+    </article>
+
+    <article class="card">
+      <div class="number">Activité 3</div>
+      <div class="icon">🧩</div>
+      <h2>Atelier des portraits</h2>
+      <p>
+        Manipule le vocabulaire : associe des mots à leur définition,
+        puis classe les traits de personnalité et réfléchis à leur nuance.
+      </p>
+      <div class="tags">
+        <span class="tag">associer</span>
+        <span class="tag">classer</span>
+        <span class="tag">nuancer</span>
+        <span class="tag">réutiliser</span>
+      </div>
+      <a class="button" href="atelier-portrait.html">Entrer dans l'atelier →</a>
+    </article>
+
+  </section>
+
+  <section class="info">
+    <h3>💡 Pour décrire une personne</h3>
+    <p>
+      Évite de faire une simple liste d'adjectifs. Observe les comportements,
+      choisis un mot précis et, quand tu n'es pas sûr(e), nuance ton jugement :
+      <strong>« Il semble… » · « Elle paraît… » · « Il peut paraître… »</strong>
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  © 2026 Claire's Classroom · Français A2+
+</footer>
+</body>
+</html>

@@ -1,81 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Prepositions of Time Quiz | A2+ | Claire's Classroom</title>
-<style>
-:root{--sage:#a9b9a2;--sage-dark:#6f8069;--terracotta:#d9a58f;--cream:#fffaf3;--ink:#3f403d}
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--cream);color:var(--ink);line-height:1.55}
-header{background:linear-gradient(135deg,#dfe7da,#f4dddd);padding:42px 20px;text-align:center}
-header h1{margin:0 0 8px;font-size:2.25rem}
-.container{max-width:900px;margin:30px auto;padding:0 18px}
-.intro,.question,.result{background:white;border-radius:18px;padding:24px;margin-bottom:18px;box-shadow:0 4px 16px rgba(80,70,60,.08)}
-.question h2{font-size:1.05rem;margin-top:0;color:var(--sage-dark)}
-.option{display:block;padding:12px 15px;margin:9px 0;border:1px solid #e5dcd5;border-radius:12px;cursor:pointer;background:#fffdf9}
-.option:hover{background:#f4f7f1}
-.option input{margin-right:10px}
-button{border:0;border-radius:30px;padding:14px 28px;background:var(--sage-dark);color:white;font-size:1rem;font-weight:bold;cursor:pointer}
-#result{display:none;text-align:center}
-.score{font-size:2rem;color:var(--sage-dark);font-weight:bold}
-.feedback{margin-top:10px;padding:10px 14px;border-radius:10px;background:#f8f3ef;text-align:left}
-.correct{border-left:4px solid var(--sage-dark)}
-.incorrect{border-left:4px solid var(--terracotta)}
-</style>
-</head>
-<body>
-<header><h1>Prepositions of Time</h1><p>A2+ Interactive Quiz</p></header>
-<main class="container">
-<div class="intro">
-<p><strong>Choose the correct preposition: IN, ON or AT.</strong></p>
-<p>Read the whole sentence before you choose.</p>
-</div>
-<form id="quizForm"></form>
-<div style="text-align:center;margin:25px 0"><button type="button" onclick="checkQuiz()">Check my answers</button></div>
-<div id="result" class="result">
-<div class="score" id="score"></div>
-<p id="message"></p>
-<div id="feedback"></div>
-<br><button type="button" onclick="location.reload()">Try again</button>
-</div>
-</main>
-<script>
-const questions=[
-{q:"My birthday is ___ November.",o:["in","on","at"],a:0,e:"November is a month, so we use in."},
-{q:"We have English ___ Monday morning.",o:["in","on","at"],a:1,e:"A day plus a part of the day takes on: on Monday morning."},
-{q:"The film starts ___ 7.30 p.m.",o:["in","on","at"],a:2,e:"We use at with a specific clock time."},
-{q:"My parents got married ___ 2015.",o:["in","on","at"],a:0,e:"2015 is a year, so we use in."},
-{q:"The exam is ___ November 22nd.",o:["in","on","at"],a:1,e:"November 22nd is a date, so we use on."},
-{q:"We usually go skiing ___ winter.",o:["in","on","at"],a:0,e:"Winter is a season, so we use in."},
-{q:"We always have a big family meal ___ Christmas.",o:["in","on","at"],a:2,e:"Christmas is a festival, and the lesson uses at Christmas."},
-{q:"I usually do my homework ___ the evening.",o:["in","on","at"],a:0,e:"We use in with times of day such as in the morning and in the evening."},
-{q:"We often go for a walk ___ the weekend.",o:["in","on","at"],a:2,e:"At the weekend is one of the exceptions in the lesson."},
-{q:"Which sentence is correct?",o:["I study on the 1990s.","I study in the 1990s.","I study at the 1990s."],a:1,e:"The 1990s are a longer period of time, so we use in."}
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Prepositions of Time Quiz | English A2+ | Claire's Classroom</title><style>
+:root{--cream:#FBF7F2;--sage:#A9B8A5;--dark:#6F806C;--pink:#E8C9CC;--rose:#B77F87;--terra:#D9A38F;--ink:#454844;--muted:#777B76;--line:#E8E0D9}*{box-sizing:border-box}body{margin:0;color:var(--ink);font:16px Arial,sans-serif;background:var(--cream);line-height:1.6}a{color:inherit;text-decoration:none}.wrap{width:min(900px,92%);margin:auto}header{padding:24px 0}.top{display:flex;justify-content:space-between;align-items:center}.brand{display:flex;align-items:center;gap:12px}.mark{background:var(--sage);padding:10px;border-radius:15px;color:white}.brand h1{font-size:21px;margin:0}.brand p{font-size:13px;margin:0;color:var(--muted)}.back{padding:9px 15px;background:white;border:1px solid var(--line);border-radius:22px}.hero{text-align:center;padding:35px 10px}.hero h2{font:clamp(34px,6vw,50px) Georgia,serif;margin:10px}.hero p,.muted{color:var(--muted)}.card{background:#fffdfc;border:1px solid var(--line);border-radius:22px;padding:22px;margin-bottom:16px;box-shadow:0 8px 24px #453b300d}.intro{text-align:center;background:linear-gradient(135deg,#eaf0ea,#f8ecec)}.question h3{font:21px Georgia,serif;margin:0 0 12px}.options{display:grid;gap:8px}.option{padding:10px 13px;border:1px solid var(--line);border-radius:12px;background:white;cursor:pointer}.option input{accent-color:var(--dark);margin-right:9px}.feedback{margin:10px 0 0;padding:9px 12px;border-radius:10px;background:#eaf0ea}.bad{background:#faefec}.controls{text-align:center;margin:22px}.button{border:0;border-radius:24px;padding:12px 19px;background:var(--dark);color:white;font-weight:bold;cursor:pointer}.pink{background:var(--rose)}footer{text-align:center;padding:22px;color:var(--muted)}[hidden]{display:none!important}@media(max-width:560px){.top{align-items:flex-start}.card{padding:17px}}
+</style></head><body><header><div class="wrap top"><a class="brand" href="index.html"><span class="mark">✦</span><span><h1>Claire's Classroom</h1><p>English &amp; French learning resources</p></span></a><a class="back" href="prepositions-of-time.html">← Lesson</a></div></header><main class="wrap"><section class="hero"><div>ENGLISH · A2+ PRACTICE</div><h2>Prepositions of Time</h2><p>Choose IN, ON or AT. The examples follow the classroom PDF.</p></section><div class="card intro"><strong>12 questions</strong><br>Choose an answer for immediate feedback. Finish to see your score and corrections.</div><form id="quiz"></form><div class="controls"><button class="button" id="finish" type="button">Finish the quiz</button></div><section class="card" id="result" hidden><div id="score"></div><p id="summary" class="muted"></p><button class="button pink" id="review" type="button">🔎 Review my mistakes</button><div id="corrections" hidden></div><div class="controls"><button class="button" onclick="location.reload()" type="button">Try again</button></div></section></main><footer>© 2026 Claire's Classroom · English A2+</footer><script>
+const qs=[
+['We say “___ January” and “___ April”.','in','Months: in January / in April.'],
+['We say “___ spring” and “___ winter”.','in','Seasons: in spring / in winter.'],
+['We say “___ 1984” and “___ 2015”.','in','Years: in 1984 / in 2015.'],
+['We say “___ the 20th century”.','in','Centuries: in the 20th century.'],
+['We say “___ Monday” and “___ Tuesdays”.','on','Days: on Monday / on Tuesdays.'],
+['We say “___ November 22nd”.','on','Dates: on November 22nd.'],
+['We say “___ Tuesday afternoon” and “___ Saturday mornings”.','on','Day plus part of day: on Tuesday afternoon / on Saturday mornings.'],
+['We say “___ the morning” and “___ the evening”.','in','Parts of the day: in the morning / in the evening.'],
+['We say “___ 7.30 a.m.” and “___ 5 o’clock”.','at','Clock times: at 7.30 a.m. / at 5 o’clock.'],
+['We say “___ Christmas” and “___ Easter”.','at','Festivals: at Christmas / at Easter.'],
+['We say “___ my birthday” and “___ New Year’s Eve”.','on','Special days: on my birthday / on New Year’s Eve.'],
+['Which pair is correct: “___ the weekend” and “___ night”?','at','Expressions: at the weekend / at night.']
 ];
-const form=document.getElementById("quizForm");
-questions.forEach((x,i)=>{
- const s=document.createElement("section");s.className="question";
- s.innerHTML=`<h2>${i+1}. ${x.q}</h2>`+x.o.map((v,j)=>`<label class="option"><input type="radio" name="q${i}" value="${j}">${v}</label>`).join("");
- form.appendChild(s);
-});
-function checkQuiz(){
- let score=0,fb="",un=0;
- questions.forEach((x,i)=>{
-  const sel=document.querySelector(`input[name="q${i}"]:checked`);
-  if(!sel){un++;fb+=`<div class="feedback incorrect"><strong>${i+1}.</strong> No answer. ${x.e}</div>`;return;}
-  if(Number(sel.value)===x.a){score++;fb+=`<div class="feedback correct"><strong>${i+1}.</strong> ✓ ${x.e}</div>`}
-  else{fb+=`<div class="feedback incorrect"><strong>${i+1}.</strong> ✗ The correct answer is <strong>${x.o[x.a]}</strong>. ${x.e}</div>`}
- });
- const pct=Math.round(score/10*100);
- let msg=pct>=90?"Excellent!":pct>=70?"Good job!":pct>=50?"Good start — review the lesson and try again.":"Go back to the lesson and review IN, ON and AT before trying again.";
- if(un)msg+=` ${un} question${un>1?"s":""} unanswered.`;
- document.getElementById("score").textContent=`${score} / 10 — ${pct}%`;
- document.getElementById("message").textContent=msg;
- document.getElementById("feedback").innerHTML=fb;
- document.getElementById("result").style.display="block";
- window.scrollTo({top:document.getElementById("result").offsetTop-20,behavior:"smooth"});
-}
-</script>
-</body>
-</html>
+const form=document.querySelector('#quiz'),labels=['IN','ON','AT'];let ended=false;qs.forEach((q,i)=>{let s=document.createElement('section');s.className='card question';s.innerHTML='<h3>'+(i+1)+'. '+q[0]+'</h3><div class="options">'+labels.map(x=>'<label class="option"><input type="radio" name="q'+i+'" value="'+x+'">'+x+'</label>').join('')+'</div><p class="feedback" id="f'+i+'" hidden></p>';form.append(s)});form.onchange=e=>{if(ended||!e.target.matches('input'))return;let i=+e.target.name.slice(1),ok=e.target.value===qs[i][1],f=document.querySelector('#f'+i);f.className='feedback'+(ok?'':' bad');f.textContent=(ok?'✓ Correct. ':'Not quite. Correct answer: '+qs[i][1].toUpperCase()+'. ')+qs[i][2];f.hidden=false};document.querySelector('#finish').onclick=()=>{ended=true;let answers=qs.map((_,i)=>form.querySelector('[name="q'+i+'"]:checked')),score=answers.reduce((n,a,i)=>n+(a&&a.value===qs[i][1]?1:0),0);document.querySelector('#score').textContent=score+' / 12';let left=answers.filter(a=>!a).length;document.querySelector('#summary').textContent=left?left+' unanswered. Review corrections below.':score===12?'Excellent work — every answer is correct!':'Review your answers below, then try again.';document.querySelector('#result').hidden=false;document.querySelector('#finish').disabled=true;form.querySelectorAll('input').forEach(x=>x.disabled=true);document.querySelector('#result').scrollIntoView({behavior:'smooth'})};document.querySelector('#review').onclick=()=>{let missed=qs.map((q,i)=>({q,i,a:form.querySelector('[name="q'+i+'"]:checked')})).filter(x=>!x.a||x.a.value!==x.q[1]),box=document.querySelector('#corrections');box.innerHTML=missed.length?missed.map(x=>'<article class="feedback bad"><strong>'+(x.i+1)+'. '+(x.a?'Your answer: '+x.a.value:'No answer')+' · Correct: '+x.q[1].toUpperCase()+'</strong><p>'+x.q[2]+'</p></article>').join(''):'<p class="feedback">No mistakes to review — all 12 answers are correct.</p>';box.hidden=false};</script></body></html> form=document.querySelector('#quiz'),labels=['IN','ON','AT'];let ended=false;qs.forEach((q,i)=>{let s=document.createElement('section');s.className='card question';s.innerHTML='<h3>'+(i+1)+'. '+q[0]+'</h3><div class="options">'+labels.map(x=>'<label class="option"><input type="radio" name="q'+i+'" value="'+x+'">'+x+'</label>').join('')+'</div><p class="feedback" id="f'+i+'" hidden></p>';form.append(s)});form.onchange=e=>{if(ended||!e.target.matches('input'))return;let i=+e.target.name.slice(1),ok=e.target.value===qs[i][1],f=document.querySelector('#f'+i);f.className='feedback'+(ok?'':' bad');f.textContent=(ok?'✓ Correct. ':'Not quite. Correct answer: '+qs[i][1].toUpperCase()+'. ')+qs[i][2];f.hidden=false};document.querySelector('#finish').onclick=()=>{ended=true;let answers=qs.map((_,i)=>form.querySelector('[name="q'+i+'"]:checked')),score=answers.reduce((n,a,i)=>n+(a&&a.value===qs[i][1]?1:0),0);document.querySelector('#score').textContent=score+' / 12';let left=answers.filter(a=>!a).length;document.querySelector('#summary').textContent=left?left+' unanswered. Review corrections below.':score===12?'Excellent work — every answer is correct!':'Review your answers below, then try again.';document.querySelector('#result').hidden=false;document.querySelector('#finish').disabled=true;form.querySelectorAll('input').forEach(x=>x.disabled=true);document.querySelector('#result').scrollIntoView({behavior:'smooth'})};document.querySelector('#review').onclick=()=>{let missed=qs.map((q,i)=>({q,i,a:form.querySelector('[name="q'+i+'"]:checked')})).filter(x=>!x.a||x.a.value!==x.q[1]),box=document.querySelector('#corrections');box.innerHTML=missed.length?missed.map(x=>'<article class="feedback bad"><strong>'+(x.i+1)+'. '+(x.a?'Your answer: '+x.a.value:'No answer')+' · Correct: '+x.q[1].toUpperCase()+'</strong><p>'+x.q[2]+'</p></article>').join(''):'<p class="feedback">No mistakes to review — all 12 answers are correct.</p>';box.hidden=false};</script></body></html>

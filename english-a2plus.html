@@ -3,180 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>English A2+ · Grammar | Claire's Classroom</title>
+<title>English A2+ | Claire's Classroom</title>
 <style>
-:root{
-  --sage:#A9B8A5;
-  --sage-dark:#6F806C;
-  --pink:#E8C9CC;
-  --pink-dark:#B77F87;
-  --terracotta:#D9A38F;
-  --terracotta-soft:#F3DDD5;
-  --cream:#FBF7F2;
-  --paper:#FFFDFC;
-  --ink:#454844;
-  --muted:#777B76;
-  --line:#E8E0D9;
-}
+:root{--cream:#FBF7F2;--paper:#FFFDFC;--sage:#A9B8A5;--sage-dark:#6F806C;--pink:#E8C9CC;--pink-dark:#B77F87;--terracotta:#D9A38F;--terracotta-soft:#F3DDD5;--ink:#454844;--muted:#777B76;--line:#E8E0D9}
 *{box-sizing:border-box}
-body{
-  margin:0;
-  color:var(--ink);
-  font-family:"Avenir Next",Avenir,"Trebuchet MS",sans-serif;
-  background:
-    radial-gradient(circle at 5% 5%,rgba(232,201,204,.42),transparent 25%),
-    radial-gradient(circle at 95% 8%,rgba(169,184,165,.35),transparent 25%),
-    var(--cream);
-}
-a{text-decoration:none;color:inherit}
-.wrap{width:min(1080px,92%);margin:auto}
-
-header{padding:25px 0 0}
-.topbar{display:flex;align-items:center;justify-content:space-between;gap:20px}
-.brand{display:flex;align-items:center;gap:13px}
-.mark{
-  width:50px;height:50px;border-radius:17px 17px 17px 6px;
-  background:var(--sage);display:grid;place-items:center;
-  color:white;font-size:23px
-}
-.brand h1{font-size:25px;margin:0}
-.brand p{margin:3px 0 0;color:var(--muted);font-size:13px}
-.back{
-  padding:10px 16px;border-radius:22px;background:#fff;
-  border:1px solid var(--line);color:var(--muted);font-size:13px
-}
-
-.hero{text-align:center;padding:65px 20px 45px}
-.flag{font-size:42px;margin-bottom:12px}
-.eyebrow{
-  display:inline-block;background:var(--terracotta-soft);color:#9B6957;
-  padding:7px 14px;border-radius:999px;font-size:12px;
-  letter-spacing:.7px;margin-bottom:16px
-}
-.hero h2{
-  font:500 clamp(42px,7vw,66px) Georgia,serif;
-  margin:0 0 12px;color:#454844
-}
-.hero h2 span{color:#B87561}
-.hero p{
-  margin:auto;max-width:650px;color:var(--muted);
-  line-height:1.65;font-size:16px
-}
-
-.section-title{text-align:center;margin:0 0 25px}
-.section-title h3{font:500 30px Georgia,serif;margin:0 0 7px}
-.section-title p{margin:0;color:var(--muted);font-size:14px}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:18px;
-  margin-bottom:55px
-}
-.card{
-  min-height:190px;padding:25px 22px;border-radius:23px;
-  border:1px solid var(--line);
-  background:rgba(255,253,252,.9);
-  box-shadow:0 9px 28px rgba(65,55,48,.055);
-  transition:.18s ease;
-  display:flex;flex-direction:column
-}
-.card:hover{transform:translateY(-4px);box-shadow:0 16px 35px rgba(65,55,48,.1)}
-.card:nth-child(1){background:#F5E5E1}
-.card:nth-child(2){background:#EAF0EA}
-.icon{font-size:28px;margin-bottom:12px}
-.card h4{font:500 22px Georgia,serif;margin:0 0 7px}
-.card p{font-size:13px;color:var(--muted);line-height:1.5;margin:0 0 18px}
-.button{
-  display:inline-block;
-  align-self:flex-start;
-  margin-top:auto;
-  padding:11px 18px;border-radius:22px;
-  background:var(--sage-dark);color:white;
-  font-size:13px;font-weight:700
-}
-.button.pink{background:var(--pink-dark)}
-
-.content{
-  background:var(--paper);
-  border:1px solid var(--line);
-  border-radius:23px;
-  padding:24px;
-  margin-bottom:24px;
-  box-shadow:0 9px 28px rgba(65,55,48,.055)
-}
-.rule{
-  background:#EEF3EB;
-  border-left:5px solid var(--sage-dark);
-  padding:16px 18px;border-radius:12px
-}
-.example{
-  background:#FAF1ED;padding:13px 16px;border-radius:12px;margin-top:15px
-}
-table{width:100%;border-collapse:collapse}
-th,td{padding:12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
-th{background:#EEF3EB;color:var(--sage-dark)}
-.table-wrap{overflow-x:auto}
-
-footer{
-  border-top:1px solid var(--line);
-  padding:28px 0 35px;
-  text-align:center;color:#888C87;font-size:13px
-}
-
-@media(max-width:720px){
-  .topbar{align-items:flex-start}
-  .back{display:none}
-  .grid{grid-template-columns:1fr}
-}
+body{margin:0;color:var(--ink);font-family:"Avenir Next",Avenir,"Trebuchet MS",sans-serif;background:radial-gradient(circle at 5% 5%,rgba(232,201,204,.42),transparent 25%),radial-gradient(circle at 95% 8%,rgba(169,184,165,.35),transparent 25%),var(--cream)}
+a{text-decoration:none;color:inherit}.wrap{width:min(1080px,92%);margin:auto}
+header{padding:25px 0 0}.topbar{display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:13px}.mark{width:50px;height:50px;border-radius:17px 17px 17px 6px;background:var(--sage);display:grid;place-items:center;color:white;font-size:23px}.brand h1{font-size:25px;margin:0;letter-spacing:-.5px}.brand p{margin:3px 0 0;color:var(--muted);font-size:13px}.back{padding:10px 16px;border-radius:22px;background:#fff;border:1px solid var(--line);color:var(--muted);font-size:13px;white-space:nowrap}.back:hover{background:#F8ECEC}
+.hero{text-align:center;padding:65px 20px 45px}.flag{font-size:42px;margin-bottom:12px}.eyebrow{display:inline-block;background:var(--terracotta-soft);color:#9B6957;padding:7px 14px;border-radius:999px;font-size:12px;letter-spacing:.7px;margin-bottom:16px}.hero h2{font:500 clamp(42px,7vw,66px) Georgia,serif;margin:0 0 12px}.hero h2 span{color:#B87561}.hero p{margin:auto;max-width:650px;color:var(--muted);line-height:1.65;font-size:16px}
+.section-title{text-align:center;margin:0 0 25px}.section-title h3{font:500 30px Georgia,serif;margin:0 0 7px}.section-title p{margin:0;color:var(--muted);font-size:14px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-bottom:55px}.card{min-height:190px;padding:25px 22px;border-radius:23px;border:1px solid var(--line);background:rgba(255,253,252,.9);box-shadow:0 9px 28px rgba(65,55,48,.055);transition:.18s ease;display:flex;flex-direction:column}.card:hover{transform:translateY(-4px);box-shadow:0 16px 35px rgba(65,55,48,.1)}.card.topic{background:#F5E5E1}.card.soon{background:#EAF0EA}.icon{font-size:28px;margin-bottom:12px}.card h4{font:500 22px Georgia,serif;margin:0 0 7px}.card p{font-size:13px;color:var(--muted);line-height:1.5;margin:0 0 18px}.button{display:inline-block;align-self:flex-start;margin-top:auto;padding:11px 18px;border-radius:22px;background:var(--sage-dark);color:white;font-size:13px;font-weight:700}.button.pink{background:var(--pink-dark)}
+footer{border-top:1px solid var(--line);padding:28px 0 35px;text-align:center;color:#888C87;font-size:13px}
+@media(max-width:560px){.topbar{align-items:flex-start}.brand h1{font-size:20px}.back{padding:9px 12px}.hero{padding:48px 8px 36px}.grid{grid-template-columns:1fr}.card{min-height:165px}}
 </style>
 </head>
 <body>
-
-<header>
-  <div class="wrap topbar">
-    <a class="brand" href="index.html">
-      <div class="mark">✦</div>
-      <div>
-        <h1>Claire's Classroom</h1>
-        <p>English & French learning resources</p>
-      </div>
-    </a>
-    <a class="back" href="english-a2plus.html">← A2+</a>
-  </div>
-</header>
-
+<header><div class="wrap topbar"><a class="brand" href="index.html"><span class="mark">✦</span><span><h1>Claire's Classroom</h1><p>English &amp; French learning resources</p></span></a><a class="back" href="index.html">← Home</a></div></header>
 <main class="wrap">
-  <section class="hero">
-    <div class="flag">🇬🇧</div>
-    <div class="eyebrow">ENGLISH</div>
-    <h2>Level <span>A2+</span></h2>
-    <p>Explore the grammar resources available to consolidate and develop your English.</p>
-  </section>
-
-  <section>
-    <div class="section-title">
-      <h3>Choose a grammar point</h3>
-      <p>Grammar resources will be added progressively.</p>
-    </div>
-
-    <div class="grid">
-      <a class="card" href="prepositions-of-time.html">
-        <div class="icon">🕰️</div>
-        <h4>Prepositions of Time</h4>
-        <p>Learn and practise <strong>in, on</strong> and <strong>at</strong> to say when something happens.</p>
-        <span class="button">Explore →</span>
-      </a>
-
-      <div class="card">
-        <div class="icon">✨</div>
-        <h4>More grammar coming soon</h4>
-        <p>This section will grow as new A2+ grammar resources are added.</p>
-      </div>
-    </div>
-  </section>
+  <section class="hero"><div class="flag">🇬🇧</div><div class="eyebrow">ENGLISH</div><h2>Level <span>A2+</span></h2><p>Explore the resources available to consolidate and develop your English.</p></section>
+  <section><div class="section-title"><h3>Choose a category</h3><p>New resources will be added progressively.</p></div><div class="grid">
+    <a class="card topic" href="english-a2plus-grammar.html"><div class="icon">🔤</div><h4>Grammar</h4><p>Explore A2+ grammar resources, starting with <strong>Prepositions of Time</strong> and practice with <strong>in, on</strong> and <strong>at</strong>.</p><span class="button">Explore →</span></a>
+    <div class="card soon"><div class="icon">✨</div><h4>More coming soon</h4><p>This section will grow as new English A2+ resources are added.</p></div>
+  </div></section>
 </main>
-
-<footer>© 2026 Claire's Classroom · English & Français</footer>
+<footer>© 2026 Claire's Classroom · English &amp; Français</footer>
 </body>
 </html>

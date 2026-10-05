@@ -3,49 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>A2+ Grammar | Claire's Classroom</title>
+<title>Grammar | English A2+ | Claire's Classroom</title>
 <style>
-:root{--sage:#a9b9a2;--sage-dark:#6f8069;--cream:#fffaf3;--ink:#3f403d}
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--cream);color:var(--ink)}
-header{background:linear-gradient(135deg,#dfe7da,#f4dddd);padding:48px 20px;text-align:center}
-header h1{margin:0 0 8px;font-size:2.4rem}
-header p{margin:0}
-.container{max-width:1050px;margin:38px auto;padding:0 20px}
-.back{display:inline-block;color:var(--sage-dark);text-decoration:none;font-weight:bold;margin-bottom:22px}
-.intro,.card{background:#fff;border-radius:20px;box-shadow:0 5px 18px rgba(80,70,60,.08)}
-.intro{padding:28px;text-align:center;margin-bottom:28px}
-.intro h2{color:var(--sage-dark);margin-top:0}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
-.card{padding:27px;text-decoration:none;color:var(--ink);transition:.2s;display:block}
-.card:hover{transform:translateY(-4px)}
-.icon{font-size:2rem}
-.card h3{color:var(--sage-dark);margin:12px 0 8px}
-.card p{color:#666;margin:0}
-.badge{display:inline-block;margin-top:15px;background:#eef3eb;color:var(--sage-dark);padding:6px 12px;border-radius:20px;font-size:.85rem;font-weight:bold}
-footer{text-align:center;padding:35px;color:#777}
+:root{--cream:#FBF7F2;--paper:#FFFDFC;--sage:#A9B8A5;--sage-dark:#6F806C;--pink:#E8C9CC;--pink-dark:#B77F87;--terracotta:#D9A38F;--terracotta-soft:#F3DDD5;--ink:#454844;--muted:#777B76;--line:#E8E0D9}
+*{box-sizing:border-box}body{margin:0;color:var(--ink);font-family:"Avenir Next",Avenir,"Trebuchet MS",sans-serif;background:radial-gradient(circle at 5% 5%,rgba(232,201,204,.42),transparent 25%),radial-gradient(circle at 95% 8%,rgba(169,184,165,.35),transparent 25%),var(--cream)}a{text-decoration:none;color:inherit}.wrap{width:min(1000px,92%);margin:auto}
+header{padding:25px 0 0}.top{display:flex;justify-content:space-between;align-items:center;gap:16px}.brand{display:flex;align-items:center;gap:13px}.mark{width:50px;height:50px;border-radius:17px 17px 17px 6px;background:var(--sage);display:grid;place-items:center;color:#fff;font-size:23px}.brand h1{font-size:23px;margin:0}.brand p{margin:3px 0 0;color:var(--muted);font-size:13px}.back{padding:10px 16px;border:1px solid var(--line);border-radius:22px;background:#fff;color:var(--muted);font-size:13px;white-space:nowrap}
+.hero{text-align:center;padding:60px 20px 42px}.eyebrow{display:inline-block;padding:7px 14px;border-radius:999px;background:var(--terracotta-soft);color:#9b6957;font-size:12px;letter-spacing:.08em}.hero h2{font:500 clamp(40px,7vw,62px) Georgia,serif;margin:18px 0 10px}.hero p{color:var(--muted);margin:0;line-height:1.6}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-bottom:65px}.card{display:flex;flex-direction:column;min-height:205px;padding:27px;border-radius:25px;background:#F5E5E1;border:1px solid var(--line);box-shadow:0 12px 32px rgba(65,55,48,.07);transition:.2s}.card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(65,55,48,.11)}.card.soon{background:#EAF0EA}.icon{font-size:29px;margin-bottom:15px}.card h3{font:500 25px Georgia,serif;margin:0 0 9px}.card p{color:var(--muted);line-height:1.55;margin:0 0 22px}.button{display:inline-block;align-self:flex-start;margin-top:auto;padding:11px 19px;border-radius:22px;background:var(--sage-dark);color:#fff;font-size:13px;font-weight:700}.button.pink{background:var(--pink-dark)}footer{border-top:1px solid var(--line);padding:28px;text-align:center;color:#888c87;font-size:13px}
+@media(max-width:560px){.top{align-items:flex-start}.brand h1{font-size:20px}.hero{padding:46px 6px 34px}.grid{grid-template-columns:1fr}.card{min-height:175px}}
 </style>
 </head>
 <body>
-<header>
-<h1>A2+ Grammar</h1>
-<p>English · Claire's Classroom</p>
-</header>
-<main class="container">
-<a class="back" href="english-a2plus.html">← Back to English A2+</a>
-<section class="intro">
-<h2>Grammar Resources</h2>
-<p>Choose a grammar topic to study the lesson and practise what you have learned.</p>
-</section>
-<section class="grid">
-<a class="card" href="prepositions-of-time.html">
-<div class="icon">⏰</div>
-<h3>Prepositions of Time</h3>
-<p>Learn how to use <strong>in, on</strong> and <strong>at</strong> to say when something happens.</p>
-<span class="badge">📖 Lesson + 🎯 Quiz</span>
-</a>
-</section>
+<header><div class="wrap top"><a class="brand" href="index.html"><span class="mark">✦</span><span><h1>Claire's Classroom</h1><p>English &amp; French learning resources</p></span></a><a class="back" href="english-a2plus.html">← A2+</a></div></header>
+<main class="wrap">
+  <section class="hero"><div class="eyebrow">ENGLISH · A2+</div><h2>Grammar</h2><p>Choose a grammar topic to study the lesson and practise what you have learned.</p></section>
+  <section class="grid" aria-label="Grammar resources">
+    <a class="card" href="prepositions-of-time.html"><div class="icon">🕰️</div><h3>Prepositions of Time</h3><p>Learn how to use <strong>in, on</strong> and <strong>at</strong> to say when something happens.</p><span class="button">Explore →</span></a>
+    <div class="card soon"><div class="icon">✨</div><h3>More grammar coming soon</h3><p>This section will grow as new A2+ grammar resources are added.</p></div>
+  </section>
 </main>
-<footer>Claire's Classroom · A2+ Grammar</footer>
+<footer>© 2026 Claire's Classroom · English A2+</footer>
 </body>
 </html>

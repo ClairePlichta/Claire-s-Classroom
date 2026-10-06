@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Food &amp; Cooking Vocabulary Quiz | Claire's Classroom</title>
+<style>
+:root{--cream:#fbf7f2;--paper:#fffdfc;--sage:#a9b8a5;--sage-dark:#6f806c;--pink:#e8c9cc;--pink-dark:#a8757d;--terra:#d9a38f;--ink:#454844;--muted:#777b76;--line:#e8e0d9;--good:#456f50;--bad:#a34f50}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 5% 5%,rgba(232,201,204,.35),transparent 26%),radial-gradient(circle at 95% 8%,rgba(169,184,165,.3),transparent 26%),var(--cream);color:var(--ink);font:16px/1.55 "Avenir Next",Avenir,"Trebuchet MS",sans-serif}.site-nav{width:min(900px,92%);margin:24px auto 0}.site-nav a{color:var(--sage-dark);font-weight:800;text-decoration:none;font-size:14px}.wrap{width:min(900px,92%);margin:20px auto 56px}.hero{padding:32px clamp(22px,5vw,42px);border-radius:27px 27px 8px 8px;background:linear-gradient(135deg,#e8efe8,#f4e5e4);border:1px solid var(--line)}.eyebrow{color:var(--sage-dark);font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}.hero h1{font:400 clamp(34px,6vw,48px)/1.1 Georgia,serif;margin:9px 0}.hero p{color:var(--muted);max-width:650px;margin:0}.panel{background:var(--paper);padding:clamp(20px,4vw,34px);border:1px solid var(--line);border-radius:8px 8px 27px 27px;box-shadow:0 14px 36px #4548440d}.toolbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:17px}.tabs{display:flex;flex-wrap:wrap;gap:8px}.tab,.answer,.primary,.quiet{font:inherit;cursor:pointer}.tab{border:1px solid var(--line);background:white;color:var(--ink);border-radius:999px;padding:9px 14px;font-size:14px}.tab[aria-pressed=true]{background:var(--pink);border-color:var(--pink);font-weight:800}.progress{font-size:13px;color:var(--muted);white-space:nowrap}.bar{height:8px;background:#edf0e9;border-radius:9px;margin-bottom:24px;overflow:hidden}.bar span{display:block;height:100%;width:0;background:var(--sage-dark);transition:width .25s}.kind{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--terra);font-weight:900;margin:0 0 8px}.question{font:400 clamp(23px,4vw,31px)/1.25 Georgia,serif;margin:0 0 22px}.answers{display:grid;gap:10px}.answer{width:100%;text-align:left;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:15px;padding:13px 16px;transition:.15s}.answer:hover:not(:disabled){border-color:var(--sage-dark);transform:translateY(-1px)}.answer:disabled{cursor:default}.answer.correct{border-color:#8da98a;background:#eff5ed}.answer.wrong{border-color:#d6a0a0;background:#fbefed}.letter{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#f1eee8;margin-right:10px;font-size:13px;font-weight:900}.feedback{min-height:28px;margin:14px 0 4px;font-weight:700}.feedback.good{color:var(--good)}.feedback.bad{color:var(--bad)}.actions{display:flex;justify-content:space-between;align-items:center;margin-top:14px;gap:12px}.primary{border:0;background:var(--sage-dark);color:white;border-radius:999px;padding:11px 20px;font-weight:800}.primary:hover{background:#596a57}.primary:disabled{opacity:.45;cursor:not-allowed}.quiet{border:0;background:transparent;color:var(--sage-dark);font-weight:800;padding:10px 0}.note{font-size:13px;color:var(--muted);margin-top:24px;border-top:1px solid var(--line);padding-top:14px}.result{text-align:center;padding:18px 0 8px}.score{font-size:54px;font-weight:900;line-height:1.1;color:var(--sage-dark)}.result h2{font:400 27px Georgia,serif;margin:10px 0}.result p{color:var(--muted)}footer{text-align:center;color:#888c87;font-size:13px;margin:22px 0 0}
+@media(max-width:600px){.site-nav{margin-top:18px}.wrap{margin-top:14px}.hero{padding:25px 22px}.toolbar{align-items:flex-start;flex-direction:column}.progress{align-self:flex-end;margin-top:-36px}}
+</style>
+</head>
+<body>
+<nav class="site-nav"><a href="food.html">← Food</a></nav>
+<main class="wrap">
+<header class="hero"><div class="eyebrow">English · A2+ · Vocabulary practice</div><h1>🍳 Food &amp; Cooking</h1><p>Practise the words from your cooking games: kitchen actions, food and ingredients, and useful recipe instructions.</p></header>
+<section class="panel" aria-label="Food and cooking vocabulary quiz">
+<div class="toolbar"><div class="tabs" role="group" aria-label="Choose a quiz round"><button class="tab" data-mode="actions" aria-pressed="true">Cooking actions</button><button class="tab" data-mode="food" aria-pressed="false">Food &amp; kitchen</button><button class="tab" data-mode="recipes" aria-pressed="false">Recipe instructions</button></div><div class="progress" id="progress" aria-live="polite"></div></div>
+<div class="bar" aria-hidden="true"><span id="bar"></span></div><div id="stage" aria-live="polite"></div>
+<p class="note">Choose the word or phrase that best completes each sentence. Each round has 8 questions.</p>
+</section><footer>© 2026 Claire's Classroom · English A2+</footer>
+</main>
+<script>
+const quizzes={
+actions:[
+{q:"Put the potatoes in hot oil. You ___ them.",a:"fry",o:["boil","grate","weigh"]},
+{q:"Cook pasta in hot water. You ___ it.",a:"boil",o:["melt","slice","pour"]},
+{q:"Use a knife to cut the bread into thin pieces. You ___ it.",a:"slice",o:["peel","fry","serve"]},
+{q:"Take the skin off a carrot. You ___ it.",a:"peel",o:["weigh","melt","boil"]},
+{q:"Use a grater to make small pieces of cheese. You ___ it.",a:"grate",o:["slice","pour","cook"]},
+{q:"The chocolate is hard. Heat it until it becomes liquid: ___ it.",a:"melt",o:["fry","peel","weigh"]},
+{q:"Put the bowl on the scales to find its weight. ___ it.",a:"Weigh",o:["Grate","Serve","Boil"]},
+{q:"Move water from a bottle into a glass. ___ the water.",a:"Pour",o:["Fry","Peel","Slice"]}
+],
+food:[
+{q:"You use a ___ to eat pasta or soup.",a:"fork",o:["flour","strawberry","butter"]},
+{q:"You need ___ to make bread and cakes.",a:"flour",o:["fork","yoghurt","olive"]},
+{q:"A ___ is a small, red fruit.",a:"strawberry",o:["slice","fork","flour"]},
+{q:"You can spread ___ on bread or use it in a cake.",a:"butter",o:["sugar","pizza","yoghurt"]},
+{q:"___ makes food taste sweet.",a:"Sugar",o:["Flour","Butter","Pepper"]},
+{q:"Pizza is a savoury ___ with toppings.",a:"dish",o:["strawberry","fork","recipe"]},
+{q:"___ is a soft food made from milk. People often eat it for breakfast.",a:"Yoghurt",o:["Flour","Sugar","Pepper"]},
+{q:"A recipe tells you how to prepare a ___ .",a:"meal",o:["fork","strawberry","slice"]}
+],
+recipes:[
+{q:"First, read the instructions and ___ before you start cooking.",a:"follow a recipe",o:["enjoy a meal","add salt","put in the oven"]},
+{q:"The cake is ready to bake. ___ it ___ for 30 minutes.",a:"Put / in the oven",o:["Pour / on the plate","Slice / with a fork","Weigh / in the oven"]},
+{q:"The soup tastes a little plain. You can ___ to improve the flavour.",a:"add salt",o:["melt the fork","peel the soup","weigh the recipe"]},
+{q:"The vegetables are cooked. Put them on a plate and ___ them.",a:"serve",o:["grate","weigh","melt"]},
+{q:"The recipe needs one egg. Crack it into the bowl and ___ it to the mixture.",a:"add",o:["fry","peel","boil"]},
+{q:"The food is ready and everyone is at the table. Sit down and ___ .",a:"enjoy a meal",o:["follow a recipe","slice the oven","weigh the fork"]},
+{q:"Before cooking the vegetables, cut them into thin pieces. ___ them.",a:"Slice",o:["Melt","Pour","Weigh"]},
+{q:"The recipe says to season the dish. You can ___ for more flavour.",a:"add pepper",o:["add flour","peel pepper","boil the plate"]}
+]};
+const labels={actions:"Cooking actions",food:"Food and kitchen words",recipes:"Recipe instructions"};let mode="actions",order=[],index=0,score=0,locked=false;
+const stage=document.querySelector("#stage"),progress=document.querySelector("#progress"),bar=document.querySelector("#bar");
+function start(m){mode=m;index=0;score=0;order=quizzes[m].map((_,i)=>i);for(let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]]}document.querySelectorAll(".tab").forEach(t=>t.setAttribute("aria-pressed",t.dataset.mode===mode));render()}
+function render(){locked=false;const total=order.length;progress.textContent=`Question ${index+1} of ${total}`;bar.style.width=`${index/total*100}%`;const item=quizzes[mode][order[index]],opts=[item.a,...item.o].sort(()=>Math.random()-.5);stage.innerHTML=`<p class="kind">${labels[mode]}</p><h2 class="question">${item.q}</h2><div class="answers">${opts.map((o,i)=>`<button class="answer" data-correct="${o===item.a}"><span class="letter">${String.fromCharCode(65+i)}</span>${o}</button>`).join("")}</div><p class="feedback" id="feedback" aria-live="polite"></p><div class="actions"><button class="quiet" id="restart">Start this round again</button><button class="primary" id="next" disabled>${index===total-1?"See score":"Next question"}</button></div>`;stage.querySelectorAll(".answer").forEach(b=>b.addEventListener("click",()=>choose(b)));stage.querySelector("#next").addEventListener("click",()=>{if(index<total-1){index++;render()}else result()});stage.querySelector("#restart").addEventListener("click",()=>start(mode))}
+function choose(btn){if(locked)return;locked=true;const ok=btn.dataset.correct==="true";if(ok)score++;btn.classList.add(ok?"correct":"wrong");if(!ok)stage.querySelectorAll(".answer").forEach(b=>{if(b.dataset.correct==="true")b.classList.add("correct")});const f=stage.querySelector("#feedback");f.textContent=ok?"Correct!":"Not quite. The correct answer is shown in green.";f.className=`feedback ${ok?"good":"bad"}`;stage.querySelectorAll(".answer").forEach(b=>b.disabled=true);stage.querySelector("#next").disabled=false}
+function result(){bar.style.width="100%";progress.textContent="Round complete";const msg=score===order.length?"Excellent work!":score>=5?"Nice work — keep practising!":"Good start — have another go!";stage.innerHTML=`<div class="result"><div class="score">${score}/${order.length}</div><h2>${msg}</h2><p>You finished <strong>${labels[mode].toLowerCase()}</strong>.</p><button class="primary" id="again">Play this round again</button></div>`;stage.querySelector("#again").addEventListener("click",()=>start(mode))}
+document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>start(t.dataset.mode)));const requested=location.hash.slice(1);start(Object.hasOwn(quizzes,requested)?requested:"actions");
+</script>
+</body></html>

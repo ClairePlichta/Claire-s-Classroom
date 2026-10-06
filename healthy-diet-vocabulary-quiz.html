@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Healthy Diet Vocabulary Quiz</title>
+<style>
+:root{--ink:#193b32;--green:#27634e;--lime:#d6eb9c;--cream:#fbf8ef;--card:#fffefa;--muted:#66776e;--line:#dfe7d9;--red:#a23b34}*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}.wrap{width:min(760px,100% - 32px);margin:42px auto}.hero{background:var(--green);color:white;padding:30px;border-radius:24px 24px 8px 8px;position:relative;overflow:hidden}.hero:after{content:'✳';position:absolute;right:27px;top:-24px;color:#ffffff20;font-size:150px}.eyebrow{text-transform:uppercase;letter-spacing:.13em;font-size:12px;font-weight:700;color:var(--lime)}h1{font-size:clamp(28px,6vw,42px);line-height:1.08;margin:8px 0}.hero p{margin:10px 0 0;color:#e1eee5;max-width:520px}.panel{background:var(--card);padding:24px;border:1px solid var(--line);border-radius:8px 8px 24px 24px;box-shadow:0 12px 36px #193b320c}.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px}.tabs{display:flex;gap:8px;flex-wrap:wrap}.tab,button{font:inherit;cursor:pointer}.tab{border:1px solid var(--line);background:white;color:var(--ink);border-radius:999px;padding:8px 14px}.tab[aria-pressed=true]{background:var(--lime);border-color:var(--lime);font-weight:700}.progress{color:var(--muted);font-size:14px;white-space:nowrap}.bar{height:7px;background:#e8eee2;border-radius:9px;margin:-9px 0 22px;overflow:hidden}.bar span{display:block;height:100%;width:0;background:#83aa58;transition:width .25s}.kind{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#64815a;margin:0 0 8px}.question{font-size:clamp(21px,4vw,28px);line-height:1.25;margin:0 0 20px}.answers{display:grid;gap:10px}.answer{width:100%;text-align:left;border:1px solid var(--line);background:white;color:var(--ink);border-radius:13px;padding:13px 16px;transition:.15s}.answer:hover:not(:disabled){border-color:#8cae72;transform:translateY(-1px)}.answer:disabled{cursor:default}.answer.correct{border-color:#78a35d;background:#f0f8e6}.answer.wrong{border-color:#d9988f;background:#fff0ed}.answer .letter{display:inline-grid;place-items:center;width:27px;height:27px;border-radius:50%;background:#edf1e8;margin-right:10px;font-size:13px;font-weight:700}.feedback{min-height:28px;margin:14px 0 4px;font-weight:650}.feedback.bad{color:var(--red)}.feedback.good{color:#347444}.actions{display:flex;justify-content:space-between;align-items:center;margin-top:14px;gap:12px}.primary{border:0;background:var(--green);color:white;border-radius:999px;padding:11px 20px;font-weight:700}.primary:hover{background:#1e513e}.secondary{border:0;background:transparent;color:var(--green);font-weight:700}.result{text-align:center;padding:18px 0 8px}.result .score{font-size:52px;font-weight:800;line-height:1.15;color:var(--green)}.result h2{margin:8px}.note{font-size:13px;color:var(--muted);margin-top:24px;border-top:1px solid var(--line);padding-top:14px}@media(max-width:520px){.wrap{margin:18px auto}.hero{padding:24px}.panel{padding:18px}.toolbar{align-items:flex-start;flex-direction:column}.progress{align-self:flex-end;margin-top:-35px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header class="hero"><div class="eyebrow">English · Vocabulary practice</div><h1>Healthy diet</h1><p>Three quick rounds to practise food, nutrition and healthy habits. Choose the vocabulary that fits each situation.</p></header>
+<section class="panel" aria-label="Vocabulary quiz">
+<div class="toolbar"><div class="tabs" role="group" aria-label="Choose a quiz"><button class="tab" data-mode="words" aria-pressed="true">Word meanings</button><button class="tab" data-mode="verbs" aria-pressed="false">Verbs</button><button class="tab" data-mode="habits" aria-pressed="false">Healthy habits</button></div><div class="progress" id="progress">Question 1 of 8</div></div>
+<div class="bar"><span id="bar"></span></div><div id="stage"></div>
+<div class="note">Based on the “Healthy diet” vocabulary list. Choose the English vocabulary that fits each context.</div>
+</section></main>
+<script>
+const quizzes={
+words:[
+{q:'A balanced ___ should include different kinds of food.',a:'diet',o:['portion','vitamin','snack']},
+{q:'Protein is an important ___ that helps the body grow and repair itself.',a:'nutrient',o:['calorie','meal','energy']},
+{q:'Rice, bread and potatoes contain a lot of this nutrient: ___.',a:'carbohydrate',o:['protein','fat','vitamin']},
+{q:'An apple is a good source of this kind of nutrient: a ___.',a:'vitamin',o:['portion','calorie','meal']},
+{q:'The amount of food you put on your plate is a ___.',a:'portion',o:['nutrient','diet','energy']},
+{q:'The food you eat in the morning is ___.',a:'breakfast',o:['lunch','dinner','snack']},
+{q:'A small amount of food between meals is a ___.',a:'snack',o:['dinner','portion','nutrient']},
+{q:'Fruit and vegetables contain ___ that help digestion.',a:'fibers',o:['fats','calories','proteins']}
+],
+verbs:[
+{q:'I usually ___ vegetables with a little olive oil.',a:'cook',o:['avoid','monitor','follow']},
+{q:'Try to ___ water throughout the day.',a:'drink',o:['eat','prepare','vary']},
+{q:'Before buying food, ___ the product labels.',a:'read',o:['balance','consume','maintain']},
+{q:'We should ___ sugary drinks and choose water instead.',a:'avoid',o:['provide','improve','prepare']},
+{q:'You can ___ your meals by including foods from different groups.',a:'balance',o:['follow','monitor','choose']},
+{q:'To eat well, ___ a variety of fresh foods.',a:'choose',o:['control','cook','maintain']},
+{q:'Doctors recommend that we ___ our sugar intake.',a:'monitor',o:['vary','prepare','provide']},
+{q:'Eating well can ___ your health.',a:'improve',o:['consume','avoid','follow']}
+],
+habits:[
+{q:'For good hydration, remember to ___.',a:'drink enough water',o:['skip a meal','limit sugar intake','read product labels']},
+{q:'To get a range of nutrients, try to ___.',a:'have a varied diet',o:['avoid fresh products','skip breakfast','eat the same meal every day']},
+{q:'Before choosing a packaged snack, ___.',a:'read product labels',o:['skip a meal','eat five fruits and vegetables a day','drink enough water']},
+{q:'A healthy daily goal is to ___.',a:'eat five fruits and vegetables a day',o:['avoid drinking water','skip a meal','eat only one kind of food']},
+{q:'To reduce the amount of sugar you eat, ___.',a:'limit sugar intake',o:['have a larger portion','skip lunch','avoid fresh products']},
+{q:'Instead of packaged ready meals, ___.',a:'prefer fresh products',o:['skip a meal','limit water intake','choose processed foods']},
+{q:'Even when you are busy, try not to ___.',a:'skip a meal',o:['read product labels','drink enough water','prepare fresh food']},
+{q:'For a healthy eating pattern, ___.',a:'follow nutritional recommendations',o:['avoid all nutrients','skip breakfast every day','eat only snacks']}
+]};
+const labels={words:'Food and nutrition words',verbs:'Verbs in context',habits:'Healthy eating habits'};
+let mode='words',order=[],index=0,score=0,locked=false;
+const stage=document.querySelector('#stage'),progress=document.querySelector('#progress'),bar=document.querySelector('#bar');
+function start(m){mode=m;index=0;score=0;order=quizzes[m].map((_,i)=>i);for(let i=order.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]]}document.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-pressed',t.dataset.mode===mode));render()}
+function render(){locked=false;let total=order.length;progress.textContent=`Question ${index+1} of ${total}`;bar.style.width=`${index/total*100}%`;let item=quizzes[mode][order[index]];let opts=[item.a,...item.o].sort(()=>Math.random()-.5);stage.innerHTML=`<p class="kind">${labels[mode]}</p><h2 class="question">${item.q}</h2><div class="answers">${opts.map((o,i)=>`<button class="answer" data-correct="${o===item.a}"><span class="letter">${String.fromCharCode(65+i)}</span>${o}</button>`).join('')}</div><p class="feedback" id="feedback" aria-live="polite"></p><div class="actions"><button class="secondary" id="restart">Start over</button><button class="primary" id="next" disabled>${index===total-1?'See score':'Next question'}</button></div>`;stage.querySelectorAll('.answer').forEach(b=>b.addEventListener('click',()=>choose(b)));stage.querySelector('#next').addEventListener('click',()=>{if(index<total-1){index++;render()}else result()});stage.querySelector('#restart').addEventListener('click',()=>start(mode))}
+function choose(btn){if(locked)return;locked=true;let ok=btn.dataset.correct==='true';if(ok)score++;btn.classList.add(ok?'correct':'wrong');if(!ok)stage.querySelectorAll('.answer').forEach(b=>{if(b.dataset.correct==='true')b.classList.add('correct')});let f=stage.querySelector('#feedback');f.textContent=ok?'Correct!':`Not quite. The answer is “${quizzes[mode][order[index]].a}”.`;f.className=`feedback ${ok?'good':'bad'}`;stage.querySelectorAll('.answer').forEach(b=>b.disabled=true);stage.querySelector('#next').disabled=false}
+function result(){bar.style.width='100%';progress.textContent='Round complete';let msg=score===order.length?'Excellent work!':score>=5?'Nice work — keep practising!':'Good start — have another go!';stage.innerHTML=`<div class="result"><div class="score">${score}/${order.length}</div><h2>${msg}</h2><p>You finished <strong>${labels[mode].toLowerCase()}</strong>.</p><button class="primary" id="again">Play this round again</button></div>`;stage.querySelector('#again').addEventListener('click',()=>start(mode))}
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>start(t.dataset.mode)));start('words');
+</script></body></html>

@@ -43,7 +43,7 @@ h2{font-family:Georgia,serif;font-size:30px;font-weight:400;margin:0 0 8px}
   display:flex;align-items:center;gap:10px;background:#fffdfb;transition:.15s
 }
 .definition.over{background:#f3f6f1;border-color:var(--sage-dark)}
-.definition.matched{border-style:solid;background:var(--good);border-color:#bdd2c2}
+.definition.matched{border-style:solid;background:#f3eee8;border-color:#d9cfc4}
 .def-text{flex:1}
 .drop-label{font-size:11px;color:#a59c94;font-weight:800;text-transform:uppercase;letter-spacing:.05em}
 .mini-word{font-weight:900;margin-bottom:2px}
@@ -199,7 +199,7 @@ function tryMatch(defEl,word){
     const wordEl=[...document.querySelectorAll('.word')].find(x=>x.dataset.word===word);
     wordEl.classList.remove('selected'); wordEl.classList.add('matched');
     defEl.classList.add('matched');
-    defEl.innerHTML=`<span class="drop-label">Déposé</span><span class="def-text">${defEl.querySelector('.def-text').textContent}</span><strong style="color:var(--good-text)">${word}</strong>`;
+    defEl.innerHTML=`<span class="drop-label">Déposé</span><span class="def-text">${defEl.querySelector('.def-text').textContent}</span><strong style="color:var(--ink)">${word}</strong>`;
     selectedWord=null; updateMatch();
     document.getElementById('matchFeedback').className='feedback show';
     document.getElementById('matchFeedback').textContent='Mot déposé. Le bilan complet apparaîtra à la fin.';

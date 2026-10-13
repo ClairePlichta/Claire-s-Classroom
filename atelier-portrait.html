@@ -92,7 +92,7 @@ footer{text-align:center;border-top:1px solid var(--line);padding:30px;color:#8b
   <section class="card">
     <div class="topline">
       <div class="step">Atelier 1 · Associer</div>
-      <div class="score">Associations : <span id="matchScore">0 / 12</span></div>
+      <div class="score">Mots déposés : <span id="matchScore">0 / 12</span></div>
     </div>
     <h2>🧠 Qui correspond à quoi ?</h2>
     <p class="lead">Glisse chaque mot vers sa définition. Sur téléphone, tu peux aussi <strong>toucher un mot puis toucher une définition</strong>.</p>
@@ -149,7 +149,7 @@ footer{text-align:center;border-top:1px solid var(--line);padding:30px;color:#8b
   <div class="step">Atelier terminé</div>
   <div class="big" id="finalScore">0 points</div>
   <h2>Tu as construit ton propre portrait lexical.</h2>
-  <p class="lead" id="finalText"></p>
+  <p class="lead" id="finalText"></p><div id="matchSummary" class="feedback"></div>
   <button class="btn" onclick="restart()">🔄 Refaire l’atelier</button>
 </section>
 </main>
@@ -158,7 +158,7 @@ footer{text-align:center;border-top:1px solid var(--line);padding:30px;color:#8b
 
 <script>
 const pairs = [{"word": "sociable", "definition": "qui aime parler et échanger facilement avec les autres"}, {"word": "réservé(e)", "definition": "qui parle peu et garde facilement ses pensées pour soi"}, {"word": "attentionné(e)", "definition": "qui fait attention aux besoins et aux sentiments des autres"}, {"word": "égoïste", "definition": "qui pense surtout à ses propres besoins"}, {"word": "ponctuel(le)", "definition": "qui arrive à l'heure et respecte les horaires"}, {"word": "maniaque", "definition": "qui veut que tout soit très propre, très ordonné ou parfaitement fait"}, {"word": "serviable", "definition": "qui aide volontiers les autres"}, {"word": "arrogant(e)", "definition": "qui donne l'impression de se croire supérieur aux autres"}, {"word": "bavard(e)", "definition": "qui parle beaucoup, parfois plus que nécessaire"}, {"word": "calme", "definition": "qui garde son sang-froid même quand il y a un problème"}, {"word": "nerveux / nerveuse", "definition": "qui semble inquiet(ète), stressé(e) ou agité(e)"}, {"word": "timide", "definition": "qui manque parfois d'assurance dans les situations avec les autres"}];
-let score=0, matched=new Set(), dragData=null, selectedWord=null;
+let score=0, matched=new Set(), assignments={}, dragData=null, selectedWord=null;
 
 function shuffle(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 
@@ -194,17 +194,17 @@ function selectWord(el){
 
 function tryMatch(defEl,word){
   if(!word || matched.has(word) || defEl.classList.contains('matched')) return;
-  if(defEl.dataset.word===word){
-    matched.add(word); score++;
+  if(true){
+    matched.add(word); assignments[word]=defEl.dataset.word;
     const wordEl=[...document.querySelectorAll('.word')].find(x=>x.dataset.word===word);
     wordEl.classList.remove('selected'); wordEl.classList.add('matched');
     defEl.classList.add('matched');
-    defEl.innerHTML=`<span class="drop-label">✓ Trouvé</span><span class="def-text">${defEl.querySelector('.def-text').textContent}</span><strong style="color:var(--good-text)">${word}</strong>`;
+    defEl.innerHTML=`<span class="drop-label">Déposé</span><span class="def-text">${defEl.querySelector('.def-text').textContent}</span><strong style="color:var(--good-text)">${word}</strong>`;
     selectedWord=null; updateMatch();
     document.getElementById('matchFeedback').className='feedback show good';
-    document.getElementById('matchFeedback').textContent='✓ Bonne association !';
+    document.getElementById('matchFeedback').textContent='Mot déposé. Le bilan complet apparaîtra à la fin.';
     if(matched.size===pairs.length){
-      document.getElementById('matchFeedback').textContent='🎉 Tout est associé ! Tu peux maintenant passer au classement.';
+      document.getElementById('matchFeedback').textContent='🎉 Tous les mots sont déposés. Continue vers le classement ; le bilan révélera les associations à corriger.';
       document.getElementById('goSort').classList.remove('hidden');
     }
   }else{
@@ -267,12 +267,12 @@ function placeTrait(bucket,trait){
 function finishGame(){
   document.getElementById('game').classList.add('hidden');
   document.getElementById('result').classList.add('show');
-  document.getElementById('finalScore').textContent=`${score} points`;
-  document.getElementById('finalText').textContent='Tu as travaillé le vocabulaire par association, manipulation et classement — sans série de QCM.';
+  const matchErrors=pairs.filter(p=>assignments[p.word]!==p.word); const matchPoints=pairs.length-matchErrors.length; document.getElementById('finalScore').textContent=`${matchPoints+score} / ${pairs.length+9} points`;
+  document.getElementById('finalText').textContent='Le bilan ci-dessous reprend tes associations et explique les définitions à revoir.'; const summary=document.getElementById('matchSummary'); summary.className='feedback show '+(matchErrors.length?'bad':'good'); summary.innerHTML=matchErrors.length?'<strong>Associations à revoir ('+matchErrors.length+')</strong><ul>'+matchErrors.map(p=>{const chosen=pairs.find(x=>x.word===assignments[p.word]);return '<li><strong>'+p.word+'</strong> : tu as choisi « '+(chosen?chosen.definition:'aucune définition')+' ». La bonne définition est « '+p.definition+' ».</li>';}).join('')+'</ul><p>'+matchPoints+' bonnes associations sur '+pairs.length+'.</p>':'Bravo, les '+pairs.length+' associations sont correctes !';
 }
 
 function restart(){
-  score=0; matched=new Set(); dragData=null; selectedWord=null;
+  score=0; matched=new Set(); assignments={}; dragData=null; selectedWord=null;
   document.getElementById('result').classList.remove('show');
   document.getElementById('game').classList.remove('hidden');
   document.getElementById('goSort').classList.add('hidden');

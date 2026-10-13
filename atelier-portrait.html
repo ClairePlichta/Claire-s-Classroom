@@ -37,7 +37,7 @@ h2{font-family:Georgia,serif;font-size:30px;font-weight:400;margin:0 0 8px}
 .word:hover{transform:translateY(-2px)}
 .word.dragging{opacity:.45}
 .word.selected{outline:3px solid #dcc2b7;background:#f9eee9}
-.word.matched{background:var(--good);border-color:#bdd2c2;color:var(--good-text);cursor:default}
+.word.matched{background:#f3eee8;border-color:#d9cfc4;color:var(--ink);cursor:default}
 .definition{
   min-height:70px;border:1.5px dashed #cfc4ba;border-radius:16px;padding:12px 14px;
   display:flex;align-items:center;gap:10px;background:#fffdfb;transition:.15s
@@ -113,7 +113,7 @@ footer{text-align:center;border-top:1px solid var(--line);padding:30px;color:#8b
     <div id="matchFeedback" class="feedback"></div>
 
     <div class="action-row">
-      <span style="color:var(--muted);font-size:13px">Chaque bonne association reste « collée » à sa définition.</span>
+      <span style="color:var(--muted);font-size:13px">Chaque mot reste associé à ton choix. Le bilan indiquera à la fin quelles définitions étaient justes.</span>
       <button id="goSort" class="btn hidden" onclick="openSort()">Atelier suivant →</button>
     </div>
   </section>
@@ -201,7 +201,7 @@ function tryMatch(defEl,word){
     defEl.classList.add('matched');
     defEl.innerHTML=`<span class="drop-label">Déposé</span><span class="def-text">${defEl.querySelector('.def-text').textContent}</span><strong style="color:var(--good-text)">${word}</strong>`;
     selectedWord=null; updateMatch();
-    document.getElementById('matchFeedback').className='feedback show good';
+    document.getElementById('matchFeedback').className='feedback show';
     document.getElementById('matchFeedback').textContent='Mot déposé. Le bilan complet apparaîtra à la fin.';
     if(matched.size===pairs.length){
       document.getElementById('matchFeedback').textContent='🎉 Tous les mots sont déposés. Continue vers le classement ; le bilan révélera les associations à corriger.';

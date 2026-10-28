@@ -65,7 +65,7 @@ data.forEach((ex)=>{
    b.onclick=()=>{
     if(d.dataset.done)return; d.dataset.done=1;
     if(i===q[2]){score++;b.classList.add("correct");f.textContent="✓ Correct !";}
-    else{b.classList.add("wrong");f.textContent="✗ La bonne réponse est : "+q[1][q[2]];}
+    else{b.classList.add("wrong");d.querySelectorAll("button")[q[2]].classList.add("correct");f.textContent="✗ La bonne réponse est : "+q[1][q[2]];}
     document.getElementById("score").textContent="Score : "+score+" / 32";
     f.className="feedback";
    }; d.appendChild(b);

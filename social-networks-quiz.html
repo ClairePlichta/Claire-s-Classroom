@@ -34,6 +34,7 @@ button{border:0;border-radius:30px;padding:13px 22px;font-weight:700;font-size:.
 .primary{background:var(--sage-dark);color:white}
 .secondary{background:var(--pink-pale);color:var(--ink)}
 button:disabled{opacity:.45;cursor:not-allowed}
+.pdf-button{background:var(--sage-dark);color:white}
 #result{display:none;background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:25px;margin-top:25px}
 #result h2{margin:0 0 8px;font-size:1.6rem}
 .answer-line{padding:12px 0;border-bottom:1px solid var(--line)}
@@ -108,11 +109,12 @@ button:disabled{opacity:.45;cursor:not-allowed}
 <div id="answerSummary"></div>
 <p class="note">Think about it: Do you always check information before sharing it? How can you support someone who is being bullied? What could you do differently next time?</p>
 <div class="actions">
-<button class="secondary" type="button" onclick="window.print()">Print / Save as PDF</button>
+<button class="pdf-button" type="button" id="pdfBtn">Save my results as PDF</button>
 <button class="primary" type="button" id="editBtn">Change my answers</button>
 </div>
 </section>
 </main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 const form = document.getElementById('quiz');
 const progress = document.getElementById('progress');
@@ -121,12 +123,13 @@ const submitBtn = document.getElementById('submitBtn');
 const result = document.getElementById('result');
 const summary = document.getElementById('answerSummary');
 const questions = [
-  'A friend tells you a teacher insulted a classmate',
-  'Time spent watching TV each day',
-  'Rumours at your school',
-  'Students making fun of a classmate',
-  'What adults often criticise you for'
+  'A friend has just told you that a teacher insulted a classmate at your school',
+  'Each day, on average, how much time do you spend watching TV?',
+  'In general, the rumours that go round your school...',
+  'You see a group of students making fun of a classmate in the playground...',
+  'Adults often criticise you for being...'
 ];
+let completedAnswers = [];
 function updateProgress(){
   const count = new Set([...form.querySelectorAll('input:checked')].map(input=>input.name)).size;
   progress.style.width = `${count/5*100}%`;
@@ -138,6 +141,7 @@ form.addEventListener('submit', event=>{
   event.preventDefault();
   if(!form.reportValidity()) return;
   summary.replaceChildren();
+  completedAnswers = [];
   questions.forEach((question,index)=>{
     const selected = form.querySelector(`input[name="q${index+1}"]:checked`);
     const line = document.createElement('div');
@@ -146,6 +150,7 @@ form.addEventListener('submit', event=>{
     heading.textContent = `${index+1}. ${question}`;
     const answer = document.createElement('span');
     answer.textContent = selected.value;
+    completedAnswers.push({question, answer:selected.value});
     line.append(heading,answer);
     summary.append(line);
   });
@@ -157,8 +162,47 @@ form.addEventListener('reset',()=>{
     updateProgress();
     result.style.display='none';
     summary.replaceChildren();
+    completedAnswers = [];
   },0);
 });
+document.getElementById('pdfBtn').addEventListener('click', saveResultsPDF);
+function saveResultsPDF(){
+  if(completedAnswers.length !== questions.length){
+    alert('Please complete the quiz and click “See my answers” first.');
+    return;
+  }
+  if(!window.jspdf || !window.jspdf.jsPDF){
+    alert('The PDF tool could not load. Please check your internet connection and try again.');
+    return;
+  }
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({unit:'mm', format:'a4'});
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const margin = 18;
+  const maxWidth = pageWidth - margin * 2;
+  let y = 20;
+  doc.setFont('helvetica','bold'); doc.setFontSize(19);
+  doc.text('How do you react?', margin, y); y += 9;
+  doc.setFont('helvetica','normal'); doc.setFontSize(10);
+  doc.text('A2+ · Social media & online behaviour', margin, y); y += 6;
+  doc.text(`Completed: ${new Date().toLocaleDateString()}`, margin, y); y += 10;
+  completedAnswers.forEach((item,index)=>{
+    doc.setFont('helvetica','bold'); doc.setFontSize(11);
+    const qLines = doc.splitTextToSize(`${index+1}. ${item.question}`, maxWidth);
+    if(y + qLines.length*5 + 15 > 280){doc.addPage(); y=20;}
+    doc.text(qLines, margin, y); y += qLines.length*5 + 2;
+    doc.setFont('helvetica','normal'); doc.setFontSize(10);
+    const aLines = doc.splitTextToSize(`My answer: ${item.answer}`, maxWidth-3);
+    doc.text(aLines, margin+3, y); y += aLines.length*5 + 7;
+  });
+  if(y + 25 > 280){doc.addPage(); y=20;}
+  doc.setFont('helvetica','bold'); doc.setFontSize(11);
+  doc.text('Think about it', margin, y); y += 6;
+  doc.setFont('helvetica','normal'); doc.setFontSize(10);
+  const reflection = doc.splitTextToSize('Do you always check information before sharing it? How can you support someone who is being bullied? What could you do differently next time?', maxWidth);
+  doc.text(reflection, margin, y);
+  doc.save('social-networks-my-results.pdf');
+}
 document.getElementById('editBtn').addEventListener('click',()=>{
   result.style.display='none';
   form.scrollIntoView({behavior:'smooth',block:'start'});

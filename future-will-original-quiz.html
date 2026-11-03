@@ -70,32 +70,117 @@ document.getElementById("mark").addEventListener("click",()=>{
 document.getElementById("quiz").addEventListener("reset",()=>setTimeout(()=>{document.getElementById("score").textContent="Your score: —";document.getElementById("count").textContent="0 / 12 automatically marked answers completed";document.getElementById("bar").style.width="0%";document.querySelectorAll(".feedback").forEach(f=>{f.textContent="";f.className="feedback"});document.querySelectorAll(".model").forEach(m=>m.classList.remove("show"));document.querySelectorAll(".reveal").forEach(b=>b.textContent="Show a possible answer")},0));
 
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 <script>
+
 function saveResultsPDF(){
-  const scoreEl=document.getElementById('score');
-  if(!scoreEl || !scoreEl.textContent.includes('/')){alert('Please check your answers first.');return;}
-  if(!window.jspdf || !window.jspdf.jsPDF){alert('The PDF tool could not load. Please check your internet connection and try again.');return;}
-  const {jsPDF}=window.jspdf; const pdf=new jsPDF({unit:'mm',format:'a4'});
-  const margin=16, maxWidth=178; let y=18;
-  function line(t,size=10,bold=false,gap=5){pdf.setFont('helvetica',bold?'bold':'normal');pdf.setFontSize(size);const lines=pdf.splitTextToSize(String(t||'—'),maxWidth);if(y+lines.length*gap>280){pdf.addPage();y=18;}pdf.text(lines,margin,y);y+=lines.length*gap;}
-  line(document.querySelector('.hero h1')?.textContent || document.title,16,true,8);
-  line("Claire's Classroom · English A2+ · WILL",10,false,6);
-  line('Score: '+scoreEl.textContent.replace('Your score:','').trim(),12,true,8);
-  line('Date: '+new Date().toLocaleDateString(),9,false,8);
-  document.querySelectorAll('.question').forEach((q,i)=>{
-    const title=q.querySelector('h3')?.textContent || q.querySelector('.qtitle')?.textContent || `Question ${i+1}`;
-    line(title,10,true,5);
-    const checked=q.querySelector('input:checked');
-    const answer=checked ? (checked.closest('label')?.innerText || checked.value) : '';
-    const textAnswers=[...q.querySelectorAll('textarea,input[type=text]')].map(x=>x.value.trim()).filter(Boolean);
-    line('Your answer: '+(answer || textAnswers.join(' | ') || 'No answer'),9,false,4.5);
-    const feedback=q.querySelector('.feedback'); if(feedback?.textContent.trim()) line('Feedback: '+feedback.textContent.trim(),9,false,5);
-    const model=q.querySelector('.model.show'); if(model?.textContent.trim()) line('Possible answer: '+model.textContent.trim(),9,false,5);
-    y+=2;
+  const scoreEl = document.getElementById('score');
+  if (!scoreEl || !scoreEl.textContent.includes('/')) {
+    alert('Please check your answers first.');
+    return;
+  }
+
+  const clean = value => String(value || '')
+    .replace(/[’‘]/g, "'").replace(/[“”]/g, '"')
+    .replace(/[–—]/g, '-').replace(/…/g, '...')
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^\x20-\x7E]/g, '');
+
+  const lines = [];
+  const add = (text, bold=false) => {
+    const value = clean(text);
+    const max = 88;
+    if (!value) { lines.push({text:'', bold}); return; }
+    for (let i=0; i<value.length; i+=max) {
+      lines.push({text:value.slice(i, i+max), bold});
+    }
+  };
+
+  add(document.querySelector('.hero h1')?.textContent || document.title, true);
+  add("Claire's Classroom - English A2+ - Future WILL");
+  add("Score: " + scoreEl.textContent.replace('Your score:', '').trim(), true);
+  add("Date: " + new Date().toLocaleDateString());
+  add("");
+
+  document.querySelectorAll('.question').forEach((q, i) => {
+    const title = q.querySelector('h3')?.textContent ||
+                  q.querySelector('.qtitle')?.textContent ||
+                  ('Question ' + (i+1));
+    add(title, true);
+    const checked = q.querySelector('input:checked');
+    const answer = checked
+      ? (checked.closest('label')?.innerText || checked.value)
+      : '';
+    const written = [...q.querySelectorAll('textarea,input[type="text"]')]
+      .map(el => el.value.trim()).filter(Boolean);
+    add("Your answer: " + (answer || written.join(' | ') || 'No answer'));
+    const feedback = q.querySelector('.feedback');
+    if (feedback?.textContent.trim()) add("Feedback: " + feedback.textContent.trim());
+    const model = q.querySelector('.model.show');
+    if (model?.textContent.trim()) add("Possible answer: " + model.textContent.trim());
+    add("");
   });
-  document.querySelectorAll('textarea').forEach((x,i)=>{if(x.value.trim() && !x.closest('.question')) line('Written answer '+(i+1)+': '+x.value.trim(),9,false,5);});
-  pdf.save('will-quiz-results.pdf');
+
+  // PDF text encoding uses a built-in standard font; escape PDF string delimiters.
+  const esc = s => s.replace(/\\/g, '\\\\').replace(/\(/g, '\\(').replace(/\)/g, '\\)');
+  const pages = [];
+  for (let i=0; i<lines.length; i+=48) pages.push(lines.slice(i, i+48));
+  if (!pages.length) pages.push([{text:"No answers recorded.",bold:false}]);
+
+  const objects = [];
+  const addObj = value => { objects.push(value); return objects.length; };
+  const catalogId = addObj('');
+  const pagesId = addObj('');
+  const fontRegularId = addObj('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>');
+  const fontBoldId = addObj('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>');
+  const pageIds = [];
+
+  pages.forEach(pageLines => {
+    let stream = "BT\n/F1 10 Tf\n50 790 Td\n14 TL\n";
+    pageLines.forEach(line => {
+      stream += (line.bold ? "/F2 10 Tf\n" : "/F1 10 Tf\n");
+      stream += "(" + esc(line.text) + ") Tj\nT*\n";
+    });
+    stream += "ET";
+    const streamId = addObj("<< /Length " + stream.length + " >>\nstream\n" + stream + "\nendstream");
+    const pageId = addObj('');
+    pageIds.push({pageId, streamId});
+  });
+
+  const kids = pageIds.map(p => p.pageId + " 0 R").join(' ');
+  objects[catalogId-1] = "<< /Type /Catalog /Pages " + pagesId + " 0 R >>";
+  objects[pagesId-1] = "<< /Type /Pages /Kids [" + kids + "] /Count " + pageIds.length + " >>";
+  pageIds.forEach(({pageId, streamId}) => {
+    objects[pageId-1] = "<< /Type /Page /Parent " + pagesId + " 0 R /MediaBox [0 0 595 842] " +
+      "/Resources << /Font << /F1 " + fontRegularId + " 0 R /F2 " + fontBoldId + " 0 R >> >> " +
+      "/Contents " + streamId + " 0 R >>";
+  });
+
+  let pdf = "%PDF-1.4\n";
+  const offsets = [0];
+  objects.forEach((obj, index) => {
+    offsets.push(pdf.length);
+    pdf += (index+1) + " 0 obj\n" + obj + "\nendobj\n";
+  });
+  const xref = pdf.length;
+  pdf += "xref\n0 " + (objects.length+1) + "\n0000000000 65535 f \n";
+  offsets.slice(1).forEach(offset => {
+    pdf += String(offset).padStart(10, '0') + " 00000 n \n";
+  });
+  pdf += "trailer\n<< /Size " + (objects.length+1) + " /Root " + catalogId + " 0 R >>\n";
+  pdf += "startxref\n" + xref + "\n%%EOF";
+
+  const blob = new Blob([pdf], {type:'application/pdf'});
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'will-quiz-results.pdf';
+  link.style.display = 'none';
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 60000);
 }
+
 </script>
 </body></html>

@@ -1,0 +1,53 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>🏆 Le superlatif | Claire's Classroom</title><style>
+:root{--cream:#fbf7f2;--sage:#a9b8a5;--sage-dark:#71816d;--terra:#9b6957;--ink:#464945;--muted:#777b76;--line:#e8e0d9}
+*{box-sizing:border-box}body{margin:0;font-family:"Avenir Next",Avenir,"Trebuchet MS",sans-serif;color:var(--ink);background:var(--cream);line-height:1.6}
+a{text-decoration:none;color:inherit}.wrap{width:min(1050px,92%);margin:auto}header{padding:25px 0}.back{color:var(--sage-dark);font-size:14px;font-weight:700}
+.hero{text-align:center;padding:48px 20px 35px}.label{display:inline-block;background:#f1e3dc;color:var(--terra);padding:7px 15px;border-radius:20px;font-size:12px;font-weight:700;letter-spacing:.05em}
+h1{font-family:Georgia,serif;font-size:clamp(36px,6vw,56px);font-weight:400;line-height:1.15;margin:18px 0 12px}.hero p{color:var(--muted);line-height:1.65;max-width:740px;margin:auto}
+.intro{background:linear-gradient(135deg,#eef3ed,#f8e9e8);border-radius:28px;padding:28px 30px;margin:0 auto 40px}.intro h2{margin:0 0 10px;font-family:Georgia,serif;font-size:28px;font-weight:400}.intro p{margin:0;color:#60645f;line-height:1.7}
+.section-title{text-align:center;margin:0 0 24px}.section-title h2{font-family:Georgia,serif;font-size:32px;font-weight:400;margin:0 0 8px}.section-title p{margin:0;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:20px;margin-bottom:70px}
+.card{background:white;border:1px solid var(--line);border-radius:25px;padding:28px;box-shadow:0 10px 25px rgba(65,55,48,.06);display:flex;flex-direction:column;min-height:260px}
+.card.challenge{background:linear-gradient(135deg,#fffaf5,#f6eee8);border-color:#dfc8ba}.icon{font-size:34px;margin-bottom:15px}.card h3{font-family:Georgia,serif;font-size:25px;font-weight:400;margin:0 0 10px}.card p{color:var(--muted);line-height:1.6;font-size:15px;margin:0 0 18px}
+.button{display:inline-block;align-self:flex-start;margin-top:auto;background:var(--sage-dark);color:white;padding:10px 17px;border-radius:20px;font-size:13px;font-weight:700}.challenge .button{background:var(--terra)}
+footer{text-align:center;border-top:1px solid var(--line);padding:28px;color:#888c87;font-size:13px}
+@media(max-width:650px){.grid{grid-template-columns:1fr}.intro{padding:23px}}
+
+.quizwrap{background:white;border:1px solid var(--line);border-radius:25px;padding:26px;box-shadow:0 10px 25px rgba(65,55,48,.05);margin-bottom:30px}
+.question{padding:18px 0;border-bottom:1px solid #eee7e0}.question:last-child{border:0}.question p{font-weight:700;margin:0 0 12px}
+.options{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:9px}
+.option{border:1px solid var(--line);background:#fffdfa;border-radius:13px;padding:11px 13px;text-align:left;font:inherit;color:var(--ink);cursor:pointer}
+.option.selected{border-color:var(--sage-dark);background:#edf3ed}.option.correct{border-color:#6f9a76;background:#edf6ee}.option.wrong{border-color:#c27b7b;background:#fbefef}
+.feedback{font-size:14px;margin-top:9px;min-height:20px}.good{color:#47744e}.bad{color:#a44e4e}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}button.action{border:0;border-radius:22px;padding:11px 18px;background:var(--sage-dark);color:white;font-weight:700;font:inherit;cursor:pointer}button.reset{background:#e9e2dc;color:var(--ink)}.score{font-weight:700;margin-top:16px;font-size:18px}
+</style></head><body><header><div class="wrap"><a class="back" href="comparatif-superlatif.html">← Retour aux activités</a></div></header><main class="wrap"><section class="hero"><div class="label">FRANÇAIS · A2+ · JE PRATIQUE</div><h1>🏆 Le superlatif</h1><p>Trouve le niveau le plus haut ou le plus bas dans un groupe.</p></section><section class="quizwrap"><div id="questions"></div><div class="actions"><button class="action" onclick="checkAnswers()">Vérifier mes réponses</button><button class="action reset" onclick="resetQuiz()">Recommencer</button></div><div id="score" class="score" aria-live="polite"></div></section></main><footer>© 2026 Claire's Classroom · Français A2+</footer><script>
+const questions = [{"q": "Dans la boutique, cette robe est … élégante.", "o": ["la plus", "le plus", "les plus"], "a": 0, "e": "Robe est féminin singulier : la plus élégante."}, {"q": "Parmi les trois manteaux, c'est celui qui est … cher.", "o": ["le moins", "la moins", "les moins"], "a": 0, "e": "Manteau est masculin singulier : le moins cher."}, {"q": "Dans notre groupe, Emma achète … .", "o": ["le plus", "la plus", "le plus de"], "a": 0, "e": "Avec un verbe, le superlatif se place après le verbe : achète le plus."}, {"q": "Ce magasin propose … de choix.", "o": ["le plus", "la plus", "le plus de"], "a": 2, "e": "Avec un nom, on utilise le plus de + nom."}, {"q": "Parmi toutes les boutiques, c'est celle qui est … loin.", "o": ["le plus", "la plus", "les plus"], "a": 0, "e": "Avec un adverbe, on utilise le plus : le plus loin."}, {"q": "De toutes les vestes, celle-ci est … chère.", "o": ["la moins", "le moins", "les moins"], "a": 0, "e": "Veste est féminin singulier : la moins chère."}];
+const chosen = {};
+function render(){
+ const root=document.getElementById('questions'); root.innerHTML='';
+ questions.forEach((q,i)=>{
+  const box=document.createElement('div'); box.className='question';
+  const p=document.createElement('p'); p.textContent=(i+1)+'. '+q.q; box.appendChild(p);
+  const opts=document.createElement('div'); opts.className='options';
+  q.o.forEach((opt,j)=>{
+   const b=document.createElement('button'); b.type='button'; b.className='option'; b.textContent=opt;
+   b.addEventListener('click',()=>{chosen[i]=j;opts.querySelectorAll('button').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');document.getElementById('fb'+i).textContent='';document.getElementById('score').textContent='';});
+   opts.appendChild(b);
+  });
+  box.appendChild(opts); const fb=document.createElement('div');fb.className='feedback';fb.id='fb'+i;box.appendChild(fb);root.appendChild(box);
+ });
+}
+function checkAnswers(){
+ let score=0;
+ questions.forEach((q,i)=>{
+  const buttons=document.querySelectorAll('.question')[i].querySelectorAll('.option');
+  buttons.forEach((b,j)=>{b.classList.remove('correct','wrong');if(j===q.a)b.classList.add('correct');if(chosen[i]===j&&j!==q.a)b.classList.add('wrong');});
+  const fb=document.getElementById('fb'+i);
+  if(chosen[i]===q.a){score++;fb.className='feedback good';fb.textContent='✓ Bonne réponse. '+q.e;}
+  else{fb.className='feedback bad';fb.textContent='À revoir. '+q.e;}
+ });
+ document.getElementById('score').textContent='Résultat : '+score+' / '+questions.length;
+}
+function resetQuiz(){Object.keys(chosen).forEach(k=>delete chosen[k]);document.getElementById('score').textContent='';render();}
+render();
+</script></body></html>

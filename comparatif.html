@@ -1,0 +1,78 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>⚖️ Le comparatif | Claire's Classroom</title><style>
+:root{--cream:#fbf7f2;--sage:#a9b8a5;--sage-dark:#71816d;--terra:#9b6957;--ink:#464945;--muted:#777b76;--line:#e8e0d9}
+*{box-sizing:border-box}body{margin:0;font-family:"Avenir Next",Avenir,"Trebuchet MS",sans-serif;color:var(--ink);background:var(--cream);line-height:1.6}
+a{text-decoration:none;color:inherit}.wrap{width:min(1050px,92%);margin:auto}header{padding:24px 0}.back{color:var(--sage-dark);font-weight:700;font-size:14px}
+.hero{text-align:center;padding:38px 15px 28px}.label{display:inline-block;background:#f1e3dc;color:var(--terra);padding:7px 15px;border-radius:20px;font-size:12px;font-weight:700;letter-spacing:.05em}
+h1{font:400 clamp(35px,6vw,54px)/1.15 Georgia,serif;margin:17px 0 10px}.hero p{color:var(--muted);max-width:740px;margin:auto}
+.quizwrap{background:white;border:1px solid var(--line);border-radius:25px;padding:clamp(17px,3vw,28px);box-shadow:0 10px 25px rgba(65,55,48,.05);margin:0 auto 35px}
+.question{padding:19px 0;border-bottom:1px solid #eee7e0}.question:last-child{border:0}.question p{font-weight:700;margin:0 0 12px}
+.options{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:9px}
+.option{border:1px solid var(--line);background:#fffdfa;border-radius:13px;padding:12px;text-align:left;font:inherit;color:var(--ink);cursor:pointer}
+.option.selected{border-color:var(--sage-dark);background:#edf3ed}.option.correct{border-color:#6f9a76;background:#edf6ee}.option.wrong{border-color:#c27b7b;background:#fbefef}
+.feedback{font-size:14px;margin-top:9px;min-height:20px}.good{color:#47744e}.bad{color:#a44e4e}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+button.action{border:0;border-radius:22px;padding:11px 17px;background:var(--sage-dark);color:white;font-weight:700;font:inherit;cursor:pointer}
+button.secondary{background:#e9e2dc;color:var(--ink)}button.pdf{background:#b17d83}
+.score{font-weight:700;margin-top:16px;font-size:18px}footer{text-align:center;border-top:1px solid var(--line);padding:25px;color:#888c87;font-size:13px}
+.pdf-help{font-size:13px;color:var(--muted);margin:12px 0 0}
+@media print{body{background:white}.back,.actions,.pdf-help{display:none!important}.wrap{width:100%}.hero{padding:10px}.quizwrap{box-shadow:none;border:0}.question{break-inside:avoid}.option{background:white!important;border:1px solid #bbb}.feedback{color:#333!important}footer{display:none}}
+</style></head><body>
+<header><div class="wrap"><a class="back" href="comparatif-superlatif.html">← Retour aux activités</a></div></header>
+<main class="wrap"><section class="hero"><div class="label">FRANÇAIS · A2+ · JE PRATIQUE</div><h1>⚖️ Le comparatif</h1><p>Compare deux éléments : vêtements, prix et habitudes de consommation.</p></section>
+<section class="quizwrap"><div id="questions"></div><div class="actions">
+<button class="action" onclick="checkAnswers()">Vérifier mes réponses</button>
+<button class="action secondary" onclick="resetQuiz()">Recommencer</button>
+<button class="action pdf" onclick="window.print()">Imprimer / enregistrer en PDF</button>
+</div><p class="pdf-help">Sur iPad : touche « Imprimer / enregistrer en PDF », puis utilise le menu de partage ou la prévisualisation pour enregistrer dans Fichiers en PDF.</p>
+<div id="score" class="score" aria-live="polite"></div></section></main><footer>© 2026 Claire's Classroom · Français A2+</footer>
+<script>
+const sourceQuestions = [{"question": "Cette veste coûte 80 €. Ce manteau coûte 120 €. Le manteau est … cher … la veste.", "options": [{"label": "plus … que"}, {"label": "moins … que"}, {"label": "aussi … que"}], "answerIndex": 0, "explanation": "On compare deux prix : le manteau est plus cher que la veste."}, {"question": "Aujourd’hui, j’achète 3 vêtements. Avant, j’en achetais 6. J’achète … de vêtements qu’avant.", "options": [{"label": "autant"}, {"label": "moins"}, {"label": "plus"}], "answerIndex": 1, "explanation": "Trois est une quantité inférieure à six : moins de vêtements qu’avant."}, {"question": "Lina dépense 50 €. Zoé dépense aussi 50 €. Lina dépense … que Zoé.", "options": [{"label": "moins"}, {"label": "autant"}, {"label": "plus"}], "answerIndex": 1, "explanation": "Les deux dépenses sont égales : Lina dépense autant que Zoé."}, {"question": "Cette boutique est aussi pratique que l’autre. Cette boutique est … pratique … l’autre.", "options": [{"label": "moins … que"}, {"label": "plus … que"}, {"label": "aussi … que"}], "answerIndex": 2, "explanation": "Pour exprimer l’égalité avec un adjectif : aussi pratique que."}, {"question": "Paul achète 4 tee-shirts. Moi, j’en achète 2. Paul achète … de tee-shirts … moi.", "options": [{"label": "moins … que"}, {"label": "plus … que"}, {"label": "autant … que"}], "answerIndex": 1, "explanation": "Quatre est supérieur à deux : plus de tee-shirts que moi."}, {"question": "Cette qualité est meilleure que celle de l’ancien manteau. Le mot « meilleure » correspond au comparatif de…", "options": [{"label": "bien"}, {"label": "bon"}, {"label": "mauvais"}], "answerIndex": 1, "explanation": "Bon devient meilleur au comparatif."}, {"question": "Aujourd’hui, je dépense 35 €. L’an dernier, je dépensais 35 €. Je dépense … qu’avant.", "options": [{"label": "autant"}, {"label": "plus"}, {"label": "moins"}], "answerIndex": 0, "explanation": "Avec un verbe, l’égalité se construit avec autant que."}, {"question": "Le pantalon est confortable. Le jean est plus confortable. Le pantalon est … confortable … le jean.", "options": [{"label": "aussi … que"}, {"label": "moins … que"}, {"label": "plus … que"}], "answerIndex": 1, "explanation": "Le pantalon a un niveau de confort inférieur : moins confortable que le jean."}, {"question": "Cette boutique propose 20 modèles. L’autre en propose 12. Elle propose … de modèles … l’autre.", "options": [{"label": "moins … que"}, {"label": "autant … que"}, {"label": "plus … que"}], "answerIndex": 2, "explanation": "Vingt est supérieur à douze : plus de modèles que l’autre."}, {"question": "Avant, Sam achetait rarement en seconde main. Maintenant, il le fait plus souvent. Il achète en seconde main … souvent qu’avant.", "options": [{"label": "moins"}, {"label": "aussi"}, {"label": "plus"}], "answerIndex": 2, "explanation": "La fréquence a augmenté : plus souvent qu’avant."}];
+const chosen = {};
+let rendered = [];
+function shuffle(items){
+ const copy = items.slice();
+ for(let i=copy.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[copy[i],copy[j]]=[copy[j],copy[i]];}
+ return copy;
+}
+function render(){
+ rendered = sourceQuestions.map(q=>{
+   const options = shuffle(q.options.map((o,i)=>({...o,originalIndex:i})));
+   return {...q,options};
+ });
+ const root=document.getElementById('questions');root.innerHTML='';
+ rendered.forEach((q,i)=>{
+   const box=document.createElement('section');box.className='question';
+   const p=document.createElement('p');p.textContent=(i+1)+'. '+q.question;box.appendChild(p);
+   const opts=document.createElement('div');opts.className='options';
+   q.options.forEach((o,j)=>{
+     const b=document.createElement('button');b.type='button';b.className='option';b.textContent=o.label;
+     b.addEventListener('click',()=>{
+       chosen[i]=o.originalIndex;
+       opts.querySelectorAll('button').forEach(x=>x.classList.remove('selected'));
+       b.classList.add('selected');
+       document.getElementById('fb'+i).textContent='';
+       document.getElementById('score').textContent='';
+     });
+     opts.appendChild(b);
+   });
+   const fb=document.createElement('div');fb.className='feedback';fb.id='fb'+i;box.appendChild(opts);box.appendChild(fb);root.appendChild(box);
+ });
+}
+function checkAnswers(){
+ let score=0;
+ rendered.forEach((q,i)=>{
+   const buttons=document.querySelectorAll('.question')[i].querySelectorAll('.option');
+   q.options.forEach((o,j)=>{
+     const b=buttons[j];b.classList.remove('correct','wrong');
+     if(o.originalIndex===q.answerIndex)b.classList.add('correct');
+     if(chosen[i]===o.originalIndex && o.originalIndex!==q.answerIndex)b.classList.add('wrong');
+   });
+   const fb=document.getElementById('fb'+i);
+   if(chosen[i]===q.answerIndex){score++;fb.className='feedback good';fb.textContent='✓ '+q.explanation;}
+   else{fb.className='feedback bad';fb.textContent=(chosen[i]===undefined?'Tu n’as pas répondu. ':'À revoir. ')+q.explanation;}
+ });
+ document.getElementById('score').textContent='Résultat : '+score+' / '+rendered.length;
+}
+function resetQuiz(){Object.keys(chosen).forEach(k=>delete chosen[k]);document.getElementById('score').textContent='';render();}
+render();
+</script></body></html>

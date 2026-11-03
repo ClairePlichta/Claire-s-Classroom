@@ -1,0 +1,71 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Your original WILL quiz | Claire's Classroom</title><style>
+:root{--sage:#A9B8A5;--sage-dark:#6F806C;--pink:#E8C9CC;--pink-dark:#B77F87;--terracotta:#D9A38F;--terracotta-soft:#F3DDD5;--cream:#FBF7F2;--ink:#454844;--muted:#777B76;--line:#E8E0D9}
+*{box-sizing:border-box}body{margin:0;color:var(--ink);font-family:"Avenir Next",Avenir,"Trebuchet MS",sans-serif;background:radial-gradient(circle at 5% 5%,rgba(232,201,204,.35),transparent 25%),radial-gradient(circle at 95% 8%,rgba(169,184,165,.3),transparent 25%),var(--cream);line-height:1.55}
+a{color:inherit;text-decoration:none}.wrap{width:min(940px,92%);margin:auto}header{padding:24px 0}.brand{font-size:14px;color:var(--muted)}.brand strong{color:var(--ink);font-size:19px}.hero{text-align:center;padding:32px 12px 34px}.eyebrow{display:inline-block;background:var(--terracotta-soft);color:#9B6957;padding:7px 14px;border-radius:999px;font-size:12px;letter-spacing:.7px}.hero h1{font:500 clamp(36px,6vw,54px) Georgia,serif;margin:14px 0 8px}.hero h1 span{color:#B87561}.hero p{color:var(--muted);max-width:660px;margin:auto}
+.section-title{font:500 29px Georgia,serif;margin:28px 0 15px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.card,.panel{background:rgba(255,253,252,.93);border:1px solid var(--line);border-radius:22px;padding:23px;box-shadow:0 8px 25px rgba(65,55,48,.045)}.card{transition:.18s}.card:hover{transform:translateY(-3px)}.card .icon{font-size:28px}.card h2,.card h3{font:500 23px Georgia,serif;margin:8px 0}.card p{color:var(--muted);font-size:14px;margin:0 0 15px}.pill{display:inline-block;background:#EAF0EA;color:var(--sage-dark);padding:8px 14px;border-radius:22px;font-size:13px;font-weight:700}
+.panel{margin:16px 0}.question{padding:17px 0;border-bottom:1px solid var(--line)}.question:last-child{border:0}.question h3{font-size:16px;margin:0 0 10px}.opts{display:grid;gap:8px}.opt{display:flex;gap:10px;align-items:flex-start;background:white;border:1px solid var(--line);border-radius:12px;padding:10px 12px;cursor:pointer}.opt:has(input:checked){background:#EAF0EA;border-color:var(--sage-dark)}input[type=radio]{accent-color:var(--sage-dark);margin-top:4px}.feedback{font-size:13px;margin:8px 0 0;color:var(--muted);min-height:20px}.correct{color:#4E7657}.wrong{color:#A65F58}.text-answer{width:100%;min-height:76px;border:1px solid var(--line);border-radius:12px;padding:12px;font:inherit;background:#fff;color:var(--ink)}button{border:0;border-radius:24px;padding:12px 19px;font-weight:700;cursor:pointer;font:inherit}.primary{background:var(--sage-dark);color:white}.secondary{background:var(--pink);color:var(--ink)}.actions{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0}.score{font-weight:700;color:var(--sage-dark);font-size:18px}.hint{color:var(--muted);font-size:13px}.model{display:none;background:#F5F0EA;border-radius:12px;padding:12px;margin-top:9px}.model.show{display:block}.progress{height:7px;background:#e9e5dc;border-radius:10px;overflow:hidden}.progress span{display:block;height:100%;width:0;background:var(--sage-dark)}footer{text-align:center;color:#888C87;font-size:13px;padding:28px 0;border-top:1px solid var(--line);margin-top:45px}
+@media(max-width:650px){.grid{grid-template-columns:1fr}.panel,.card{padding:18px}.hero{padding-top:20px}}
+@media print{body{background:white}.actions,header .brand{display:none!important}.panel,.card{box-shadow:none;break-inside:avoid}}
+</style></head><body><header><div class="wrap"><a class="brand" href="future-will.html">← <strong>Claire's Classroom</strong> · English A2+</a></div></header><main class="wrap"><section class="hero"><div class="eyebrow">ENGLISH A2+ · GRAMMAR</div><h1>Your original WILL quiz</h1><p>Your original Quizinière practice, now interactive.</p></section>
+<div class="panel"><p><strong>Instructions:</strong> Complete all four parts. Parts I and IV are corrected automatically. Parts II and III are open-ended: write your own sentences, then reveal the suggested answers to check your work. Other answers may also be correct.</p><div class="progress"><span id="bar"></span></div><p class="hint" id="count">0 / 12 automatically marked answers completed</p></div>
+<form id="quiz">
+<h2 class="section-title">I. Complete the sentences with the correct form of WILL and the verbs in brackets.</h2>
+<div id="part1"></div>
+<h2 class="section-title">II. Write a prediction about the future of technology or social media.</h2>
+<div id="part2"></div>
+<h2 class="section-title">III. Write sentences to promise the following.</h2>
+<div id="part3"></div>
+<h2 class="section-title">IV. Rewrite these sentences using the negative form WON'T.</h2>
+<div id="part4"></div>
+<div class="actions"><button class="primary" type="button" id="mark">Check Parts I and IV</button><button class="secondary" type="button" onclick="window.print()">Print / Save as PDF</button><button class="secondary" type="reset">Start again</button></div>
+<div class="panel"><div class="score" id="score">Your score: —</div><p class="hint">Parts II and III are personal productions and are not included in the automatic score.</p></div>
+</form>
+</main><footer>© 2026 Claire's Classroom · English A2+</footer><script>
+const p1=[
+["I think I ______ less time on social media next month. (spend)","will spend",["will spend","will spending","spend will"]],
+["My friend ______ me fix my computer later. (help)","will help",["will help","will helps","helps will"]],
+["We ______ our phones during dinner. (not / use)","won't use",["won't use","don't will use","will not using"]],
+["She ______ that picture on Instagram tonight. (post)","will post",["will post","will posts","posts will"]],
+["______ you ______ the live stream on YouTube tomorrow? (watch)","Will / watch",["Will / watch","Do / will watch","Will / watching"]],
+["They ______ using that new app soon. (start)","will start",["will start","will starts","are will start"]]
+];
+const p2=[
+["In five years, I think people ______.","In five years, I think people will use more artificial intelligence."],
+["I believe social media platforms ______.","I believe social media platforms will become more interactive."],
+["In the future, teenagers ______.","In the future, teenagers will communicate in new ways."],
+["Next year, I ______.","Next year, I will learn a new skill."],
+["My parents ______ with new technology.","My parents will become more confident with new technology."],
+["The next big social media trend ______.","The next big social media trend will change the way we share videos."]
+];
+const p3=[
+["Promise to reduce your screen time.","I will reduce my screen time."],
+["Promise to help a friend with a tech problem.","I will help you with your tech problem."],
+["Promise to check your messages more often.","I will check my messages more often."],
+["Promise to update your profile tomorrow.","I will update my profile tomorrow."],
+["Promise to spend more time offline this weekend.","I will spend more time offline this weekend."],
+["Promise to show someone how to use a social media app.","I will show you how to use a social media app."]
+];
+const p4=[
+["I will spend more time on social media tomorrow.","I won't spend more time on social media tomorrow."],
+["She will check her messages every hour.","She won't check her messages every hour."],
+["We will post a new video next week.","We won't post a new video next week."],
+["They will use that app for the project.","They won't use that app for the project."],
+["He will watch TikTok videos all day.","He won't watch TikTok videos all day."],
+["You will respond to every comment on your post.","You won't respond to every comment on your post."]
+];
+function renderMC(items,target,prefix){document.getElementById(target).innerHTML=items.map((q,i)=>`<div class="question" data-key="${q[1].toLowerCase()}"><h3>${i+1}. ${q[0]}</h3><div class="opts">${q[2].map((o,j)=>`<label class="opt"><input type="radio" name="${prefix}${i}" value="${o.toLowerCase()}"><span>${o}</span></label>`).join("")}</div><div class="feedback"></div></div>`).join("")}
+renderMC(p1,"part1","a");
+renderMC(p4.map(q=>[q[0],"", [q[1],q[1].replace("won't","will"),q[1].replace("won't","don't")]]),"part4","d");
+document.getElementById("part2").innerHTML=p2.map((q,i)=>`<div class="question"><h3>${i+1}. ${q[0]}</h3><textarea class="text-answer" placeholder="Write your prediction..."></textarea><button class="secondary reveal" type="button">Show a possible answer</button><div class="model">${q[1]}</div></div>`).join("");
+document.getElementById("part3").innerHTML=p3.map((q,i)=>`<div class="question"><h3>${i+1}. ${q[0]}</h3><textarea class="text-answer" placeholder="Write your promise..."></textarea><button class="secondary reveal" type="button">Show a possible answer</button><div class="model">${q[1]}</div></div>`).join("");
+document.querySelectorAll(".reveal").forEach(b=>b.addEventListener("click",()=>{const m=b.nextElementSibling;m.classList.toggle("show");b.textContent=m.classList.contains("show")?"Hide possible answer":"Show a possible answer"}));
+document.getElementById("mark").addEventListener("click",()=>{
+ let score=0,done=0;
+ document.querySelectorAll("#part1 .question").forEach(q=>{const chosen=q.querySelector("input:checked");const f=q.querySelector(".feedback");done++;if(chosen&&chosen.value===q.dataset.key){score++;f.textContent="Well done! The form is correct.";f.className="feedback correct"}else{f.textContent="Not quite. Suggested answer: "+q.dataset.key+".";f.className="feedback wrong"}});
+ document.querySelectorAll("#part4 .question").forEach((q,i)=>{const chosen=q.querySelector("input:checked");const key=p4[i][1].toLowerCase();const f=q.querySelector(".feedback");done++;if(chosen&&chosen.value===key){score++;f.textContent="Well done! The negative form is correct.";f.className="feedback correct"}else{f.textContent="Suggested answer: "+p4[i][1];f.className="feedback wrong"}});
+ document.getElementById("score").textContent=`Your score: ${score} / ${done}`;
+ document.getElementById("count").textContent=`${done} / ${done} automatically marked answers checked`;
+ document.getElementById("bar").style.width=(score/done*100)+"%";
+});
+document.getElementById("quiz").addEventListener("reset",()=>setTimeout(()=>{document.getElementById("score").textContent="Your score: —";document.getElementById("count").textContent="0 / 12 automatically marked answers completed";document.getElementById("bar").style.width="0%";document.querySelectorAll(".feedback").forEach(f=>{f.textContent="";f.className="feedback"});document.querySelectorAll(".model").forEach(m=>m.classList.remove("show"));document.querySelectorAll(".reveal").forEach(b=>b.textContent="Show a possible answer")},0));
+</script></body></html>

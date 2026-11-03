@@ -5,12 +5,47 @@
 main{max-width:780px;margin:32px auto;padding:22px}a{color:var(--sage-dark);text-decoration:none;font-weight:bold}h1,h2{font-family:Georgia,serif}h1{font-size:2.2rem;margin:18px 0 5px}.muted{color:#65756b}
 .question{background:white;border:1px solid #eee2dc;border-radius:17px;padding:18px;margin:16px 0}.qtitle{font-weight:bold;margin-bottom:12px}
 label{display:block;padding:9px 12px;border-radius:10px;margin:7px 0;background:#faf8f5;cursor:pointer}label:hover{background:var(--sage2)}input{margin-right:8px}.feedback{margin-top:10px;font-size:.95rem}.correct{color:#39724d}.wrong{color:#a64f4f}
-button{border:0;border-radius:999px;background:var(--sage-dark);color:white;padding:12px 22px;font-weight:bold;font-size:1rem;cursor:pointer;margin:10px 8px 10px 0}button.secondary{background:var(--terra)}#result{font-weight:bold;font-size:1.2rem;margin:14px 0}.actions{position:sticky;bottom:0;background:var(--cream);padding:12px 0}
-</style></head><body><main><a href="future-be-going-to.html">← Be going to</a><h1>Quiz 3 – Use it in context</h1><p class="muted">Check that you can choose the correct form and use be going to in real situations.</p><div id="quiz"></div><div class="actions"><button onclick="check()">Check my answers</button><button class="secondary" onclick="resetQuiz()">Try again</button><div id="result" aria-live="polite"></div></div></main>
+button{border:0;border-radius:999px;background:var(--sage-dark);color:white;padding:12px 22px;font-weight:bold;font-size:1rem;cursor:pointer;margin:10px 8px 10px 0}button.secondary{background:var(--terra)}button.pdf-button{background:#B77F87}#result{font-weight:bold;font-size:1.2rem;margin:14px 0}.actions{position:sticky;bottom:0;background:var(--cream);padding:12px 0}
+</style></head><body><main><a href="future-be-going-to.html">← Be going to</a><h1>Quiz 3 – Use it in context</h1><p class="muted">Check that you can choose the correct form and use be going to in real situations.</p><div id="quiz"></div><div class="actions"><button onclick="check()">Check my answers</button><button class="secondary" onclick="resetQuiz()">Try again</button><button class="pdf-button" onclick="saveResultsPDF()">Save my results as PDF</button><div id="result" aria-live="polite"></div></div></main>
 <script>
 const questions=[{"q": "My friends ___ (meet) me at the cinema tonight. We have already planned it.", "a": ["are going to meet", "is going to meet", "are going meet", "going to meet"], "c": 0, "e": "Friends = they, so use are going to + infinitive."}, {"q": "Look at the baby! She ___ (cry).", "a": ["is going to cry", "are going to cry", "is going cry", "going to cry"], "c": 0, "e": "She takes is going to; use the infinitive cry."}, {"q": "___ you going to help me with this exercise?", "a": ["Are", "Is", "Am", "Do"], "c": 0, "e": "Use are with you, before the subject in a question."}, {"q": "He ___ going to come to the party. He is ill.", "a": ["isn't", "aren't", "don't", "not"], "c": 0, "e": "He takes is; the negative is is not / isn't."}, {"q": "Choose the correct sentence about a future intention.", "a": ["We are going to travel by train.", "We are going to travelling by train.", "We going to travel by train.", "We are going travel by train."], "c": 0, "e": "After going to, use the base form of the verb: travel."}, {"q": "Complete: I ___ going to wash my hair tonight.", "a": ["am", "is", "are", "be"], "c": 0, "e": "With I, the correct form of be is am."}, {"q": "Which sentence is correct?", "a": ["Is Emma going to play tennis?", "Does Emma going to play tennis?", "Are Emma going to play tennis?", "Emma is going to plays tennis?"], "c": 0, "e": "Emma = she, so use Is; after going to, use play."}, {"q": "Choose the sentence that describes something likely to happen.", "a": ["Be careful! You're going to fall!", "I'm going to visit my grandparents next week.", "They are going to start a new project in June.", "We're going to have a party on Saturday."], "c": 0, "e": "The warning is based on what is happening now and predicts a likely result."}];
 const root=document.getElementById('quiz');
 questions.forEach((q,i)=>{const d=document.createElement('section');d.className='question';d.innerHTML=`<div class="qtitle">${i+1}. ${q.q}</div>`+q.a.map((a,j)=>`<label><input type="radio" name="q${i}" value="${j}">${a}</label>`).join('')+`<div class="feedback" id="f${i}"></div>`;root.appendChild(d)});
 function check(){let score=0;questions.forEach((q,i)=>{const s=document.querySelector(`input[name="q${i}"]:checked`);const f=document.getElementById('f'+i);if(s&&Number(s.value)===q.c){score++;f.className='feedback correct';f.textContent='✓ '+q.e}else{f.className='feedback wrong';f.textContent=(s?'✗ ':'Not answered. ')+q.e}});document.getElementById('result').textContent=`Your score: ${score} / ${questions.length}`}
 function resetQuiz(){document.querySelectorAll('input').forEach(x=>x.checked=false);document.querySelectorAll('.feedback').forEach(x=>{x.textContent='';x.className='feedback'});document.getElementById('result').textContent='';window.scrollTo({top:0,behavior:'smooth'})}
-</script></body></html>
+
+async function saveResultsPDF(){
+  if(!document.getElementById('result').textContent.trim()){
+    alert('Please check your answers first.');
+    return;
+  }
+  if(!window.jspdf || !window.jspdf.jsPDF){
+    alert('The PDF tool could not load. Please check your internet connection and try again.');
+    return;
+  }
+  const {jsPDF}=window.jspdf;
+  const pdf=new jsPDF({unit:'mm',format:'a4'});
+  const margin=16, pageWidth=210, maxWidth=pageWidth-margin*2;
+  let y=18;
+  const line=(text,size=10,weight='normal',gap=5)=>{
+    pdf.setFont('helvetica',weight);pdf.setFontSize(size);
+    const lines=pdf.splitTextToSize(String(text),maxWidth);
+    if(y+lines.length*gap>280){pdf.addPage();y=18;}
+    pdf.text(lines,margin,y);y+=lines.length*gap;
+  };
+  line(document.title,17,'bold',8);
+  line('Claire’s Classroom · Be going to · A2',10,'normal',6);
+  line('Score: '+document.getElementById('result').textContent.replace('Your score:','').trim(),12,'bold',9);
+  line('Date: '+new Date().toLocaleDateString(),9,'normal',8);
+  questions.forEach((q,i)=>{
+    const selected=document.querySelector(`input[name="q${i}"]:checked`);
+    const answer=selected? q.a[Number(selected.value)] : 'No answer';
+    const isCorrect=!!selected && Number(selected.value)===q.c;
+    line((i+1)+'. '+q.q,10,'bold',5);
+    line('Your answer: '+answer,9,'normal',4.5);
+    line((isCorrect?'Correct. ':'Review. ')+q.e,9,'normal',5);
+    y+=2;
+  });
+  pdf.save('be-going-to-quiz-results.pdf');
+}
+</script><script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script></body></html>

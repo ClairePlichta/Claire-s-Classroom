@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Your original WILL quiz | Claire's Classroom</title><style>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Quiz 1 – Use WILL in context | Claire's Classroom</title><style>
 :root{--sage:#A9B8A5;--sage-dark:#6F806C;--pink:#E8C9CC;--pink-dark:#B77F87;--terracotta:#D9A38F;--terracotta-soft:#F3DDD5;--cream:#FBF7F2;--ink:#454844;--muted:#777B76;--line:#E8E0D9}
 *{box-sizing:border-box}body{margin:0;color:var(--ink);font-family:"Avenir Next",Avenir,"Trebuchet MS",sans-serif;background:radial-gradient(circle at 5% 5%,rgba(232,201,204,.35),transparent 25%),radial-gradient(circle at 95% 8%,rgba(169,184,165,.3),transparent 25%),var(--cream);line-height:1.55}
 a{color:inherit;text-decoration:none}.wrap{width:min(940px,92%);margin:auto}header{padding:24px 0}.brand{font-size:14px;color:var(--muted)}.brand strong{color:var(--ink);font-size:19px}.hero{text-align:center;padding:32px 12px 34px}.eyebrow{display:inline-block;background:var(--terracotta-soft);color:#9B6957;padding:7px 14px;border-radius:999px;font-size:12px;letter-spacing:.7px}.hero h1{font:500 clamp(36px,6vw,54px) Georgia,serif;margin:14px 0 8px}.hero h1 span{color:#B87561}.hero p{color:var(--muted);max-width:660px;margin:auto}
@@ -6,7 +6,7 @@ a{color:inherit;text-decoration:none}.wrap{width:min(940px,92%);margin:auto}head
 .panel{margin:16px 0}.question{padding:17px 0;border-bottom:1px solid var(--line)}.question:last-child{border:0}.question h3{font-size:16px;margin:0 0 10px}.opts{display:grid;gap:8px}.opt{display:flex;gap:10px;align-items:flex-start;background:white;border:1px solid var(--line);border-radius:12px;padding:10px 12px;cursor:pointer}.opt:has(input:checked){background:#EAF0EA;border-color:var(--sage-dark)}input[type=radio]{accent-color:var(--sage-dark);margin-top:4px}.feedback{font-size:13px;margin:8px 0 0;color:var(--muted);min-height:20px}.correct{color:#4E7657}.wrong{color:#A65F58}.text-answer{width:100%;min-height:76px;border:1px solid var(--line);border-radius:12px;padding:12px;font:inherit;background:#fff;color:var(--ink)}button{border:0;border-radius:24px;padding:12px 19px;font-weight:700;cursor:pointer;font:inherit}.primary{background:var(--sage-dark);color:white}.secondary{background:var(--pink);color:var(--ink)}.actions{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0}.score{font-weight:700;color:var(--sage-dark);font-size:18px}.hint{color:var(--muted);font-size:13px}.model{display:none;background:#F5F0EA;border-radius:12px;padding:12px;margin-top:9px}.model.show{display:block}.progress{height:7px;background:#e9e5dc;border-radius:10px;overflow:hidden}.progress span{display:block;height:100%;width:0;background:var(--sage-dark)}footer{text-align:center;color:#888C87;font-size:13px;padding:28px 0;border-top:1px solid var(--line);margin-top:45px}
 @media(max-width:650px){.grid{grid-template-columns:1fr}.panel,.card{padding:18px}.hero{padding-top:20px}}
 @media print{body{background:white}.actions,header .brand{display:none!important}.panel,.card{box-shadow:none;break-inside:avoid}}
-</style></head><body><header><div class="wrap"><a class="brand" href="future-will.html">← <strong>Claire's Classroom</strong> · English A2+</a></div></header><main class="wrap"><section class="hero"><div class="eyebrow">ENGLISH A2+ · GRAMMAR</div><h1>Your original WILL quiz</h1><p>Your original Quizinière practice, now interactive.</p></section>
+</style></head><body><header><div class="wrap"><a class="brand" href="future-will.html">← <strong>Claire's Classroom</strong> · English A2+</a></div></header><main class="wrap"><section class="hero"><div class="eyebrow">ENGLISH A2+ · GRAMMAR</div><h1>Quiz 1 – Use WILL in context</h1><p>Practise WILL in context: complete sentences, make predictions and promises, and use the negative form WON’T.</p></section>
 <div class="panel"><p><strong>Instructions:</strong> Complete all four parts. Parts I and IV are corrected automatically. Parts II and III are open-ended: write your own sentences, then reveal the suggested answers to check your work. Other answers may also be correct.</p><div class="progress"><span id="bar"></span></div><p class="hint" id="count">0 / 12 automatically marked answers completed</p></div>
 <form id="quiz">
 <h2 class="section-title">I. Complete the sentences with the correct form of WILL and the verbs in brackets.</h2>
@@ -17,7 +17,7 @@ a{color:inherit;text-decoration:none}.wrap{width:min(940px,92%);margin:auto}head
 <div id="part3"></div>
 <h2 class="section-title">IV. Rewrite these sentences using the negative form WON'T.</h2>
 <div id="part4"></div>
-<div class="actions"><button class="primary" type="button" id="mark">Check Parts I and IV</button><button class="secondary" type="button" onclick="window.print()">Print / Save as PDF</button><button class="secondary" type="reset">Start again</button></div>
+<div class="actions"><button class="primary" type="button" id="mark">Check Parts I and IV</button><button class="secondary" type="button" onclick="saveResultsPDF()">Save my results as PDF</button><button class="secondary" type="reset">Start again</button></div>
 <div class="panel"><div class="score" id="score">Your score: —</div><p class="hint">Parts II and III are personal productions and are not included in the automatic score.</p></div>
 </form>
 </main><footer>© 2026 Claire's Classroom · English A2+</footer><script>
@@ -68,4 +68,34 @@ document.getElementById("mark").addEventListener("click",()=>{
  document.getElementById("bar").style.width=(score/done*100)+"%";
 });
 document.getElementById("quiz").addEventListener("reset",()=>setTimeout(()=>{document.getElementById("score").textContent="Your score: —";document.getElementById("count").textContent="0 / 12 automatically marked answers completed";document.getElementById("bar").style.width="0%";document.querySelectorAll(".feedback").forEach(f=>{f.textContent="";f.className="feedback"});document.querySelectorAll(".model").forEach(m=>m.classList.remove("show"));document.querySelectorAll(".reveal").forEach(b=>b.textContent="Show a possible answer")},0));
-</script></body></html>
+
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+function saveResultsPDF(){
+  const scoreEl=document.getElementById('score');
+  if(!scoreEl || !scoreEl.textContent.includes('/')){alert('Please check your answers first.');return;}
+  if(!window.jspdf || !window.jspdf.jsPDF){alert('The PDF tool could not load. Please check your internet connection and try again.');return;}
+  const {jsPDF}=window.jspdf; const pdf=new jsPDF({unit:'mm',format:'a4'});
+  const margin=16, maxWidth=178; let y=18;
+  function line(t,size=10,bold=false,gap=5){pdf.setFont('helvetica',bold?'bold':'normal');pdf.setFontSize(size);const lines=pdf.splitTextToSize(String(t||'—'),maxWidth);if(y+lines.length*gap>280){pdf.addPage();y=18;}pdf.text(lines,margin,y);y+=lines.length*gap;}
+  line(document.querySelector('.hero h1')?.textContent || document.title,16,true,8);
+  line("Claire's Classroom · English A2+ · WILL",10,false,6);
+  line('Score: '+scoreEl.textContent.replace('Your score:','').trim(),12,true,8);
+  line('Date: '+new Date().toLocaleDateString(),9,false,8);
+  document.querySelectorAll('.question').forEach((q,i)=>{
+    const title=q.querySelector('h3')?.textContent || q.querySelector('.qtitle')?.textContent || `Question ${i+1}`;
+    line(title,10,true,5);
+    const checked=q.querySelector('input:checked');
+    const answer=checked ? (checked.closest('label')?.innerText || checked.value) : '';
+    const textAnswers=[...q.querySelectorAll('textarea,input[type=text]')].map(x=>x.value.trim()).filter(Boolean);
+    line('Your answer: '+(answer || textAnswers.join(' | ') || 'No answer'),9,false,4.5);
+    const feedback=q.querySelector('.feedback'); if(feedback?.textContent.trim()) line('Feedback: '+feedback.textContent.trim(),9,false,5);
+    const model=q.querySelector('.model.show'); if(model?.textContent.trim()) line('Possible answer: '+model.textContent.trim(),9,false,5);
+    y+=2;
+  });
+  document.querySelectorAll('textarea').forEach((x,i)=>{if(x.value.trim() && !x.closest('.question')) line('Written answer '+(i+1)+': '+x.value.trim(),9,false,5);});
+  pdf.save('will-quiz-results.pdf');
+}
+</script>
+</body></html>

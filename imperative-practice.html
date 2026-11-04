@@ -77,20 +77,9 @@ footer{border-top:1px solid var(--line);padding:26px;text-align:center;color:#88
 <div class="question advice" data-kind="bad"><p class="qtext">5. Share your personal information on social media.</p><label><input type="radio" name="c5" value="good"> Good advice</label><label><input type="radio" name="c5" value="bad"> Bad advice</label><input class="answer rewrite" placeholder="Rewrite it as good advice"></div>
 <div class="btnrow"><button class="btn" type="button" onclick="checkAdvice()">Check C</button></div><div class="result" id="resultC"></div></section>
 
-<section class="section game" id="feed-rescue"><div class="gamehead"><div><h2>🎮 Feed Rescue!</h2><p class="intro">A mini-game, not a test. Help Alex make their social media profile safer!</p></div><span class="badge" id="round">Round 1 / 5</span></div>
-<div class="scenario"><h3 id="scenarioTitle">A stranger asks Alex for their home address.</h3><p id="scenarioText">Choose the best imperative to help Alex.</p>
-<div class="choices" id="choices">
-<button class="choice" data-correct="false">Share your address with them.</button>
-<button class="choice" data-correct="true">Don't share your personal information.</button>
-<button class="choice" data-correct="false">Post your address on your profile.</button>
-<button class="choice" data-correct="false">Follow every account.</button>
-</div><div class="gamefeedback" id="gameFeedback" aria-live="polite"></div><button class="btn pink next" id="nextRound" type="button">Next situation →</button></div>
-<div class="meter" id="gameScore">Safety stars: 0 / 5</div><div class="result" id="gameEnd"></div>
-</section>
-<div class="btnrow"><button class="btn light" type="button" onclick="window.scrollTo({top:0,behavior:'smooth'})">Back to the top ↑</button></div>
 <section class="pdfbox" aria-label="Download your practice results">
 <h2>📄 Keep a copy of your work</h2>
-<p>Download a PDF with your answers, advice choices and Feed Rescue score.</p>
+<p>Download a PDF with your answers, advice choices and feedback.</p>
 <button class="btn pink" id="savePdf" type="button">Save my results as PDF ↓</button>
 </section>
 </main><footer>© 2026 Claire's Classroom · A2+ English</footer>
@@ -99,18 +88,6 @@ function norm(s){return (s||'').toLowerCase().trim().replace(/[’]/g,"'").repla
 function checkTextSection(id){const sec=document.getElementById(id),qs=[...sec.querySelectorAll('.question')];let score=0;qs.forEach(q=>{const input=q.querySelector('input.answer'),fb=q.querySelector('.feedback'),accepted=q.dataset.answers.split('|').map(norm),ok=accepted.includes(norm(input.value));if(ok){score++;fb.textContent='Correct!';fb.className='feedback good'}else{fb.textContent='Not quite. Suggested answer: '+q.dataset.answers.split('|')[0]+'.';fb.className='feedback bad'}});const box=document.getElementById('result'+id.slice(-1));box.style.display='block';box.textContent='You got '+score+' / '+qs.length+' correct.'}
 function checkAdvice(){const qs=[...document.querySelectorAll('#partC .question')];let score=0;qs.forEach((q,i)=>{const chosen=q.querySelector('input[type=radio]:checked'),fb=q.querySelector('.feedback'),expected=q.dataset.kind,correct=chosen&&chosen.value===expected;let extra=true;if(expected==='bad'){const rewrite=q.querySelector('.rewrite');extra=!!rewrite&&rewrite.value.trim().length>5}if(correct&&extra){score++;fb.textContent=expected==='good'?'Correct — this is good advice.':'Correct — and your safer suggestion is recorded.';fb.className='feedback good'}else{fb.textContent=!chosen?'Choose good or bad advice.':!correct?'Not quite. This is '+expected+' advice.': 'Now rewrite it as a safer imperative.';fb.className='feedback bad'}});const box=document.getElementById('resultC');box.style.display='block';box.textContent='You completed the advice check: '+score+' / 5 fully completed.'}
 
-const rounds=[
-{title:'A stranger asks Alex for their home address.',text:'Protect personal information.',opts:['Share your address with them.','Don’t share your personal information.','Post your address on your profile.','Follow every account.'],correct:1,why:'Exactly! Keep private information private.'},
-{title:'Alex is about to use the same simple password everywhere.',text:'Help Alex protect their accounts.',opts:['Keep your password easy to guess.','Use a strong, unique password.','Share your password with friends.','Write your password in a public post.'],correct:1,why:'Great choice! A strong, unique password is safer.'},
-{title:'Alex sees a cruel comment about another student.',text:'Choose a positive action.',opts:['Like the cruel comment.','Share it with everyone.','Report the comment and be kind.','Write an even crueler comment.'],correct:2,why:'Good! Report harmful content and treat people with respect.'},
-{title:'Alex receives a suspicious message from an unknown account.',text:'What should Alex do?',opts:['Click every link.','Reply with personal details.','Don’t reply to suspicious messages.','Send them a photo.'],correct:2,why:'Correct! Do not engage with suspicious messages.'},
-{title:'Alex wants to make their profile safer.',text:'Choose the best instruction.',opts:['Make your account private.','Post your location every day.','Accept every follow request.','Share your phone number.'],correct:0,why:'Brilliant! Privacy settings help protect your profile.'}
-];
-let roundIndex=0,stars=0;
-function showRound(){const r=rounds[roundIndex];document.getElementById('round').textContent='Round '+(roundIndex+1)+' / '+rounds.length;document.getElementById('scenarioTitle').textContent=r.title;document.getElementById('scenarioText').textContent=r.text;document.getElementById('gameFeedback').textContent='';document.getElementById('nextRound').style.display='none';const choices=document.getElementById('choices');choices.innerHTML='';r.opts.forEach((t,i)=>{const b=document.createElement('button');b.className='choice';b.textContent=t;b.addEventListener('click',()=>pickChoice(i));choices.appendChild(b)})}
-function pickChoice(i){const r=rounds[roundIndex],buttons=[...document.querySelectorAll('.choice')];buttons.forEach(b=>b.disabled=true);if(i===r.correct){stars++;document.getElementById('gameFeedback').textContent='⭐ '+r.why;document.getElementById('gameFeedback').style.color='#4f7654'}else{document.getElementById('gameFeedback').textContent='Not quite. '+r.why;document.getElementById('gameFeedback').style.color='#a34e55'}document.getElementById('gameScore').textContent='Safety stars: '+stars+' / 5';document.getElementById('nextRound').style.display='inline-block';if(roundIndex===rounds.length-1)document.getElementById('nextRound').textContent='See my result';}
-document.getElementById('nextRound').addEventListener('click',()=>{if(roundIndex<rounds.length-1){roundIndex++;showRound()}else{document.getElementById('gameEnd').style.display='block';document.getElementById('gameEnd').textContent='Mission complete! You earned '+stars+' / 5 safety stars. '+(stars===5?'Alex’s profile is in great hands!':'Thanks for helping Alex make safer choices.');document.getElementById('nextRound').disabled=true}});
-showRound();
 
 function pdfEscape(text){return String(text).replace(/\\/g,'\\\\').replace(/\(/g,'\\(').replace(/\)/g,'\\)').replace(/[^\x20-\x7E]/g,'?')}
 function createSimplePDF(lines){
@@ -125,8 +102,7 @@ document.getElementById('savePdf').addEventListener('click',()=>{
  ['partA','partB'].forEach(id=>{lines.push(id==='partA'?'A. Complete the sentences':'B. Put the words in the correct order');document.querySelectorAll('#'+id+' .question').forEach(q=>{lines.push(q.querySelector('.qtext').textContent,'My answer: '+(q.querySelector('.answer')?.value||'(no answer)'))});lines.push('')});
  lines.push('C. Good advice or bad advice?');document.querySelectorAll('#partC .question').forEach(q=>{const choice=q.querySelector('input[type=radio]:checked');lines.push(q.querySelector('.qtext').textContent,'My choice: '+(choice?choice.value:'(not answered)'));const rewrite=q.querySelector('.rewrite');if(rewrite)lines.push('My safer suggestion: '+(rewrite.value||'(not written)'))});lines.push('','SECTION FEEDBACK');
  ['resultA','resultB','resultC'].forEach(id=>{const el=document.getElementById(id);if(el&&el.textContent.trim())lines.push(el.textContent.trim())});
- lines.push('','FEED RESCUE GAME','Safety stars: '+stars+' / 5');
- const gameEnd=document.getElementById('gameEnd');if(gameEnd&&gameEnd.textContent.trim())lines.push(gameEnd.textContent.trim());
+
  const url=URL.createObjectURL(createSimplePDF(lines));const a=document.createElement('a');a.href=url;a.download='imperative-practice-results.pdf';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
 });
 

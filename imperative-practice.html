@@ -2,12 +2,52 @@
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Imperative Practice | Claire's Classroom</title>
 <style>
-:root{--cream:#fbf7f2;--sage:#a9b8a5;--sage-dark:#71816d;--pink:#e8c9cc;--pink-dark:#b77f87;--terra:#d9a38f;--ink:#464945;--muted:#777b76;--line:#e8e0d9}
-*{box-sizing:border-box}body{margin:0;color:var(--ink);font-family:"Avenir Next",Avenir,"Trebuchet MS",sans-serif;background:radial-gradient(circle at 8% 8%,rgba(232,201,204,.4),transparent 25%),radial-gradient(circle at 92% 10%,rgba(169,184,165,.35),transparent 25%),var(--cream);line-height:1.55}
-a{text-decoration:none;color:inherit}.wrap{width:min(900px,92%);margin:auto}header{padding:24px 0}.top{display:flex;justify-content:space-between;align-items:center}.brand{font-weight:700;font-size:20px}.back{padding:9px 16px;border:1px solid var(--line);border-radius:22px;background:white;color:var(--muted);font-size:13px}
-.hero{text-align:center;padding:32px 12px}.eyebrow{display:inline-block;padding:7px 14px;border-radius:999px;background:#f1e3dc;color:#9b6957;font-size:12px;letter-spacing:.08em;font-weight:800}.hero h1{font:500 clamp(34px,6vw,50px) Georgia,serif;margin:15px 0 8px}.hero p{color:var(--muted);margin:0}
-.section{background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:22px;padding:23px;margin:0 0 20px;box-shadow:0 7px 22px rgba(65,55,48,.04)}h2{font:500 25px Georgia,serif;margin:0 0 8px}.intro{color:var(--muted);margin-top:0}.question{padding:14px 0;border-bottom:1px solid var(--line)}.question:last-child{border:0}.qtext{font-weight:700;margin:0 0 9px}.wordbank{display:inline-block;background:#eef3eb;color:#50634d;border-radius:8px;padding:4px 9px;font-size:13px;margin:4px 0 10px}.answer{width:100%;padding:11px 12px;border:1px solid #d9d2ca;border-radius:10px;font:inherit;background:#fff;color:var(--ink)}.feedback{font-size:13px;min-height:18px;margin-top:6px}.good{color:#4f7654}.bad{color:#a34e55}.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.btn{border:0;border-radius:24px;padding:11px 17px;background:var(--sage-dark);color:white;font:700 14px inherit;cursor:pointer}.btn.pink{background:var(--pink-dark)}.btn.light{background:#eee8e1;color:var(--ink)}.btn:disabled{opacity:.5;cursor:not-allowed}.advice label{display:flex;gap:10px;align-items:flex-start;margin:10px 0}.advice input{accent-color:var(--sage-dark);margin-top:5px}.result{display:none;background:#eef3eb;border-radius:13px;padding:14px;margin-top:15px}.game{background:linear-gradient(135deg,#eef3ed,#f8e9e8)}.gamehead{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}.meter{font-size:13px;color:var(--muted);font-weight:700}.scenario{background:#fff;border:1px solid var(--line);border-radius:17px;padding:18px;margin:16px 0}.scenario h3{margin:0 0 6px;font-size:18px}.scenario p{margin:0;color:var(--muted)}.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.choice{background:white;border:1px solid var(--line);border-radius:13px;padding:13px;text-align:left;font:inherit;cursor:pointer;color:var(--ink)}.choice:hover{border-color:var(--sage-dark);background:#f4f7f2}.choice:disabled{cursor:default;opacity:.75}.gamefeedback{min-height:28px;font-weight:700;margin-top:12px}.next{display:none;margin-top:8px}.badge{background:white;border:1px solid var(--line);border-radius:20px;padding:7px 12px;font-size:13px}footer{text-align:center;color:#888c87;font-size:13px;padding:26px 0;border-top:1px solid var(--line);margin-top:30px}
-@media(max-width:620px){.choices{grid-template-columns:1fr}.section{padding:18px}.top{align-items:flex-start}}
+:root{--cream:#fbf7f2;--sage:#a9b8a5;--sage-dark:#71816d;--pink:#e8c9cc;--pink-dark:#b77f87;--terra:#d9a38f;--ink:#464945;--muted:#777b76;--line:#e8e0d9;--paper:#fff}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);font-family:"Avenir Next",Avenir,"Trebuchet MS",sans-serif;background:radial-gradient(circle at 8% 8%,rgba(232,201,204,.4),transparent 25%),radial-gradient(circle at 92% 10%,rgba(169,184,165,.35),transparent 25%),var(--cream);line-height:1.6}
+a{text-decoration:none;color:inherit}
+.wrap{width:min(920px,92%);margin:auto}
+header{padding:24px 0}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.brand{font-weight:700;font-size:20px}
+.back{padding:9px 16px;border:1px solid var(--line);border-radius:22px;background:white;color:var(--muted);font-size:13px}
+.hero{text-align:center;padding:42px 16px 36px}
+.eyebrow{display:inline-block;padding:7px 14px;border-radius:999px;background:#f1e3dc;color:#9b6957;font-size:12px;letter-spacing:.08em;font-weight:800}
+.hero h1{font:500 clamp(38px,7vw,58px) Georgia,serif;margin:16px 0 8px}
+.hero p{color:var(--muted);margin:0}
+.section{background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:24px;padding:26px;margin:0 0 22px;box-shadow:0 9px 28px rgba(65,55,48,.05)}
+h2{font:500 27px Georgia,serif;margin:0 0 8px}
+.intro{color:var(--muted);margin:0 0 12px}
+.question{padding:14px 0;border-bottom:1px solid var(--line)}
+.question:last-of-type{border-bottom:0}
+.qtext{font-weight:700;margin:0 0 9px}
+.wordbank{display:inline-block;background:#eef3eb;color:#50634d;border-radius:8px;padding:4px 9px;font-size:13px;margin:4px 0 10px}
+.answer{width:100%;padding:11px 12px;border:1px solid #d9d2ca;border-radius:10px;font:inherit;background:#fff;color:var(--ink)}
+.feedback{font-size:13px;min-height:18px;margin-top:6px}
+.good{color:#4f7654}.bad{color:#a34e55}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.btn{display:inline-block;border:0;border-radius:24px;padding:12px 19px;background:var(--sage-dark);color:white;font:800 14px "Avenir Next",Avenir,sans-serif;cursor:pointer}
+.btn.pink{background:var(--pink-dark)}.btn.light{background:#eee8e1;color:var(--ink)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.advice label{display:flex;gap:10px;align-items:flex-start;margin:10px 0}
+.advice input[type=radio]{accent-color:var(--sage-dark);margin-top:5px}
+.result{display:none;background:#eef3eb;border-radius:13px;padding:14px;margin-top:15px}
+.game{background:linear-gradient(135deg,#eef3ed,#f8e9e8)}
+.gamehead{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+.meter{font-size:13px;color:var(--muted);font-weight:700}
+.scenario{background:#fff;border:1px solid var(--line);border-radius:17px;padding:18px;margin:16px 0}
+.scenario h3{margin:0 0 6px;font-size:18px}.scenario p{margin:0;color:var(--muted)}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.choice{background:white;border:1px solid var(--line);border-radius:13px;padding:13px;text-align:left;font:inherit;cursor:pointer;color:var(--ink)}
+.choice:hover{border-color:var(--sage-dark);background:#f4f7f2}
+.choice:disabled{cursor:default;opacity:.75}
+.gamefeedback{min-height:28px;font-weight:700;margin-top:12px}
+.next{display:none;margin-top:8px}
+.badge{background:white;border:1px solid var(--line);border-radius:20px;padding:7px 12px;font-size:13px}
+.pdfbox{background:linear-gradient(135deg,#eef3ed,#f8e9e8);border:1px solid var(--line);border-radius:20px;padding:24px;margin:24px 0 40px;text-align:center}
+.pdfbox p{color:var(--muted);margin:0 0 16px}
+footer{border-top:1px solid var(--line);padding:26px;text-align:center;color:#888c87;font-size:13px;margin-top:35px}
+@media(max-width:650px){.section{padding:20px}.top{align-items:flex-start}.back{font-size:12px}.choices{grid-template-columns:1fr}}
 </style></head><body>
 <header><div class="wrap top"><a class="brand" href="index.html">✦ Claire's Classroom</a><a class="back" href="imperative.html">← Lesson</a></div></header>
 <main class="wrap"><section class="hero"><div class="eyebrow">ENGLISH · A2+ · PRACTICE</div><h1>Imperative Practice</h1><p>Practise commands, instructions and advice for safer social media use.</p></section>
@@ -47,7 +87,12 @@ a{text-decoration:none;color:inherit}.wrap{width:min(900px,92%);margin:auto}head
 </div><div class="gamefeedback" id="gameFeedback" aria-live="polite"></div><button class="btn pink next" id="nextRound" type="button">Next situation →</button></div>
 <div class="meter" id="gameScore">Safety stars: 0 / 5</div><div class="result" id="gameEnd"></div>
 </section>
-<div class="btnrow"><button class="btn pink" type="button" onclick="window.scrollTo({top:0,behavior:'smooth'})">Back to the top ↑</button><button class="btn" id="savePdf" type="button">Save my practice as PDF</button></div>
+<div class="btnrow"><button class="btn light" type="button" onclick="window.scrollTo({top:0,behavior:'smooth'})">Back to the top ↑</button></div>
+<section class="pdfbox" aria-label="Download your practice results">
+<h2>📄 Keep a copy of your work</h2>
+<p>Download a PDF with your answers, advice choices and Feed Rescue score.</p>
+<button class="btn pink" id="savePdf" type="button">Save my results as PDF ↓</button>
+</section>
 </main><footer>© 2026 Claire's Classroom · A2+ English</footer>
 <script>
 function norm(s){return (s||'').toLowerCase().trim().replace(/[’]/g,"'").replace(/[.!?]/g,'').replace(/\s+/g,' ')}
@@ -78,7 +123,10 @@ function createSimplePDF(lines){
 document.getElementById('savePdf').addEventListener('click',()=>{
  const lines=['THE IMPERATIVE – PRACTICE RESULTS',"Claire's Classroom",'Date: '+new Date().toLocaleDateString(),''];
  ['partA','partB'].forEach(id=>{lines.push(id==='partA'?'A. Complete the sentences':'B. Put the words in the correct order');document.querySelectorAll('#'+id+' .question').forEach(q=>{lines.push(q.querySelector('.qtext').textContent,'My answer: '+(q.querySelector('.answer')?.value||'(no answer)'))});lines.push('')});
- lines.push('C. Good advice or bad advice?');document.querySelectorAll('#partC .question').forEach(q=>{const choice=q.querySelector('input[type=radio]:checked');lines.push(q.querySelector('.qtext').textContent,'My choice: '+(choice?choice.value:'(not answered)'));const rewrite=q.querySelector('.rewrite');if(rewrite)lines.push('My safer suggestion: '+(rewrite.value||'(not written)'))});lines.push('','FEED RESCUE GAME','Safety stars: '+stars+' / 5');
+ lines.push('C. Good advice or bad advice?');document.querySelectorAll('#partC .question').forEach(q=>{const choice=q.querySelector('input[type=radio]:checked');lines.push(q.querySelector('.qtext').textContent,'My choice: '+(choice?choice.value:'(not answered)'));const rewrite=q.querySelector('.rewrite');if(rewrite)lines.push('My safer suggestion: '+(rewrite.value||'(not written)'))});lines.push('','SECTION FEEDBACK');
+ ['resultA','resultB','resultC'].forEach(id=>{const el=document.getElementById(id);if(el&&el.textContent.trim())lines.push(el.textContent.trim())});
+ lines.push('','FEED RESCUE GAME','Safety stars: '+stars+' / 5');
+ const gameEnd=document.getElementById('gameEnd');if(gameEnd&&gameEnd.textContent.trim())lines.push(gameEnd.textContent.trim());
  const url=URL.createObjectURL(createSimplePDF(lines));const a=document.createElement('a');a.href=url;a.download='imperative-practice-results.pdf';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
 });
 

@@ -1,338 +1,108 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Claire's Classroom</title>
-  <style>
-    :root{
-      --sage:#A9B8A5;
-      --sage-dark:#6F806C;
-      --pink:#E8C9CC;
-      --pink-dark:#B77F87;
-      --terracotta:#D9A38F;
-      --cream:#FBF7F2;
-      --paper:#FFFDFC;
-      --ink:#3F4140;
-      --muted:#777B76;
-      --line:#E8E0D9;
-    }
-
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-
-    body{
-      margin:0;
-      font-family: "Avenir Next", Avenir, "Trebuchet MS", sans-serif;
-      color:var(--ink);
-      background:
-        radial-gradient(circle at 8% 8%, rgba(232,201,204,.45), transparent 25%),
-        radial-gradient(circle at 92% 12%, rgba(169,184,165,.35), transparent 25%),
-        var(--cream);
-      min-height:100vh;
-    }
-
-    a{text-decoration:none;color:inherit}
-
-    .wrap{
-      width:min(1120px, 92%);
-      margin:auto;
-    }
-
-    header{
-      padding:28px 0 10px;
-    }
-
-    .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:20px;
-    }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:14px;
-    }
-
-    .brand-mark{
-      width:52px;
-      height:52px;
-      border-radius:18px 18px 18px 6px;
-      background:var(--sage);
-      display:grid;
-      place-items:center;
-      font-size:25px;
-      box-shadow:0 7px 20px rgba(111,128,108,.15);
-    }
-
-    .brand h1{
-      margin:0;
-      font-size:clamp(25px,4vw,36px);
-      letter-spacing:-1px;
-      font-weight:700;
-    }
-
-    .brand p{
-      margin:3px 0 0;
-      color:var(--muted);
-      font-size:14px;
-    }
-
-    .mini-nav a{
-      color:var(--muted);
-      font-size:14px;
-      margin-left:18px;
-    }
-
-    .hero{
-      text-align:center;
-      padding:68px 20px 48px;
-    }
-
-    .eyebrow{
-      display:inline-block;
-      background:#F0E5DF;
-      color:#9B6957;
-      padding:8px 15px;
-      border-radius:999px;
-      font-size:13px;
-      letter-spacing:.5px;
-      margin-bottom:18px;
-    }
-
-    .hero h2{
-      margin:0 auto 14px;
-      max-width:800px;
-      font-family: Georgia, serif;
-      font-weight:500;
-      font-size:clamp(40px,7vw,70px);
-      line-height:1.03;
-      color:#454844;
-    }
-
-    .hero h2 span{color:var(--sage-dark)}
-
-    .hero p{
-      max-width:650px;
-      margin:0 auto;
-      color:var(--muted);
-      font-size:17px;
-      line-height:1.7;
-    }
-
-    .language-grid{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:26px;
-      margin:20px 0 70px;
-    }
-
-    .language-card{
-      position:relative;
-      overflow:hidden;
-      border:1px solid var(--line);
-      border-radius:30px;
-      padding:34px;
-      background:rgba(255,253,252,.9);
-      box-shadow:0 12px 35px rgba(65,55,48,.07);
-      transition:.2s ease;
-    }
-
-    .language-card:hover{
-      transform:translateY(-4px);
-      box-shadow:0 18px 42px rgba(65,55,48,.11);
-    }
-
-    .language-card.english{background:linear-gradient(135deg,#F9FCF8,#EEF3EC)}
-    .language-card.french{background:linear-gradient(135deg,#FFF9F9,#F5E7E9)}
-
-    .language-icon{
-      font-size:32px;
-      margin-bottom:14px;
-    }
-
-    .language-card h3{
-      font-family:Georgia,serif;
-      font-size:32px;
-      margin:0 0 7px;
-      font-weight:500;
-    }
-
-    .language-card p{
-      color:var(--muted);
-      margin:0 0 24px;
-      line-height:1.55;
-    }
-
-    .levels{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-    }
-
-    .level{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-width:58px;
-      padding:10px 14px;
-      border-radius:13px;
-      background:var(--paper);
-      border:1px solid rgba(100,100,90,.12);
-      font-weight:700;
-      font-size:14px;
-      transition:.15s ease;
-    }
-
-    .english .level:hover{background:var(--sage);color:white}
-    .french .level:hover{background:var(--pink-dark);color:white}
-
-    .section-title{
-      text-align:center;
-      margin-bottom:28px;
-    }
-
-    .section-title h3{
-      font-family:Georgia,serif;
-      font-size:32px;
-      font-weight:500;
-      margin:0 0 8px;
-    }
-
-    .section-title p{
-      margin:0;
-      color:var(--muted);
-    }
-
-    .about{
-      margin:0 0 70px;
-      padding:36px;
-      border-radius:28px;
-      background:#F3EEE8;
-      border:1px solid var(--line);
-      text-align:center;
-    }
-
-    .about p{
-      max-width:720px;
-      margin:0 auto;
-      line-height:1.75;
-      color:#666A66;
-    }
-
-    footer{
-      border-top:1px solid var(--line);
-      padding:28px 0 36px;
-      color:#888C87;
-      font-size:13px;
-      text-align:center;
-    }
-
-    @media(max-width:720px){
-      .mini-nav{display:none}
-      .language-grid{grid-template-columns:1fr}
-      .hero{padding-top:45px}
-      .language-card{padding:27px}
-    }
-  </style>
-  <meta name="description" content="Claire's Classroom: English and French learning resources, interactive activities and quizzes from A1 to C1.">
-  <meta name="theme-color" content="#FBF7F2">
-
-  <!-- Link preview: OneNote, Teams, WhatsApp and other sharing platforms -->
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Claire's Classroom">
-  <meta property="og:title" content="Claire's Classroom | English & French learning resources">
-  <meta property="og:description" content="Explore interactive activities, quizzes and learning resources in English and French, from A1 to C1.">
-  <meta property="og:url" content="https://claireplichta.github.io/Claire-s-Classroom/">
-  <meta property="og:image" content="https://claireplichta.github.io/Claire-s-Classroom/images/preview.jpg">
-  <meta property="og:image:secure_url" content="https://claireplichta.github.io/Claire-s-Classroom/images/preview.jpg">
-  <meta property="og:image:type" content="image/jpeg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Claire's Classroom | English & French learning resources">
-  <meta name="twitter:description" content="Explore interactive activities, quizzes and learning resources in English and French, from A1 to C1.">
-  <meta name="twitter:image" content="https://claireplichta.github.io/Claire-s-Classroom/images/preview.jpg">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claire's Classroom</title>
+<style>
+:root{
+ --sage:#b8cbbd;--sage2:#e5eee7;--sage-dark:#718878;
+ --pink:#e8caca;--pink2:#f8e9e8;
+ --terracotta:#dba08d;--terracotta2:#f3ddd5;
+ --cream:#fffaf6;--beige:#f2ebe4;--text:#55534f;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--text);font-family:Arial,Helvetica,sans-serif}
+header{
+ background:linear-gradient(135deg,#e4eee6 0%,#f6e7e5 55%,#f2ddd4 100%);
+ padding:55px 7% 62px;text-align:center;position:relative;overflow:hidden
+}
+header:before,header:after{content:"";position:absolute;border-radius:50%;opacity:.45}
+header:before{width:220px;height:220px;background:#cfe0d3;left:-70px;top:-90px}
+header:after{width:300px;height:300px;background:#edcaca;right:-120px;bottom:-170px}
+.logo{position:relative;z-index:1;width:68px;height:68px;line-height:68px;margin:0 auto 15px;border-radius:50%;background:#fff9; color:var(--sage-dark);font:28px Georgia,serif}
+h1{position:relative;z-index:1;font:400 52px Georgia,serif;margin:0 0 10px;color:#55534f}
+header p{position:relative;z-index:1;margin:0;color:#6d6964;font-size:17px}
+nav{position:sticky;top:0;z-index:10;background:#fffaf6f5;border-bottom:1px solid #e6ddd6;text-align:center;padding:13px;backdrop-filter:blur(8px)}
+nav a{text-decoration:none;color:#625f5a;font-weight:bold;font-size:14px;margin:4px 10px;padding:9px 17px;border-radius:25px}
+nav a:hover{background:var(--pink2)}
+main{max-width:1120px;margin:auto;padding:48px 7% 75px}
+.welcome{text-align:center;max-width:720px;margin:0 auto 52px}
+.welcome h2{font:400 31px Georgia,serif;margin:0 0 12px}
+.welcome p{font-size:16px;line-height:1.6;color:#77736e}
+.language{margin:0 0 72px}
+.language-title{display:flex;align-items:center;gap:14px;margin-bottom:25px}
+.line{height:1px;background:#ded4cc;flex:1}
+.language-title h2{font:400 31px Georgia,serif;margin:0}
+.english .language-title h2{color:var(--sage-dark)}
+.french .language-title h2{color:#b87561}
+.level-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:17px}
+.level{
+ display:block;text-decoration:none;color:var(--text);text-align:center;
+ min-height:138px;padding:25px 15px;border-radius:19px;
+ transition:.18s; border:1px solid transparent;
+}
+.level:hover{transform:translateY(-4px);box-shadow:0 9px 25px #75685d18}
+.english .level:nth-child(odd){background:var(--sage2)}
+.english .level:nth-child(even){background:#dce9df}
+.french .level:nth-child(odd){background:var(--terracotta2)}
+.french .level:nth-child(even){background:var(--pink2)}
+.cefr{font:400 29px Georgia,serif;margin-bottom:8px}
+.desc{font-size:12px;color:#777}
+.note{margin-top:17px;text-align:center;font-size:13px;color:#8b857e}
+footer{text-align:center;background:#e5eee7;color:#6f7f73;padding:30px;font-size:13px}
+@media(max-width:800px){.level-grid{grid-template-columns:repeat(2,1fr)}h1{font-size:42px}}
+@media(max-width:450px){.level-grid{grid-template-columns:1fr}h1{font-size:36px}}
+</style>
 </head>
-
 <body>
-  <header>
-    <div class="wrap topbar">
-      <a class="brand" href="index.html">
-        <div class="brand-mark">✦</div>
-        <div>
-          <h1>Claire's Classroom</h1>
-          <p>English & French learning resources</p>
-        </div>
-      </a>
+<header>
+ <div class="logo">C</div>
+ <h1>Claire's Classroom</h1>
+ <p>English & French resources</p>
+</header>
 
-      <nav class="mini-nav">
-        <a href="#english">English</a>
-        <a href="#francais">Français</a>
-      </nav>
-    </div>
-  </header>
+<nav>
+ <a href="#english">🇬🇧 English</a>
+ <a href="#french">🇫🇷 Français</a>
+</nav>
 
-  <main class="wrap">
-    <section class="hero">
-      <div class="eyebrow">WELCOME TO MY CLASSROOM</div>
-      <h2>Learn, practise & <span>progress</span>.</h2>
-      <p>
-        Explore interactive activities, quizzes and learning resources,
-        organised by language and level.
-      </p>
-    </section>
+<main>
+ <div class="welcome">
+  <h2>Welcome to my classroom ✨</h2>
+  <p>Choose a language, then your level, and explore the resources available for you.</p>
+ </div>
 
-    <section class="language-grid">
-      <article class="language-card english" id="english">
-        <div class="language-icon">🇬🇧</div>
-        <h3>English</h3>
-        <p>Activities and resources from beginner to advanced level.</p>
-        <div class="levels">
-          <a class="level" href="english-a1.html">A1</a>
-          <a class="level" href="english-a2.html">A2</a>
-          <a class="level" href="english-a2plus.html">A2+</a>
-          <a class="level" href="english-b1.html">B1</a>
-          <a class="level" href="english-b1plus.html">B1+</a>
-          <a class="level" href="english-b2.html">B2</a>
-          <a class="level" href="english-b2plus.html">B2+</a>
-          <a class="level" href="english-c1.html">C1</a>
-        </div>
-      </article>
+ <section class="language english" id="english">
+  <div class="language-title"><div class="line"></div><h2>🇬🇧 English</h2><div class="line"></div></div>
+  <div class="level-grid">
+   <a class="level" href="english-a1.html"><div class="cefr">A1</div><div class="desc">Beginner</div></a>
+   <a class="level" href="english-a2.html"><div class="cefr">A2</div><div class="desc">Elementary</div></a>
+   <a class="level" href="english-a2plus.html"><div class="cefr">A2+</div><div class="desc">Elementary +</div></a>
+   <a class="level" href="english-b1.html"><div class="cefr">B1</div><div class="desc">Intermediate</div></a>
+   <a class="level" href="english-b1plus.html"><div class="cefr">B1+</div><div class="desc">Intermediate +</div></a>
+   <a class="level" href="english-b2.html"><div class="cefr">B2</div><div class="desc">Upper-intermediate</div></a>
+   <a class="level" href="english-b2plus.html"><div class="cefr">B2+</div><div class="desc">Upper-intermediate +</div></a>
+   <a class="level" href="english-c1.html"><div class="cefr">C1</div><div class="desc">Advanced</div></a>
+  </div>
+ </section>
 
-      <article class="language-card french" id="francais">
-        <div class="language-icon">🇫🇷</div>
-        <h3>Français</h3>
-        <p>Activités et ressources pour progresser du niveau débutant à avancé.</p>
-        <div class="levels">
-          <a class="level" href="francais-a1.html">A1</a>
-          <a class="level" href="francais-a2.html">A2</a>
-          <a class="level" href="francais-a2plus.html">A2+</a>
-          <a class="level" href="francais-b1.html">B1</a>
-          <a class="level" href="francais-b1plus.html">B1+</a>
-          <a class="level" href="francais-b2.html">B2</a>
-          <a class="level" href="francais-b2plus.html">B2+</a>
-          <a class="level" href="francais-c1.html">C1</a>
-        </div>
-      </article>
-    </section>
+ <section class="language french" id="french">
+  <div class="language-title"><div class="line"></div><h2>🇫🇷 Français</h2><div class="line"></div></div>
+  <div class="level-grid">
+   <a class="level" href="francais-a1.html"><div class="cefr">A1</div><div class="desc">Débutant</div></a>
+   <a class="level" href="francais-a2.html"><div class="cefr">A2</div><div class="desc">Élémentaire</div></a>
+   <a class="level" href="francais-a2plus.html"><div class="cefr">A2+</div><div class="desc">Élémentaire +</div></a>
+   <a class="level" href="francais-b1.html"><div class="cefr">B1</div><div class="desc">Intermédiaire</div></a>
+   <a class="level" href="francais-b1plus.html"><div class="cefr">B1+</div><div class="desc">Intermédiaire +</div></a>
+   <a class="level" href="francais-b2.html"><div class="cefr">B2</div><div class="desc">Avancé</div></a>
+   <a class="level" href="francais-b2plus.html"><div class="cefr">B2+</div><div class="desc">Avancé +</div></a>
+   <a class="level" href="francais-c1.html"><div class="cefr">C1</div><div class="desc">Avancé</div></a>
+  </div>
+ </section>
+</main>
 
-    <section class="about">
-      <div class="section-title">
-        <h3>My classroom, online.</h3>
-      </div>
-      <p>
-        A growing collection of resources created for my students:
-        interactive exercises, self-correcting quizzes, vocabulary,
-        grammar, reading, listening and more.
-      </p>
-    </section>
-  </main>
-
-  <footer>
-    © 2026 Claire's Classroom · English & Français
-  </footer>
+<footer>Claire's Classroom · English & French</footer>
 </body>
 </html>

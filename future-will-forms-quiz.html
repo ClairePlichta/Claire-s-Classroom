@@ -9,10 +9,29 @@ a{color:inherit;text-decoration:none}.wrap{width:min(940px,92%);margin:auto}head
 </style></head><body><header><div class="wrap"><a class="brand" href="future-will.html">← <strong>Claire's Classroom</strong> · English A2+</a></div></header><main class="wrap"><section class="hero"><div class="eyebrow">ENGLISH A2+ · GRAMMAR</div><h1>Quiz 2 – Form it!</h1><p>Practise affirmative, negative and interrogative forms with WILL.</p></section><div class="panel"><p class="hint">Choose one answer for each question. You will get feedback and your score when you check your answers.</p><div class="progress"><span id="bar"></span></div><p id="status" class="hint">0 / 10 answered</p></div><form id="quiz"><div id="questions"></div><div class="actions"><button class="primary" type="submit">Check my answers</button><button class="secondary" type="reset">Try again</button><button class="secondary" type="button" onclick="saveResultsPDF()">Save my results as PDF</button></div></form><div class="panel score" id="score">Your score: —</div></main><footer>© 2026 Claire's Classroom · English A2+</footer><script>
 const data=[["Choose the correct affirmative sentence: She ___ a new phone tomorrow.", ["will buy", "will buys", "buy will", "buys will"], 0, "After WILL, use the base form of the verb."], ["Choose the correct negative sentence: They ___ the video tonight.", ["won't post", "won't posts", "don't will post", "willn't post"], 0, "Use won't + base verb."], ["Choose the correct question:", ["Will you help me?", "You will help me?", "Will help you me?", "Do will you help me?"], 0, "In questions, WILL comes before the subject."], ["Complete: I think we ___ more time online next year.", ["will spend", "will spends", "spend will", "are will spend"], 0, "Use will + infinitive without to."], ["Make this sentence negative: He will use the app.", ["He won't use the app.", "He won't uses the app.", "He don't will use the app.", "He will not uses the app."], 0, "The verb after won't stays in the base form."], ["Choose the correct question:", ["Will they come later?", "Do they will come later?", "Will come they later?", "They will come later?"], 0, "Start the question with WILL."], ["Complete: My sister ___ me with my homework.", ["will help", "will helps", "help will", "is will help"], 0, "The subject does not change the form after WILL."], ["Choose the correct contraction of will not:", ["won't", "willn't", "dont", "wouldn't"], 0, "The standard contraction is formed from will + not."], ["Complete: We ___ forget your birthday!", ["won't", "won't to", "don't will", "willn't"], 0, "Use won't directly before the base verb."], ["Choose the correct sentence:", ["Will he watch the match?", "Does he will watch the match?", "Will watches he the match?", "He will watches the match?"], 0, "Remember the order: WILL + subject + base verb."]];
 const root=document.getElementById('questions');
-root.innerHTML=data.map((q,i)=>`<div class="question" data-index="${i}"><h3>${i+1}. ${q[0]}</h3><div class="opts">${q[1].map((o,j)=>`<label class="opt"><input type="radio" name="q${i}" value="${j}"><span>${o}</span></label>`).join('')}</div><div class="feedback"></div></div>`).join('');
+
+// Shuffle answer options independently for every question and every page load.
+// The correct answer is placed in position 2, 3 or 4, never automatically first.
+function shuffledQuestionOptions(options, correctIndex, questionIndex){
+  const wrong = options.map((text,index)=>({text,index})).filter(item=>item.index!==correctIndex);
+  for(let i=wrong.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [wrong[i],wrong[j]]=[wrong[j],wrong[i]];
+  }
+  const correctPosition = 1 + ((questionIndex + Math.floor(Math.random()*3)) % 3);
+  const arranged = wrong.slice();
+  arranged.splice(correctPosition,0,{text:options[correctIndex],index:correctIndex});
+  return arranged;
+}
+const rendered = data.map((q,i)=>{
+  const opts=shuffledQuestionOptions(q[1],q[2],i);
+  const correctPosition=opts.findIndex(item=>item.index===q[2]);
+  return {question:q,opts,correctPosition};
+});
+root.innerHTML=rendered.map((item,i)=>`<div class="question" data-index="${i}" data-correct="${item.correctPosition}"><h3>${i+1}. ${item.question[0]}</h3><div class="opts">${item.opts.map((o,j)=>`<label class="opt"><input type="radio" name="q${i}" value="${j}"><span>${o.text}</span></label>`).join('')}</div><div class="feedback"></div></div>`).join('');
 function update(){const n=document.querySelectorAll('input:checked').length;document.getElementById('status').textContent=n+' / 10 answered';document.getElementById('bar').style.width=(n*10)+'%'}
 root.addEventListener('change',update);
-document.getElementById('quiz').addEventListener('submit',e=>{e.preventDefault();let s=0;data.forEach((q,i)=>{const box=root.children[i],sel=box.querySelector('input:checked'),f=box.querySelector('.feedback');if(sel&&Number(sel.value)===q[2]){s++;f.textContent='Correct! '+q[3];f.className='feedback correct'}else{f.textContent='Try again. '+q[3];f.className='feedback wrong'}});document.getElementById('score').textContent='Your score: '+s+' / 10'});
+document.getElementById('quiz').addEventListener('submit',e=>{e.preventDefault();let s=0;rendered.forEach((item,i)=>{const box=root.children[i],sel=box.querySelector('input:checked'),f=box.querySelector('.feedback');if(sel&&Number(sel.value)===item.correctPosition){s++;f.textContent='Correct! '+item.question[3];f.className='feedback correct'}else{f.textContent='Try again. '+item.question[3];f.className='feedback wrong'}});document.getElementById('score').textContent='Your score: '+s+' / 10'});
 document.getElementById('quiz').addEventListener('reset',()=>setTimeout(()=>{document.querySelectorAll('.feedback').forEach(f=>{f.textContent='';f.className='feedback'});document.getElementById('score').textContent='Your score: —';update()},0));
 update();
 </script>
